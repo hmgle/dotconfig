@@ -1,0 +1,9 @@
+[user]
+	name = mingang.he
+	email = dustgle@gmail.com
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+[push]
+	default = simple
