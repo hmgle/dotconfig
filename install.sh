@@ -10,8 +10,6 @@ if [[ ! -e ~/.git_template ]]; then
 	ln -sf ${PWD}/git_template ~/.git_template
 fi
 
-
-
 if [[ -e ~/.config/xfce4 ]]; then
 	mv ~/.config/xfce4{,.bak}
 fi
@@ -23,3 +21,9 @@ if [[ -e ~/.zshrc ]]; then
 	mv ~/.zshrc{,.bak}
 fi
 ln -sf ${PWD}/zshrc ~/.zshrc
+
+# bashrc
+if [[ ! -e ~/.bashrc ]]; then
+	mv ~/.bashrc{,.bak}
+fi
+ln -sf ${PWD}/bashrc ~/.bashrc
