@@ -75,3 +75,6 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # 未找到命令安装提示
 source /etc/zsh_command_not_found
+
+# golang
+export GOPATH="$HOME/gopath/"
