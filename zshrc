@@ -78,3 +78,4 @@ source /etc/zsh_command_not_found
 
 # golang
 export GOPATH="$HOME/gopath/"
+export PATH=$PATH:$GOPATH/bin
