@@ -127,5 +127,6 @@
 # # --- Finished
 # exit 0
 
-ctags -R
-cscope -Rbq
+if [ `find -name "*.[ch]"` ]; then
+	.git/hooks/ctags_cscope.sh
+fi
