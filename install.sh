@@ -16,7 +16,10 @@ fi
 ln -sf ${PWD}/config/xfce4 ~/.config/xfce4
 
 # install oh-my-zsh
+if [[ ! -d ~/.oh-my-zsh ]]; then
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh 
+fi
+
 if [[ -e ~/.zshrc ]]; then
 	mv ~/.zshrc{,.bak}
 fi
