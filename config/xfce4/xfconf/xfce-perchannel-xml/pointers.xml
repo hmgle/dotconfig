@@ -17,7 +17,7 @@
         <value type="int" value="3"/>
         <value type="int" value="2"/>
       </property>
-      <property name="Device_Enabled" type="int" value="0"/>
+      <property name="Device_Enabled" type="int" value="1"/>
     </property>
   </property>
 </channel>

@@ -5,11 +5,23 @@
 row=6
 col=0
 
+[EC9256719256406E]
+row=0
+col=0
+
+[F484-26C9]
+row=0
+col=1
+
 [08F6F3ADF6F398E0]
 row=1
 col=0
 
-[M351]
+[6C22-BBEB]
+row=2
+col=1
+
+[30C3-CA7E]
 row=7
 col=0
 
@@ -17,9 +29,9 @@ col=0
 row=2
 col=0
 
-[EC9256719256406E]
-row=0
-col=0
+[E0BF-D5A4]
+row=1
+col=1
 
 [回收站]
 row=3

@@ -49,6 +49,8 @@
         <value type="string" value="orage"/>
         <value type="string" value="xfce4-power-manager"/>
         <value type="string" value="网络管理器小程序"/>
+        <value type="string" value="blueman-applet"/>
+        <value type="string" value="systray icon"/>
       </property>
     </property>
   </property>
