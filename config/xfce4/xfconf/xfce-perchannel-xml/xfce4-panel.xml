@@ -46,11 +46,14 @@
     </property>
     <property name="plugin-6" type="string" value="systray">
       <property name="names-visible" type="array">
+        <value type="string" value="thunar"/>
+        <value type="string" value="systray icon"/>
+        <value type="string" value="megasync"/>
         <value type="string" value="orage"/>
-        <value type="string" value="xfce4-power-manager"/>
+        <value type="string" value="pidgin"/>
         <value type="string" value="网络管理器小程序"/>
         <value type="string" value="blueman-applet"/>
-        <value type="string" value="systray icon"/>
+        <value type="string" value="xfce4-power-manager"/>
       </property>
     </property>
   </property>
