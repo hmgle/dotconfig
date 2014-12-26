@@ -20,6 +20,6 @@
 
 # for c or cpp project
 cfile=`find -name "*.[ch]"`
-if [ ${cfile}"-" != "-" ]; then
+if [ "-" != "${cfile}""-" ]; then
 	.git/hooks/ctags_cscope.sh
 fi
