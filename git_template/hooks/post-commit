@@ -1,6 +1,6 @@
 #!/bin/sh
 
 cfile=`find -name "*.[ch]"`
-if [ -n $cfile ]; then
+if [ ${cfile}"-" != "-" ]; then
 	.git/hooks/ctags_cscope.sh
 fi
