@@ -30,3 +30,9 @@ if [[ ! -e ~/.bashrc ]]; then
 	mv ~/.bashrc{,.bak}
 fi
 ln -sf ${PWD}/bashrc ~/.bashrc
+
+# tool
+if [[ ! -e ~/bin ]]; then
+	ln -sf ${PWD}/bin ~/bin
+fi
+
