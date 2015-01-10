@@ -9,3 +9,7 @@
 	default = simple
 [init]
 	templatedir = ~/.git_template
+[alias]
+	co = checkout
+	ci = commit
+	st = status
