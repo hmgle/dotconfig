@@ -80,3 +80,17 @@ source /etc/zsh_command_not_found
 # golang
 export GOPATH="$HOME/gopath/"
 export PATH=$PATH:$GOPATH/bin
+
+# history
+setopt histignoredups
+# 相同的历史路径只保留一个
+setopt PUSHDIGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_SPACE
+# setopt HIST_NO_STORE
+# setopt HIST_VERIFY
+# setopt EXTENDED_HISTORY
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_FIND_NO_DUPS
