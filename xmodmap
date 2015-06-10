@@ -1,5 +1,8 @@
 remove mod4 = Super_L
 add control = Super_L
-keysym Escape = grave asciitilde
-keysym grave = Escape
-
+! map R_shift key to UP
+keycode 62 = Up
+! swap Esc CPAS_LOCK grave key
+keycode 66 = Escape
+keycode 49 = Caps_Lock
+keycode 9 = grave asciitilde
