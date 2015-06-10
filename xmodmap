@@ -1,3 +1,5 @@
 remove mod4 = Super_L
 add control = Super_L
+keysym Escape = grave asciitilde
+keysym grave = Escape
 
