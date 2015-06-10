@@ -36,3 +36,10 @@ if [[ ! -e ~/bin ]]; then
 	ln -sf ${PWD}/bin ~/bin
 fi
 
+# xmodmap
+if [[ ! -e ~/.xmodmap ]]; then
+	ln -sf ${PWD}/xmodmap ~/.xmodmap
+fi
+if [[ ! -e ~/.xinitrc ]]; then
+	ln -sf ${PWD}/xinitrc ~/.xinitrc
+fi
