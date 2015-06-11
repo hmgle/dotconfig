@@ -37,8 +37,8 @@ if [[ ! -e ~/bin ]]; then
 fi
 
 # xmodmap
-if [[ ! -e ~/.xmodmap ]]; then
-	ln -sf ${PWD}/xmodmap ~/.xmodmap
+if [[ ! -e ~/.Xmodmap ]]; then
+	ln -sf ${PWD}/Xmodmap ~/.Xmodmap
 fi
 if [[ ! -e ~/.xinitrc ]]; then
 	ln -sf ${PWD}/xinitrc ~/.xinitrc

@@ -1,3 +1,5 @@
-if [ -s ~/.xmodmap ]; then
-	xmodmap ~/.xmodmap
+#!/bin/sh
+
+if [ -s $HOME/.Xmodmap ]; then
+	/usr/bin/xmodmap $HOME/.Xmodmap
 fi
