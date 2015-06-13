@@ -2,13 +2,15 @@
 
 PWD=$(pwd)
 
-if [[ ! -e ~/.gitconfig ]]; then
-	ln -sf ${PWD}/.gitconfig ~/.gitconfig
+if [[ -e ~/.gitconfig ]]; then
+	mv ~/.gitconfig{,.bak}
 fi
+ln -sf ${PWD}/.gitconfig ~/.gitconfig
 
-if [[ ! -e ~/.git_template ]]; then
-	ln -sf ${PWD}/git_template ~/.git_template
+if [[ -e ~/.git_template ]]; then
+	mv ~/.git_template{,.bak}
 fi
+ln -sf ${PWD}/git_template ~/.git_template
 
 # if [[ -e ~/.config/xfce4 ]]; then
 # 	mv ~/.config/xfce4{,.bak}
@@ -17,7 +19,7 @@ fi
 
 # install oh-my-zsh
 if [[ ! -d ~/.oh-my-zsh ]]; then
-git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh 
+	git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh 
 fi
 
 if [[ -e ~/.zshrc ]]; then
