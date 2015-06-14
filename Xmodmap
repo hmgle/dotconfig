@@ -1,10 +1,7 @@
 remove mod4 = Super_L
 add control = Super_L
-! map R_shift key to UP
-keycode 62 = Up Right
-! swap Esc CPAS_LOCK grave key
+! swap Esc CPAS_LOCK
 clear Lock
 keycode 66 = Escape
-keycode 49 = Caps_Lock
-keycode 9 = grave asciitilde
+keycode 9 = Caps_Lock
 add Lock = Caps_Lock
