@@ -38,7 +38,7 @@ fi
 
 # xmodmap
 if [[ ! -e ~/.Xmodmap ]]; then
-	ln -sf ${PWD}/Xmodmap ~/.Xmodmap
+	ln -sf ${PWD}/tpXmodmap ~/.tpXmodmap
 fi
 if [[ ! -e ~/.pokerXmodmap ]]; then
 	ln -sf ${PWD}/pokerXmodmap ~/.pokerXmodmap
