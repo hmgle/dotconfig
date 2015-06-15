@@ -1,0 +1,5 @@
+SUBSYSTEM=="usb", ATTR{idVendor}=="0f39", ATTR{idProduct}=="0611", GOTO="poker_keyboard"
+
+LABEL="poker_keyboard"
+ACTION=="add", RUN+="/home/gle/bin/pokerkeyboard_in.sh"
+ACTION=="remove", RUN+="/home/gle/bin/pokerkeyboard_out.sh"

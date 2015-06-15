@@ -40,6 +40,13 @@ fi
 if [[ ! -e ~/.Xmodmap ]]; then
 	ln -sf ${PWD}/Xmodmap ~/.Xmodmap
 fi
+if [[ ! -e ~/.pokerXmodmap ]]; then
+	ln -sf ${PWD}/pokerXmodmap ~/.pokerXmodmap
+fi
 if [[ ! -e ~/.xinitrc ]]; then
 	ln -sf ${PWD}/xinitrc ~/.xinitrc
+fi
+if [[ ! -e /etc/udev/rules.d/80-keyboard.rules ]]; then
+	sudo cp ${PWD}/80-keyboard.rules /etc/udev/rules.d/80-keyboard.rules
+	sudo udevadm control --reload-rules
 fi
