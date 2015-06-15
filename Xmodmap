@@ -1,8 +1,0 @@
-remove mod4 = Super_L
-add control = Super_L
-! swap Esc CPAS_LOCK key
-clear Lock
-keycode 66 = Escape
-keycode 9 = Caps_Lock
-keycode 49 = grave asciitilde
-add Lock = Caps_Lock
