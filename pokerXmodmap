@@ -1,7 +1,5 @@
 remove mod4 = Super_L
 add control = Super_L
-! map R_shift key to UP
-keycode 62 = Up Right
 ! swap Esc CPAS_LOCK grave key
 clear Lock
 keycode 66 = Escape
