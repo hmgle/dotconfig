@@ -255,7 +255,8 @@ globalkeys = awful.util.table.join(
                   awful.util.getdir("cache") .. "/history_eval")
               end),
     -- My programs
-    awful.key({ modkey,           }, "i", function () awful.util.spawn("firefox") end)
+    awful.key({ modkey,           }, "i", function () awful.util.spawn("firefox") end),
+    awful.key({ "Control", "Mod1" }, "l", function () awful.util.spawn("/home/gle/bin/screenoff.sh") end)
 )
 
 clientkeys = awful.util.table.join(
