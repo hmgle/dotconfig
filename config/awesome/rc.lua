@@ -257,7 +257,7 @@ globalkeys = awful.util.table.join(
               end),
     -- My programs
     awful.key({ modkey,           }, "i", function () awful.util.spawn("firefox") end),
-    awful.key({ "Control", "Mod1" }, "l", function () awful.util.spawn("/home/gle/bin/screenoff.sh") end)
+    awful.key({ "Control", "Mod1" }, "l", function () awful.util.spawn("~/bin/screenoff.sh") end)
 )
 
 clientkeys = awful.util.table.join(
@@ -380,4 +380,5 @@ end)
 
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+awful.util.spawn_with_shell("~/bin/pokerkeyboard_in.sh")
 -- }}}
