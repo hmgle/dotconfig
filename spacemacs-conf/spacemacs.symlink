@@ -171,7 +171,9 @@ layers configuration."
 
   ;; 2-space indent
   (setq-default indent-tabs-mode nil)
-  (setq-default tab-width 2)
+  (setq-default tab-width 8)
+
+  (setq x-select-enable-clipboard nil)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
