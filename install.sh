@@ -60,3 +60,8 @@ fi
 mkdir -p ~/.config/awesome
 ln -sf ${PWD}/config/awesome/rc.lua ~/.config/awesome/rc.lua
 
+# spacemacs
+if [[ -e ~/.spacemacs ]]; then
+	mv ~/.spacemacs{,.bak}
+fi
+ln -sf ${PWD}/spacemacs-conf/spacemacs.symlink ~/.spacemacs
