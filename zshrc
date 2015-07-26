@@ -83,18 +83,53 @@ export GOPATH="$HOME/gopath/"
 export PATH=$PATH:$GOPATH/bin
 
 # history
+# tip: zsh 终端输入 setopt 可列出所有 enable 变量,
+# unsetopt 列出所有 unenable 变量
 setopt histignoredups
-# 相同的历史路径只保留一个
-setopt PUSHDIGNORE_DUPS
+
+# Don’t push multiple copies of the same directory onto the
+# directory stack.
+# setopt PUSHD_IGNORE_DUPS
+
+# If a new command line being added to the history list
+# duplicates an older one, the older command is removed
+# from the list (even if it is not the previous event).
 setopt HIST_IGNORE_ALL_DUPS
+
+# Remove superfluous blanks from each command line
+# being added to the history list.
 setopt HIST_REDUCE_BLANKS
+
 setopt HIST_IGNORE_SPACE
+
 # setopt HIST_NO_STORE
+
+# Whenever the user enters a line with history expansion,
+# don’t execute the line directly; instead, perform history
+# expansion and reload the line into the editing buffer. 
 # setopt HIST_VERIFY
+
+# Save each command’s beginning timestamp (in seconds since the epoch)
+# and the duration (in seconds) to the history file.
 # setopt EXTENDED_HISTORY
+
+# When writing out the history file, older commands that duplicate
+# newer ones are omitted. 
 setopt HIST_SAVE_NO_DUPS
+
+# If the internal history needs to be trimmed to add the current
+# command line, setting this option will cause the oldest history
+# event that has a duplicate to be lost before losing a unique event
+# from the list. You should be sure to set the value of HISTSIZE to
+# a larger number than SAVEHIST in order to give you some room for
+# the duplicated events, otherwise this option will behave just like
+# HIST_IGNORE_ALL_DUPS once the history fills up with unique events.
 setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_FIND_NO_DUPS
+
+# When searching for history entries in the line editor, do not
+# display duplicates of a line previously found, even if the
+# duplicates are not contiguous.
+# setopt HIST_FIND_NO_DUPS
 
 # autojump
 . /usr/share/autojump/autojump.sh
