@@ -1,0 +1,26 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+# 亮度调节 gle
+echo 65 > /sys/class/backlight/acpi_video0/brightness
+
+# 键盘映射
+if [ -e /dev/input/by-id/usb-Heng_Yu_Technology_Poker_II-event-kbd ]; then
+	sudo -u gle /usr/bin/xmodmap -display :0 /home/gle/.pokerXmodmap >/dev/null 2>&1 &
+	exit 0
+fi
+if [ -s /home/gle/.pcXmodmap ]; then
+	sudo -u gle /usr/bin/xmodmap -display :0 /home/gle/.pcXmodmap >/dev/null 2>&1 &
+fi
+
+exit 0
