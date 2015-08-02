@@ -259,6 +259,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "i", function () awful.util.spawn("firefox") end),
     awful.key({ modkey,           }, "e", function () awful.util.spawn("emacs") end),
     awful.key({ modkey,           }, "d", function () awful.util.spawn("thunar") end),
+    awful.key({ modkey,           }, "v", function () awful.util.spawn("virtualbox") end),
     awful.key({ "Control", "Mod1" }, "l", function () awful.util.spawn_with_shell("~/bin/screenoff.sh") end)
 )
 
