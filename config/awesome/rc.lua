@@ -7,6 +7,8 @@ require("beautiful")
 -- Notification library
 require("naughty")
 
+require("vicious")
+
 -- Load Debian menu entries
 require("debian.menu")
 
@@ -100,6 +102,23 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- }}}
 
 -- {{{ Wibox
+
+-- {{{ Reusable separator
+separator = widget({ type = "imagebox" })
+separator.image = image(beautiful.widget_sep)
+-- }}}
+--
+-- {{{ Battery state
+baticon = widget({ type = "imagebox" })
+baticon.image = image(beautiful.widget_bat)
+-- Initialize widget
+batwidget = widget({ type = "textbox" })
+bat1widget = widget({ type = "textbox" })
+-- Register widget
+vicious.register(batwidget, vicious.widgets.bat, "BAT0: $1$2%", 61, "BAT0")
+vicious.register(bat1widget, vicious.widgets.bat, "BAT1: $1$2%", 61, "BAT1")
+-- }}}
+
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" })
 
@@ -183,6 +202,8 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         s == 1 and mysystray or nil,
+        batwidget, baticon,
+        bat1widget, baticon,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
@@ -383,5 +404,5 @@ end)
 
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
-awful.util.spawn_with_shell("~/bin/pokerkeyboard_in.sh")
+awful.util.spawn_with_shell("~/bin/pokerkeyboard_out.sh")
 -- }}}
