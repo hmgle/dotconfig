@@ -93,6 +93,7 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "Debian", debian.menu.Debian_menu.Debian },
+                                    { "Log out", '~/bin/shutdown_dialog.sh'},
                                     { "open terminal", terminal }
                                   }
                         })
