@@ -103,11 +103,6 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 
 -- {{{ Wibox
 
--- {{{ Reusable separator
-separator = widget({ type = "imagebox" })
-separator.image = image(beautiful.widget_sep)
--- }}}
---
 -- {{{ Battery state
 baticon = widget({ type = "imagebox" })
 baticon.image = image(beautiful.widget_bat)
