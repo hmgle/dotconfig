@@ -11,6 +11,8 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 
+local vicious = require("vicious")
+
 -- Load Debian menu entries
 require("debian.menu")
 
@@ -116,6 +118,17 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- {{{ Wibox
+
+-- {{{ Battery
+local bat0widget = wibox.widget.textbox()
+local bat1widget = wibox.widget.textbox()
+-- local baticon   = wibox.widget.imagebox()
+-- baticon:set_image(beautiful.widget_bat)
+
+vicious.register(bat0widget, vicious.widgets.bat, "#0 $1$2% $3h", 61, "BAT0")
+vicious.register(bat1widget, vicious.widgets.bat, " #1 $1$2% $3h", 61, "BAT1")
+-- }}}
+
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 
@@ -198,6 +211,8 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(bat0widget)
+    right_layout:add(bat1widget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
