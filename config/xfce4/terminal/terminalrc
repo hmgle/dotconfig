@@ -1,5 +1,6 @@
 [Configuration]
 BindingBackspace=TERMINAL_ERASE_BINDING_ASCII_DELETE
+FontName=Hack 14
 MiscAlwaysShowTabs=FALSE
 MiscBell=FALSE
 MiscBordersDefault=TRUE
