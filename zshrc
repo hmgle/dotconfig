@@ -82,6 +82,13 @@ source /etc/zsh_command_not_found
 export GOPATH="$HOME/gopath/"
 export PATH=$PATH:$GOPATH/bin
 
+# jdk
+export JAVA_HOME="$HOME/androidx/jdk1.8.0_60"
+export PATH="$PATH:$HOME/androidx/jdk1.8.0_60/bin"
+
+# Android
+export ANDROID_HOME="$HOME/androidx/android-sdk-linux"
+
 # history
 # tip: zsh 终端输入 setopt 可列出所有 enable 变量,
 # unsetopt 列出所有 unenable 变量
