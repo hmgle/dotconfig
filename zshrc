@@ -49,7 +49,7 @@ alias em="emacs -nw"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git history-substring-search golang docker)
+plugins=(git history-substring-search golang docker screen)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -81,6 +81,7 @@ source /etc/zsh_command_not_found
 # golang
 export GOPATH="$HOME/gopath/"
 export PATH=$PATH:$GOPATH/bin
+export GO15VENDOREXPERIMENT=1
 
 # jdk
 export JAVA_HOME="$HOME/androidx/jdk1.8.0_60"
@@ -140,3 +141,10 @@ setopt HIST_EXPIRE_DUPS_FIRST
 
 # autojump
 . /usr/share/autojump/autojump.sh
+
+# rbenv {{
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+# }}
