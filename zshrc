@@ -148,3 +148,15 @@ eval "$(rbenv init -)"
 
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 # }}
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+#alias for cnpm
+alias cnpm="npm --registry=https://registry.npm.taobao.org \
+  --cache=$HOME/.npm/.cache/cnpm \
+  --disturl=https://npm.taobao.org/dist \
+  --userconfig=$HOME/.cnpmrc"
+
+# tmux
+alias tmux="TERM=screen-256color-bce tmux"
