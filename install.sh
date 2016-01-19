@@ -33,7 +33,6 @@ if [[ ! -e ~/.bashrc ]]; then
 fi
 ln -sf ${PWD}/bashrc ~/.bashrc
 
-
 # tmux
 if [[ -e ~/.tmux.conf ]]; then
 	mv ~/.tmux.conf{,.bak}
