@@ -213,7 +213,6 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
-        capswidget,
         s == 1 and mysystray or nil,
         batwidget, baticon,
         mytasklist[s],
