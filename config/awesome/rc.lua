@@ -293,7 +293,87 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "e", function () awful.util.spawn("emacs") end),
     awful.key({ modkey,           }, "d", function () awful.util.spawn("thunar") end),
     awful.key({ modkey,           }, "v", function () awful.util.spawn("virtualbox") end),
-    awful.key({ modkey,           }, "s", function () awful.util.spawn("skype") end),
+
+    awful.key({ modkey,  "Shift"  }, "s", function () 
+       for s = 1, screen.count() do
+          -- Create a promptbox for each screen
+          mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
+          -- Create an imagebox widget which will contains an icon indicating which layout we're using.
+          -- We need one layoutbox per screen.
+          mylayoutbox[s] = awful.widget.layoutbox(s)
+          mylayoutbox[s]:buttons(awful.util.table.join(
+          awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
+          awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
+          awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
+          awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
+          -- Create a taglist widget
+          mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
+
+          -- Create a tasklist widget
+          mytasklist[s] = awful.widget.tasklist(function(c)
+             return awful.widget.tasklist.label.currenttags(c, s)
+          end, mytasklist.buttons)
+
+          -- Create the wibox
+          mywibox[s] = awful.wibox({ position = "top", screen = s })
+          -- Add widgets to the wibox - order matters
+          mywibox[s].widgets = {
+             {
+                mylauncher,
+                mytaglist[s],
+                mypromptbox[s],
+                layout = awful.widget.layout.horizontal.leftright
+             },
+             mylayoutbox[s],
+             mytextclock,
+             capswidget,
+             s == 1 and mysystray or nil,
+             batwidget, baticon,
+             mytasklist[s],
+             layout = awful.widget.layout.horizontal.rightleft
+          }
+       end
+    end),
+
+    awful.key({ modkey,           }, "s", function () 
+       for s = 1, screen.count() do
+          -- Create a promptbox for each screen
+          mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
+          -- Create an imagebox widget which will contains an icon indicating which layout we're using.
+          -- We need one layoutbox per screen.
+          mylayoutbox[s] = awful.widget.layoutbox(s)
+          mylayoutbox[s]:buttons(awful.util.table.join(
+          awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
+          awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
+          awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
+          awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
+          -- Create a taglist widget
+          mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
+
+          -- Create a tasklist widget
+          mytasklist[s] = awful.widget.tasklist(function(c)
+             return awful.widget.tasklist.label.currenttags(c, s)
+          end, mytasklist.buttons)
+
+          -- Create the wibox
+          mywibox[s] = awful.wibox({ position = "top", screen = s })
+          -- Add widgets to the wibox - order matters
+          mywibox[s].widgets = {
+             {
+                mylauncher,
+                mytaglist[s],
+                mypromptbox[s],
+                layout = awful.widget.layout.horizontal.leftright
+             },
+             mylayoutbox[s],
+             mytextclock,
+             s == 1 and mysystray or nil,
+             batwidget, baticon,
+             mytasklist[s],
+             layout = awful.widget.layout.horizontal.rightleft
+          }
+       end
+    end),
     awful.key({ "Control", "Mod1" }, "l", function () awful.util.spawn_with_shell("~/bin/screenoff.sh") end)
 )
 
