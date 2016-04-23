@@ -113,6 +113,24 @@ batwidget = widget({ type = "textbox" })
 vicious.register(batwidget, vicious.widgets.bat, "BAT0: $1$2%", 61, "BAT0")
 -- }}}
 
+-- {{{ caps status
+capswidget = widget({ type = "textbox" })
+capswidget.text = "小写"
+capstimer = timer({ timeout = 1 })
+capstimer:add_signal("timeout",
+   function() 
+      local fcmd = io.popen("xset -q | grep 'Caps Lock: *on'")
+      local capsstatus = fcmd:read("*all")
+      fcmd:close()
+      if capsstatus:len() > 0 then
+         capswidget.text = "大写"
+      else
+         capswidget.text = "小写"
+      end
+   end)
+capstimer:start()
+-- }}}
+
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" })
 
@@ -195,6 +213,7 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
+        capswidget,
         s == 1 and mysystray or nil,
         batwidget, baticon,
         mytasklist[s],
