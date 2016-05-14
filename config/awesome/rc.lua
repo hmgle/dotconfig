@@ -113,6 +113,11 @@ batwidget = widget({ type = "textbox" })
 vicious.register(batwidget, vicious.widgets.bat, "BAT0: $1$2%", 61, "BAT0")
 -- }}}
 
+-- {{{ CAPS status
+caps2widget = widget({ type = "textbox" })
+vicious.register(caps2widget, vicious.widgets.caps, nil, 2)
+-- }}}
+
 -- {{{ caps status
 capswidget = widget({ type = "textbox" })
 capswidget.text = "小写"
@@ -128,7 +133,7 @@ capstimer:add_signal("timeout",
          capswidget.text = "小写"
       end
    end)
-capstimer:start()
+-- capstimer:start()
 -- }}}
 
 -- Create a textclock widget
@@ -213,6 +218,7 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
+        caps2widget,
         s == 1 and mysystray or nil,
         batwidget, baticon,
         mytasklist[s],
@@ -325,6 +331,7 @@ globalkeys = awful.util.table.join(
              },
              mylayoutbox[s],
              mytextclock,
+             caps2widget,
              capswidget,
              s == 1 and mysystray or nil,
              batwidget, baticon,
@@ -366,6 +373,7 @@ globalkeys = awful.util.table.join(
              },
              mylayoutbox[s],
              mytextclock,
+             caps2widget,
              s == 1 and mysystray or nil,
              batwidget, baticon,
              mytasklist[s],
