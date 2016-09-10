@@ -5,6 +5,6 @@
 ## 安装
 
 ```
-sudo apt-get install awesome awesome-extra autojump zsh emacs24 tmux
+sudo apt-get install awesome awesome-extra autojump zsh emacs24 tmux xclip
 ./install.sh
 ```
