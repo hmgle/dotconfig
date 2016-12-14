@@ -3,6 +3,7 @@
 	email = dustgle@gmail.com
 [core]
 	editor = vim
+	quotepath = false
 [merge]
 	tool = vimdiff
 [push]
