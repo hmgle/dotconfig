@@ -49,7 +49,7 @@ alias em="emacs -nw"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git history-substring-search golang docker screen z nvm node npm)
+plugins=(git history-substring-search golang docker screen z nvm node npm cargo rust)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -91,6 +91,8 @@ export PATH="$PATH:$HOME/androidx/jdk1.8.0_60/bin"
 export ANDROID_HOME="$HOME/androidx/android-sdk-linux"
 
 # history
+HISTSIZE=100000
+SAVEHIST=100000
 # tip: zsh 终端输入 setopt 可列出所有 enable 变量,
 # unsetopt 列出所有 unenable 变量
 setopt histignoredups
@@ -160,3 +162,5 @@ alias cnpm="npm --registry=https://registry.npm.taobao.org \
 
 # tmux
 alias tmux="TERM=screen-256color-bce tmux"
+
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
