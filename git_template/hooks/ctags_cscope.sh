@@ -1,4 +1,4 @@
 #!/bin/sh
 
-ctags -R
-cscope -Rbq
+# ctags -R
+# cscope -Rbq
