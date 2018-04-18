@@ -54,20 +54,20 @@ fi
 if [[ ! -e ~/.xinitrc ]]; then
 	ln -sf ${PWD}/xinitrc ~/.xinitrc
 fi
-if [[ ! -e /etc/udev/rules.d/80-keyboard.rules ]]; then
-	sudo cp ${PWD}/80-keyboard.rules /etc/udev/rules.d/80-keyboard.rules
-	sudo udevadm control --reload-rules
-fi
+# if [[ ! -e /etc/udev/rules.d/80-keyboard.rules ]]; then
+# 	sudo cp ${PWD}/80-keyboard.rules /etc/udev/rules.d/80-keyboard.rules
+# 	sudo udevadm control --reload-rules
+# fi
 
-# awesome
-if [[ -e ~/.config/awesome/rc.lua ]]; then
-	mv ~/.config/awesome/rc.lua{,.bak}
-fi
-mkdir -p ~/.config/awesome
-ln -sf ${PWD}/config/awesome/rc.lua ~/.config/awesome/rc.lua
+# # awesome
+# if [[ -e ~/.config/awesome/rc.lua ]]; then
+# 	mv ~/.config/awesome/rc.lua{,.bak}
+# fi
+# mkdir -p ~/.config/awesome
+# ln -sf ${PWD}/config/awesome/rc.lua ~/.config/awesome/rc.lua
 
-# spacemacs
-if [[ -e ~/.spacemacs ]]; then
-	mv ~/.spacemacs{,.bak}
-fi
-ln -sf ${PWD}/spacemacs-conf/spacemacs.symlink ~/.spacemacs
+# # spacemacs
+# if [[ -e ~/.spacemacs ]]; then
+# 	mv ~/.spacemacs{,.bak}
+# fi
+# ln -sf ${PWD}/spacemacs-conf/spacemacs.symlink ~/.spacemacs
