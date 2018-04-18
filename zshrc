@@ -49,13 +49,13 @@ alias em="emacs -nw"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git history-substring-search golang docker screen z nvm node npm)
+plugins=(git git-flow history-substring-search golang docker screen z nvm node npm bundler osx rack ruby autojump)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=/usr/local/opt/coreutils/libexec/gnubin:$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -76,21 +76,21 @@ export EDITOR='vim'
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # 未找到命令安装提示
-source /etc/zsh_command_not_found
+# source /etc/zsh_command_not_found
 
 # golang
-export GOPATH="$HOME/gopath"
-export PATH=$PATH:$GOPATH/bin
 export GO15VENDOREXPERIMENT=1
 
 # jdk
-export JAVA_HOME="$HOME/androidx/jdk1.8.0_60"
-export PATH="$PATH:$HOME/androidx/jdk1.8.0_60/bin"
+# export JAVA_HOME="$HOME/androidx/jdk1.8.0_60"
+# export PATH="$PATH:$HOME/androidx/jdk1.8.0_60/bin"
 
 # Android
-export ANDROID_HOME="$HOME/androidx/android-sdk-linux"
+# export ANDROID_HOME="$HOME/androidx/android-sdk-linux"
 
 # history
+export HISTSIZE=100000
+export SAVEHIST=100000
 # tip: zsh 终端输入 setopt 可列出所有 enable 变量,
 # unsetopt 列出所有 unenable 变量
 setopt histignoredups
@@ -140,11 +140,11 @@ setopt HIST_EXPIRE_DUPS_FIRST
 # setopt HIST_FIND_NO_DUPS
 
 # autojump
-. /usr/share/autojump/autojump.sh
+# . /usr/share/autojump/autojump.sh
 
 # rbenv {{
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+# eval "$(rbenv init -)"
 
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 # }}
@@ -160,3 +160,20 @@ alias cnpm="npm --registry=https://registry.npm.taobao.org \
 
 # tmux
 alias tmux="TERM=screen-256color-bce tmux"
+
+# os x
+alias vim=/usr/local/bin/vim
+alias vi=/usr/local/bin/vim
+# alias mv=/usr/local/bin/gmv
+# alias cp=/usr/local/bin/gcp
+alias ls="/usr/local/bin/gls --color"
+
+# ssh
+alias sshqas="ssh -o 'ServerAliveInterval 20' root@123.59.56.118"
+alias sshk8s="ssh -A -t root@123.59.56.118 ssh -A 10.10.130.115"
+alias sshqbs="ssh -A -t root@123.59.56.118 ssh -A 10.10.214.10 -p 38390"
+alias qas01='ssh deploy@123.59.56.118 -p38390'
+alias qas02='ssh deploy@106.75.64.56'
+
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+export DYLD_LIBRARY_PATH=$(rustc --print sysroot)/lib

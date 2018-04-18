@@ -118,3 +118,5 @@ fi
 
 # golang
 export GOPATH="$HOME/gopath/"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
