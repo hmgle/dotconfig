@@ -164,3 +164,5 @@ alias cnpm="npm --registry=https://registry.npm.taobao.org \
 alias tmux="TERM=screen-256color-bce tmux"
 
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/gle/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib:$LD_LIBRARY_PATH
