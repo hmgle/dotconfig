@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# From https://gist.github.com/atupal/5193350
+
 from __future__ import unicode_literals
 from __future__ import print_function
 from argparse import ArgumentParser
