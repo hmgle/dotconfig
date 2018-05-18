@@ -63,13 +63,13 @@ layouts =
     awful.layout.suit.floating,
     -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
-    -- awful.layout.suit.fair,
+    awful.layout.suit.fair,
     -- awful.layout.suit.fair.horizontal,
     -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
-    -- awful.layout.suit.max,
+    awful.layout.suit.max,
     -- awful.layout.suit.max.fullscreen,
-    -- awful.layout.suit.magnifier
+    awful.layout.suit.magnifier
 }
 -- }}}
 
@@ -270,7 +270,7 @@ globalkeys = awful.util.table.join(
                   awful.util.getdir("cache") .. "/history_eval")
               end),
     -- My programs
-    awful.key({ modkey,           }, "i", function () awful.util.spawn("firefox") end),
+    awful.key({ modkey,           }, "i", function () awful.util.spawn("firefox-esr") end),
     awful.key({ modkey,           }, "e", function () awful.util.spawn("emacs") end),
     awful.key({ modkey,           }, "d", function () awful.util.spawn("thunar") end),
     awful.key({ modkey,           }, "v", function () awful.util.spawn("virtualbox") end),
