@@ -6,5 +6,12 @@
 
 ```
 sudo apt-get install awesome awesome-extra autojump zsh emacs24 tmux xclip
+# autojump 旧版本有自动补全有 bug:
+# https://github.com/wting/autojump/issues/228
+# 建议手动安装 autojump
+# sudo apt-get remove autojump
+# git clone https://github.com/wting/autojump.git
+# cd autojump
+# ./install.py
 ./install.sh
 ```
