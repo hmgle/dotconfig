@@ -142,7 +142,7 @@ setopt HIST_EXPIRE_DUPS_FIRST
 # setopt HIST_FIND_NO_DUPS
 
 # autojump
-. /usr/share/autojump/autojump.sh
+. /usr/share/autojump/autojump.zsh
 
 # rbenv {{
 export PATH="$HOME/.rbenv/bin:$PATH"
