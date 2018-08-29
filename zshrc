@@ -49,7 +49,7 @@ alias em="emacs -nw"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git history-substring-search golang docker screen z nvm node npm cargo rust)
+plugins=(git history-substring-search golang docker z nvm node npm cargo rust safe-paste)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -61,12 +61,6 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
 export EDITOR='vim'
 
 # Compilation flags
@@ -153,7 +147,7 @@ export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 # }}
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 #alias for cnpm
 alias cnpm="npm --registry=https://registry.npm.taobao.org \
@@ -167,3 +161,5 @@ alias tmux="TERM=screen-256color-bce tmux"
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/home/gle/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib:$LD_LIBRARY_PATH
+
+fpath+=~/.zfunc
