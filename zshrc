@@ -49,7 +49,8 @@ alias em="emacs -nw"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git history-substring-search golang docker z nvm node npm cargo rust safe-paste)
+# plugins=(git history-substring-search golang docker z nvm node npm cargo rust safe-paste)
+plugins=(git git-flow history-substring-search golang docker z nvm node npm cargo rust rebar)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -163,3 +164,6 @@ export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/home/gle/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib:$LD_LIBRARY_PATH
 
 fpath+=~/.zfunc
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.skim/bin/sk ] && export PATH="$PATH:$HOME/.skim/bin"

@@ -12,7 +12,9 @@
 # By default this script does nothing.
 
 # 亮度调节 gle
-echo 65 > /sys/class/backlight/acpi_video0/brightness
+# echo 65 > /sys/class/backlight/acpi_video0/brightness
+# intel 核显
+echo 450 > /sys/class/backlight/intel_backlight/brightness
 
 # 键盘映射
 if [ -e /dev/input/by-id/usb-Heng_Yu_Technology_Poker_II-event-kbd ]; then

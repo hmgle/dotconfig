@@ -118,3 +118,16 @@ fi
 
 # golang
 export GOPATH="$HOME/gopath/"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# jdk
+export JAVA_HOME="$HOME/androidx/jdk1.8.0_60"
+export PATH="$PATH:$HOME/androidx/jdk1.8.0_60/bin"
+
+# Android
+export ANDROID_HOME="$HOME/androidx/android-sdk-linux"
