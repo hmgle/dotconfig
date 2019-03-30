@@ -11,6 +11,8 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 
+local vicious = require("vicious")
+
 -- Load Debian menu entries
 require("debian.menu")
 
@@ -115,6 +117,13 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
+
+-- {{{ Battery
+local batwidget = wibox.widget.textbox()
+vicious.register(batwidget, vicious.widgets.bat, "$1$2% $3h", 7, "BAT0")
+-- }}}
+
+
 -- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
@@ -198,6 +207,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(batwidget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
@@ -316,7 +326,8 @@ clientkeys = awful.util.table.join(
 for i = 1, 9 do
     globalkeys = awful.util.table.join(globalkeys,
         -- View tag only.
-        awful.key({ modkey }, "#" .. i + 9,
+        -- awful.key({ modkey }, "#" .. i + 9,
+        awful.key({ "Control" }, "#" .. i + 9,
                   function ()
                         local screen = mouse.screen
                         local tag = awful.tag.gettags(screen)[i]
