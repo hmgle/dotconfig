@@ -289,7 +289,7 @@ globalkeys = awful.util.table.join(
               end),
 
     -- My programs
-    awful.key({ modkey }, "i", function () awful.util.spawn("firefox-esr") end),
+    awful.key({ modkey }, "i", function () awful.util.spawn("firefox") end),
     -- awful.key({ modkey,           }, "e", function () awful.util.spawn("emacs") end),
     awful.key({ modkey }, "d", function () awful.util.spawn("thunar") end),
     awful.key({ modkey }, "v", function () awful.util.spawn("virtualbox") end),
@@ -474,6 +474,7 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
 awful.util.spawn_with_shell("nm-applet &")
-awful.util.spawn_with_shell("sleep 5 && ~/bin/pokerkeyboard_in.sh")
+awful.util.spawn_with_shell("sleep 4 && ~/bin/pokerkeyboard_in.sh")
+awful.util.spawn_with_shell("sleep 5 && ~/bin/pokerkeyboard_out.sh")
 -- }}}
 

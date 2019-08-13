@@ -140,12 +140,12 @@ setopt HIST_EXPIRE_DUPS_FIRST
 [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
 autoload -U compinit && compinit -u
 
-# rbenv {{
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
-export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
-# }}
+# # rbenv {{
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
+# 
+# export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+# # }}
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -167,3 +167,5 @@ fpath+=~/.zfunc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.skim/bin/sk ] && export PATH="$PATH:$HOME/.skim/bin"
+
+alias ssh="zssh"
