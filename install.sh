@@ -71,3 +71,9 @@ if [[ -e ~/.spacemacs ]]; then
 	mv ~/.spacemacs{,.bak}
 fi
 ln -sf ${PWD}/spacemacs-conf/spacemacs.symlink ~/.spacemacs
+
+# tpm
+if [[ ! -e ~/.tmux/plugins ]]; then
+	mkdir -p ~/.tmux/plugins
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
