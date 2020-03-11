@@ -50,7 +50,7 @@ alias em="emacs -nw"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # plugins=(git history-substring-search golang docker z nvm node npm cargo rust safe-paste)
-plugins=(git git-flow history-substring-search golang docker z nvm node npm cargo rust rebar)
+plugins=(git git-flow history-substring-search golang docker node npm cargo rust rebar)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -76,7 +76,7 @@ source /etc/zsh_command_not_found
 # golang
 export GOPATH="$HOME/gopath"
 export PATH=$PATH:$GOPATH/bin
-export GO15VENDOREXPERIMENT=1
+# export GO15VENDOREXPERIMENT=1
 
 # jdk
 export JAVA_HOME="$HOME/androidx/jdk1.8.0_60"
@@ -169,3 +169,6 @@ fpath+=~/.zfunc
 [ -f ~/.skim/bin/sk ] && export PATH="$PATH:$HOME/.skim/bin"
 
 alias ssh="zssh"
+alias ag="rg"
+
+[ -f /usr/local/tinygo/bin/tinygo ] && export PATH=$PATH:/usr/local/tinygo/bin
