@@ -172,3 +172,4 @@ alias ssh="zssh"
 alias ag="rg"
 
 [ -f /usr/local/tinygo/bin/tinygo ] && export PATH=$PATH:/usr/local/tinygo/bin
+export PATH=$HOME/.local/bin:$PATH
