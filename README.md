@@ -14,4 +14,8 @@ sudo apt-get install awesome awesome-extra autojump zsh emacs24 tmux xclip
 # cd autojump
 # ./install.py
 ./install.sh
+brew install tmux
+
+# 使用 tpm 安装 tmux 插件:
+# 按 prefix + I (大写字母 I) 安装
 ```

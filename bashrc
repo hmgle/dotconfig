@@ -88,9 +88,9 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-if type colormake > /dev/null; then
-	alias cmk='colormake'
-fi
+#  if type colormake > /dev/null; then
+#  	alias cmk='colormake'
+#  fi
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -129,5 +129,9 @@ export NVM_DIR="$HOME/.nvm"
 export JAVA_HOME="$HOME/androidx/jdk1.8.0_60"
 export PATH="$PATH:$HOME/androidx/jdk1.8.0_60/bin"
 
-# Android
-export ANDROID_HOME="$HOME/androidx/android-sdk-linux"
+# # Android
+# export ANDROID_HOME="$HOME/androidx/android-sdk-linux"
+. ~/.linuxify
+
+alias ls='ls -F --show-control-chars --color=auto'
+eval `gdircolors -b $HOME/.dir_colors`

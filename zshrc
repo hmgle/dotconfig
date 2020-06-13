@@ -1,3 +1,13 @@
+# python3.8 bug，不加下面的话会 python nl_langinfo CODESET failed
+export LANG="en_US.UTF-8"
+export LC_COLLATE="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+export LC_MESSAGES="en_US.UTF-8"
+export LC_MONETARY="en_US.UTF-8"
+export LC_NUMERIC="en_US.UTF-8"
+export LC_TIME="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -6,6 +16,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
+# ZSH_THEME="spaceship"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -56,7 +67,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -70,20 +81,20 @@ export EDITOR='vim'
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# 未找到命令安装提示
-source /etc/zsh_command_not_found
+# # 未找到命令安装提示
+# source /etc/zsh_command_not_found
 
 # golang
 export GOPATH="$HOME/gopath"
 export PATH=$PATH:$GOPATH/bin
 # export GO15VENDOREXPERIMENT=1
 
-# jdk
-export JAVA_HOME="$HOME/androidx/jdk1.8.0_60"
-export PATH="$PATH:$HOME/androidx/jdk1.8.0_60/bin"
+# # jdk
+# export JAVA_HOME="$HOME/androidx/jdk1.8.0_60"
+# export PATH="$PATH:$HOME/androidx/jdk1.8.0_60/bin"
 
-# Android
-export ANDROID_HOME="$HOME/androidx/android-sdk-linux"
+# # Android
+# export ANDROID_HOME="$HOME/androidx/android-sdk-linux"
 
 # history
 HISTSIZE=100000
@@ -137,7 +148,8 @@ setopt HIST_EXPIRE_DUPS_FIRST
 # setopt HIST_FIND_NO_DUPS
 
 # autojump
-[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
+# [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 autoload -U compinit && compinit -u
 
 # # rbenv {{
@@ -148,7 +160,7 @@ autoload -U compinit && compinit -u
 # # }}
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$(brew --prefix nvm)/nvm.sh" ] && source $(brew --prefix nvm)/nvm.sh
 
 #alias for cnpm
 alias cnpm="npm --registry=https://registry.npm.taobao.org \
@@ -159,17 +171,28 @@ alias cnpm="npm --registry=https://registry.npm.taobao.org \
 # tmux
 alias tmux="TERM=screen-256color-bce tmux"
 
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
-export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=/home/gle/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib:$LD_LIBRARY_PATH
+# export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+# export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
+# export LD_LIBRARY_PATH=/home/gle/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib:$LD_LIBRARY_PATH
 
-fpath+=~/.zfunc
+# fpath+=~/.zfunc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/.skim/bin/sk ] && export PATH="$PATH:$HOME/.skim/bin"
+# [ -f ~/.skim/bin/sk ] && export PATH="$PATH:$HOME/.skim/bin"
 
-alias ssh="zssh"
+# alias ssh="zssh"
 alias ag="rg"
 
 [ -f /usr/local/tinygo/bin/tinygo ] && export PATH=$PATH:/usr/local/tinygo/bin
 export PATH=$HOME/.local/bin:$PATH
+. ~/.linuxify
+
+alias ls='ls -F --show-control-chars --color=auto'
+eval `gdircolors -b $HOME/.dir_colors`
+
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+    autoload -Uz compinit
+    compinit
+fi
