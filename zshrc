@@ -8,6 +8,8 @@ export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
+export NVM_LAZY_LOAD=true
+
 # load zgen
 source "${HOME}/.zgen/zgen.zsh"
 
@@ -23,13 +25,13 @@ if ! zgen saved; then
     # zgen oh-my-zsh plugins/git-flow
     # zgen oh-my-zsh plugins/history-substring-search
     zgen oh-my-zsh plugins/golang
+    zgen load lukechilds/zsh-nvm
     zgen oh-my-zsh plugins/node
     zgen oh-my-zsh plugins/npm
     zgen oh-my-zsh plugins/sudo
     zgen oh-my-zsh plugins/command-not-found
 
     # zgen load zsh-users/zsh-syntax-highlighting
-    # zgen load /path/to/super-secret-private-plugin
 
     # bulk load
     zgen loadall <<EOPLUGINS
@@ -191,7 +193,6 @@ setopt HIST_EXPIRE_DUPS_FIRST
 # autojump
 # [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
-autoload -U compinit && compinit -u
 
 # # rbenv {{
 # export PATH="$HOME/.rbenv/bin:$PATH"
@@ -238,3 +239,9 @@ eval `gdircolors -b $HOME/.dir_colors`
 #     autoload -Uz compinit
 #     compinit
 # fi
+
+## # Load Git completion
+## zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+## fpath=(~/.zsh $fpath)
+
+# autoload -U compinit && compinit -u
