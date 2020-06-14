@@ -8,15 +8,56 @@ export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+# load zgen
+source "${HOME}/.zgen/zgen.zsh"
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
-# ZSH_THEME="spaceship"
+# if the init scipt doesn't exist
+if ! zgen saved; then
+    echo "Creating a zgen save"
+
+    zgen oh-my-zsh
+
+    # plugins
+    # plugins=(git git-flow history-substring-search golang docker node npm cargo rust rebar)
+    zgen oh-my-zsh plugins/git
+    # zgen oh-my-zsh plugins/git-flow
+    # zgen oh-my-zsh plugins/history-substring-search
+    zgen oh-my-zsh plugins/golang
+    zgen oh-my-zsh plugins/node
+    zgen oh-my-zsh plugins/npm
+    zgen oh-my-zsh plugins/sudo
+    zgen oh-my-zsh plugins/command-not-found
+
+    # zgen load zsh-users/zsh-syntax-highlighting
+    # zgen load /path/to/super-secret-private-plugin
+
+    # bulk load
+    zgen loadall <<EOPLUGINS
+        zsh-users/zsh-history-substring-search
+EOPLUGINS
+    # ^ can't indent this EOPLUGINS
+
+    # completions
+    zgen load zsh-users/zsh-completions src
+
+    # theme
+    # zgen oh-my-zsh themes/arrow
+    zgen oh-my-zsh themes/robbyrussell
+
+    # save all to init script
+    zgen save
+fi
+
+
+## # Path to your oh-my-zsh installation.
+## export ZSH=$HOME/.oh-my-zsh
+## 
+## # Set name of the theme to load.
+## # Look in ~/.oh-my-zsh/themes/
+## # Optionally, if you set this to "random", it'll load a random theme each
+## # time that oh-my-zsh is loaded.
+## ZSH_THEME="robbyrussell"
+## # ZSH_THEME="spaceship"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -61,9 +102,9 @@ alias em="emacs -nw"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # plugins=(git history-substring-search golang docker z nvm node npm cargo rust safe-paste)
-plugins=(git git-flow history-substring-search golang docker node npm cargo rust rebar)
-
-source $ZSH/oh-my-zsh.sh
+## plugins=(git git-flow history-substring-search golang docker node npm cargo rust rebar)
+## 
+## source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -159,8 +200,9 @@ autoload -U compinit && compinit -u
 # export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 # # }}
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$(brew --prefix nvm)/nvm.sh" ] && source $(brew --prefix nvm)/nvm.sh
+## export NVM_DIR="$HOME/.nvm"
+## # [ -s "$(brew --prefix nvm)/nvm.sh" ] && source $(brew --prefix nvm)/nvm.sh
+## [ -s "/usr/local/opt/nvm/nvm.sh" ] && source /usr/local/opt/nvm/nvm.sh
 
 #alias for cnpm
 alias cnpm="npm --registry=https://registry.npm.taobao.org \
@@ -190,9 +232,9 @@ export PATH=$HOME/.local/bin:$PATH
 alias ls='ls -F --show-control-chars --color=auto'
 eval `gdircolors -b $HOME/.dir_colors`
 
-if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
-    autoload -Uz compinit
-    compinit
-fi
+# if type brew &>/dev/null; then
+#     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+# 
+#     autoload -Uz compinit
+#     compinit
+# fi
