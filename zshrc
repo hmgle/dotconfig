@@ -25,6 +25,7 @@ if ! zgen saved; then
     # zgen oh-my-zsh plugins/git-flow
     # zgen oh-my-zsh plugins/history-substring-search
     zgen oh-my-zsh plugins/golang
+    zgen oh-my-zsh plugins/docker
     zgen load lukechilds/zsh-nvm
     zgen oh-my-zsh plugins/node
     zgen oh-my-zsh plugins/npm
@@ -245,3 +246,9 @@ eval `gdircolors -b $HOME/.dir_colors`
 ## fpath=(~/.zsh $fpath)
 
 # autoload -U compinit && compinit -u
+
+# brew tap homebrew/command-not-found
+HB_CNF_HANDLER="/usr/local/Homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
+if [ -f "$HB_CNF_HANDLER" ]; then
+  source "$HB_CNF_HANDLER";
+fi
