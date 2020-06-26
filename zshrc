@@ -1,13 +1,3 @@
-# python3.8 bug，不加下面的话会 python nl_langinfo CODESET failed
-export LANG="en_US.UTF-8"
-export LC_COLLATE="en_US.UTF-8"
-export LC_CTYPE="en_US.UTF-8"
-export LC_MESSAGES="en_US.UTF-8"
-export LC_MONETARY="en_US.UTF-8"
-export LC_NUMERIC="en_US.UTF-8"
-export LC_TIME="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-
 export NVM_LAZY_LOAD=true
 
 # load zgen
@@ -252,3 +242,5 @@ HB_CNF_HANDLER="/usr/local/Homebrew/Library/Taps/homebrew/homebrew-command-not-f
 if [ -f "$HB_CNF_HANDLER" ]; then
   source "$HB_CNF_HANDLER";
 fi
+
+export PATH="/usr/local/opt/python@3.8/bin:$PATH"
