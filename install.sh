@@ -17,9 +17,9 @@ ln -sf ${PWD}/git_template ~/.git_template
 # fi
 # ln -sf ${PWD}/config/xfce4 ~/.config/xfce4
 
-# install oh-my-zsh
-if [[ ! -d ~/.oh-my-zsh ]]; then
-	git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh 
+# install zgen
+if [[ ! -d ~/.zgen ]]; then
+	git clone https://github.com/tarjoilija/zgen.git ~/.zgen
 fi
 
 if [[ -e ~/.zshrc ]]; then

@@ -1,11 +1,45 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+export NVM_LAZY_LOAD=true
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+# load zgen
+source "${HOME}/.zgen/zgen.zsh"
+
+# if the init scipt doesn't exist
+if ! zgen saved; then
+    echo "Creating a zgen save"
+
+    zgen oh-my-zsh
+
+    # plugins
+    # plugins=(git git-flow history-substring-search golang docker node npm cargo rust rebar)
+    zgen oh-my-zsh plugins/git
+    zgen oh-my-zsh plugins/git-flow
+    # zgen oh-my-zsh plugins/history-substring-search
+    zgen oh-my-zsh plugins/golang
+    zgen oh-my-zsh plugins/docker
+    zgen load lukechilds/zsh-nvm
+    zgen oh-my-zsh plugins/node
+    zgen oh-my-zsh plugins/npm
+    zgen oh-my-zsh plugins/sudo
+    # zgen oh-my-zsh plugins/command-not-found
+
+    # zgen load zsh-users/zsh-syntax-highlighting
+
+    # bulk load
+    zgen loadall <<EOPLUGINS
+        zsh-users/zsh-history-substring-search
+EOPLUGINS
+    # ^ can't indent this EOPLUGINS
+
+    # completions
+    zgen load zsh-users/zsh-completions src
+
+    # theme
+    # zgen oh-my-zsh themes/arrow
+    zgen oh-my-zsh themes/robbyrussell
+
+    # save all to init script
+    zgen save
+fi
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -50,13 +84,13 @@ alias em="emacs -nw"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # plugins=(git history-substring-search golang docker z nvm node npm cargo rust safe-paste)
-plugins=(git git-flow history-substring-search golang docker node npm cargo rust rebar)
-
-source $ZSH/oh-my-zsh.sh
+## plugins=(git git-flow history-substring-search golang docker node npm cargo rust rebar)
+## 
+## source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -138,7 +172,6 @@ setopt HIST_EXPIRE_DUPS_FIRST
 
 # autojump
 [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
-autoload -U compinit && compinit -u
 
 # # rbenv {{
 # export PATH="$HOME/.rbenv/bin:$PATH"
@@ -147,8 +180,8 @@ autoload -U compinit && compinit -u
 # export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 # # }}
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 #alias for cnpm
 alias cnpm="npm --registry=https://registry.npm.taobao.org \
@@ -175,3 +208,5 @@ alias ag="rg"
 export PATH=$HOME/.local/bin:$PATH
 
 compdef _precommand graftcp proxychains
+
+# autoload -U compinit && compinit -u
