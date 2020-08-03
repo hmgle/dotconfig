@@ -6,3 +6,4 @@ keycode 66 = Escape
 keycode 49 = Caps_Lock
 keycode 9 = grave asciitilde
 add Lock = Caps_Lock
+keycode 135 =
