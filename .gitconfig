@@ -15,4 +15,9 @@
 	ci = commit
 	st = status
 [credential]
-	helper = store
+	helper = osxkeychain
+	useHttpPath = true
+	# helper = store
+[pager]
+	branch = false
+	tag = false

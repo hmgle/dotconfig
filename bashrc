@@ -135,3 +135,4 @@ export PATH="$PATH:$HOME/androidx/jdk1.8.0_60/bin"
 
 alias ls='ls -F --show-control-chars --color=auto'
 eval `gdircolors -b $HOME/.dir_colors`
+source "$HOME/.cargo/env"
