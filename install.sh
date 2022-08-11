@@ -27,6 +27,11 @@ if [[ -e ~/.zshrc ]]; then
 fi
 ln -sf ${PWD}/zshrc ~/.zshrc
 
+if [[ -e ~/.zshenv ]]; then
+	mv ~/.zshenv{,.bak}
+fi
+ln -sf ${PWD}/zshenv ~/.zshenv
+
 # bashrc
 if [[ ! -e ~/.bashrc ]]; then
 	mv ~/.bashrc{,.bak}
