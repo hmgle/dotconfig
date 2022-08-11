@@ -474,8 +474,7 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
 awful.util.spawn_with_shell("nm-applet &")
-awful.util.spawn_with_shell("xset r rate 180 20")
+awful.util.spawn_with_shell("xset r rate 220 25")
 awful.util.spawn_with_shell("sleep 4 && ~/bin/pokerkeyboard_in.sh")
 awful.util.spawn_with_shell("sleep 5 && ~/bin/pokerkeyboard_out.sh")
 -- }}}
-

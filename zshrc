@@ -85,7 +85,7 @@ alias em="emacs -nw"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # plugins=(git history-substring-search golang docker z nvm node npm cargo rust safe-paste)
 ## plugins=(git git-flow history-substring-search golang docker node npm cargo rust rebar)
-## 
+##
 ## source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -96,7 +96,7 @@ export PATH=$HOME/bin:$PATH
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -111,6 +111,7 @@ source /etc/zsh_command_not_found
 export GOPATH="$HOME/gopath"
 export PATH=$PATH:$GOPATH/bin
 # export GO15VENDOREXPERIMENT=1
+export GO111MODULE=auto
 
 # jdk
 export JAVA_HOME="$HOME/androidx/jdk1.8.0_60"
@@ -145,7 +146,7 @@ setopt HIST_IGNORE_SPACE
 
 # Whenever the user enters a line with history expansion,
 # don’t execute the line directly; instead, perform history
-# expansion and reload the line into the editing buffer. 
+# expansion and reload the line into the editing buffer.
 # setopt HIST_VERIFY
 
 # Save each command’s beginning timestamp (in seconds since the epoch)
@@ -153,7 +154,7 @@ setopt HIST_IGNORE_SPACE
 # setopt EXTENDED_HISTORY
 
 # When writing out the history file, older commands that duplicate
-# newer ones are omitted. 
+# newer ones are omitted.
 setopt HIST_SAVE_NO_DUPS
 
 # If the internal history needs to be trimmed to add the current
@@ -176,7 +177,7 @@ setopt HIST_EXPIRE_DUPS_FIRST
 # # rbenv {{
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
-# 
+#
 # export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 # # }}
 
@@ -207,6 +208,18 @@ alias ag="rg"
 [ -f /usr/local/tinygo/bin/tinygo ] && export PATH=$PATH:/usr/local/tinygo/bin
 export PATH=$HOME/.local/bin:$PATH
 
-compdef _precommand graftcp proxychains
+compdef _precommand graftcp mgraftcp proxychains
 
-# autoload -U compinit && compinit -u
+# function graftcp {
+#    command graftcp zsh -i -c "$*" # command to prevent recursion,  -i to force bash to read .bashrc
+# }
+
+unalias gops 2>/dev/null || true
+
+DEBEMAIL="dustgle@gmail.com"
+DEBFULLNAME="Mingang He"
+export DEBEMAIL DEBFULLNAME
+
+autoload -U compinit && compinit -u
+
+alias vi="nvim"

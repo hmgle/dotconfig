@@ -131,3 +131,5 @@ export PATH="$PATH:$HOME/androidx/jdk1.8.0_60/bin"
 
 # Android
 export ANDROID_HOME="$HOME/androidx/android-sdk-linux"
+
+# complete -F _command graftcp proxychains
