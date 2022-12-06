@@ -191,7 +191,7 @@ alias cnpm="npm --registry=https://registry.npm.taobao.org \
   --userconfig=$HOME/.cnpmrc"
 
 # tmux
-alias tmux="TERM=screen-256color-bce tmux"
+# alias tmux="TERM=screen-256color-bce tmux"
 
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
@@ -220,6 +220,6 @@ DEBEMAIL="dustgle@gmail.com"
 DEBFULLNAME="Mingang He"
 export DEBEMAIL DEBFULLNAME
 
-autoload -U compinit && compinit -u
+# autoload -U compinit && compinit -u
 
 alias vi="nvim"
