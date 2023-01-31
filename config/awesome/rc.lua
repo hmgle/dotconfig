@@ -294,7 +294,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "d", function () awful.util.spawn("thunar") end),
     awful.key({ modkey }, "v", function () awful.util.spawn("virtualbox") end),
     -- awful.key({ modkey }, "s", function () awful.util.spawn("skype") end),
-    awful.key({ "Control", "Mod1" }, "l", function () awful.util.spawn_with_shell("~/bin/screenoff.sh") end),
+    awful.key({ modkey, "Control" }, "l", function () awful.util.spawn_with_shell("~/bin/screenoff.sh") end),
 
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end)
