@@ -223,3 +223,5 @@ export DEBEMAIL DEBFULLNAME
 # autoload -U compinit && compinit -u
 
 alias vi="nvim"
+
+[ -s "$ZGEN_DIR/priv.zsh" ] && source "$ZGEN_DIR/priv.zsh"
