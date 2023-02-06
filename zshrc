@@ -1,5 +1,9 @@
 export NVM_LAZY_LOAD=true
 
+# for z.lua
+export _ZL_CMD=j
+export _ZL_ECHO=1
+
 # load zgen
 source "${HOME}/.zgen/zgen.zsh"
 
@@ -36,6 +40,8 @@ EOPLUGINS
     # theme
     # zgen oh-my-zsh themes/arrow
     zgen oh-my-zsh themes/robbyrussell
+
+    zgen load skywind3000/z.lua z.lua.plugin.zsh
 
     # save all to init script
     zgen save
@@ -171,9 +177,6 @@ setopt HIST_EXPIRE_DUPS_FIRST
 # duplicates are not contiguous.
 # setopt HIST_FIND_NO_DUPS
 
-# autojump
-[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
-
 # # rbenv {{
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
@@ -189,9 +192,6 @@ alias cnpm="npm --registry=https://registry.npm.taobao.org \
   --cache=$HOME/.npm/.cache/cnpm \
   --disturl=https://npm.taobao.org/dist \
   --userconfig=$HOME/.cnpmrc"
-
-# tmux
-alias tmux="TERM=screen-256color-bce tmux"
 
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
