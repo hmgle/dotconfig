@@ -1,0 +1,13 @@
+remove mod1 = Super_L
+add control = Super_L
+! swap Esc CPAS_LOCK grave key
+clear Lock
+keycode 66 = Escape
+keycode 49 = Caps_Lock
+keycode 9 = grave asciitilde
+add Lock = Caps_Lock
+! swap Alt_L Super_L
+keycode 64 = Super_L
+keycode 133 = Alt_L
+remove control = Alt_L
+add mod1 = Alt_L
