@@ -199,7 +199,7 @@ export LD_LIBRARY_PATH=/home/gle/.rustup/toolchains/stable-x86_64-unknown-linux-
 
 fpath+=~/.zfunc
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh && export FZF_DEFAULT_OPTS="--bind='tab:down,shift-tab:up' --cycle"
 [ -f ~/.skim/bin/sk ] && export PATH="$PATH:$HOME/.skim/bin"
 
 alias ssh="zssh"
