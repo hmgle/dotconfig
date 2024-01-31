@@ -1,5 +1,9 @@
 export NVM_LAZY_LOAD=true
 
+# for z.lua
+export _ZL_CMD=j
+export _ZL_ECHO=1
+
 # load zgen
 source "${HOME}/.zgen/zgen.zsh"
 
@@ -15,6 +19,7 @@ if ! zgen saved; then
     # zgen oh-my-zsh plugins/git-flow
     # zgen oh-my-zsh plugins/history-substring-search
     zgen oh-my-zsh plugins/golang
+    zgen oh-my-zsh plugins/vagrant
     zgen oh-my-zsh plugins/docker
     zgen load lukechilds/zsh-nvm
     zgen oh-my-zsh plugins/node
@@ -22,6 +27,7 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/sudo
     zgen oh-my-zsh plugins/command-not-found
     zgen oh-my-zsh plugins/fd
+    zgen oh-my-zsh plugins/rust
 
     # zgen load zsh-users/zsh-syntax-highlighting
 
@@ -38,6 +44,9 @@ EOPLUGINS
     # zgen oh-my-zsh themes/arrow
     zgen oh-my-zsh themes/robbyrussell
 
+    zgen load skywind3000/z.lua z.lua.plugin.zsh
+    zgen load Aloxaf/fzf-tab fzf-tab.plugin.zsh
+
     # save all to init script
     zgen save
 fi
@@ -45,7 +54,7 @@ fi
 
 ## # Path to your oh-my-zsh installation.
 ## export ZSH=$HOME/.oh-my-zsh
-## 
+##
 ## # Set name of the theme to load.
 ## # Look in ~/.oh-my-zsh/themes/
 ## # Optionally, if you set this to "random", it'll load a random theme each
@@ -97,7 +106,7 @@ alias em="emacs -nw"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # plugins=(git history-substring-search golang docker z nvm node npm cargo rust safe-paste)
 ## plugins=(git git-flow history-substring-search golang docker node npm cargo rust rebar)
-## 
+##
 ## source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -108,7 +117,6 @@ export PATH=$HOME/bin:$PATH
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-export EDITOR='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -157,7 +165,7 @@ setopt HIST_IGNORE_SPACE
 
 # Whenever the user enters a line with history expansion,
 # don’t execute the line directly; instead, perform history
-# expansion and reload the line into the editing buffer. 
+# expansion and reload the line into the editing buffer.
 # setopt HIST_VERIFY
 
 # Save each command’s beginning timestamp (in seconds since the epoch)
@@ -165,7 +173,7 @@ setopt HIST_IGNORE_SPACE
 # setopt EXTENDED_HISTORY
 
 # When writing out the history file, older commands that duplicate
-# newer ones are omitted. 
+# newer ones are omitted.
 setopt HIST_SAVE_NO_DUPS
 
 # If the internal history needs to be trimmed to add the current
@@ -182,14 +190,10 @@ setopt HIST_EXPIRE_DUPS_FIRST
 # duplicates are not contiguous.
 # setopt HIST_FIND_NO_DUPS
 
-# autojump
-# [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
-[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
-
 # # rbenv {{
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
-# 
+#
 # export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 # # }}
 
@@ -204,15 +208,14 @@ alias cnpm="npm --registry=https://registry.npm.taobao.org \
   --userconfig=$HOME/.cnpmrc"
 
 # tmux
-alias tmux="TERM=screen-256color-bce tmux"
+# alias tmux="TERM=screen-256color-bce tmux"
 
 # export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/library
 # export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 # export LD_LIBRARY_PATH=/home/gle/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib:$LD_LIBRARY_PATH
 
-# fpath+=~/.zfunc
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh && export FZF_DEFAULT_OPTS="--bind='tab:down,shift-tab:up' --cycle"
 # [ -f ~/.skim/bin/sk ] && export PATH="$PATH:$HOME/.skim/bin"
 
 # alias ssh="zssh"
@@ -227,7 +230,7 @@ eval `gdircolors -b $HOME/.dir_colors`
 
 # if type brew &>/dev/null; then
 #     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-# 
+#
 #     autoload -Uz compinit
 #     compinit
 # fi
@@ -244,4 +247,11 @@ if [ -f "$HB_CNF_HANDLER" ]; then
   source "$HB_CNF_HANDLER";
 fi
 
-export PATH="/usr/local/opt/python@3.8/bin:$PATH"
+fpath+=~/.zfunc
+
+export PATH=$PATH:$HOME/opt/bin
+
+alias vim='nvim'
+alias vi='nvim'
+
+[ -s "$ZGEN_DIR/priv.zsh" ] && source "$ZGEN_DIR/priv.zsh"

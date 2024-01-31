@@ -21,3 +21,5 @@
 [pager]
 	branch = false
 	tag = false
+[pull]
+	rebase = false
