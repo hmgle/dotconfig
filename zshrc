@@ -42,6 +42,7 @@ EOPLUGINS
     zgen oh-my-zsh themes/robbyrussell
 
     zgen load skywind3000/z.lua z.lua.plugin.zsh
+    zgen load Aloxaf/fzf-tab fzf-tab.plugin.zsh
 
     # save all to init script
     zgen save
