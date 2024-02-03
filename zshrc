@@ -207,6 +207,7 @@ fpath+=~/.zfunc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh && export FZF_DEFAULT_OPTS="--bind='tab:down,shift-tab:up' --cycle"
 [ -f ~/.skim/bin/sk ] && export PATH="$PATH:$HOME/.skim/bin"
+(( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)"
 
 alias ssh="zssh"
 alias ag="rg"
