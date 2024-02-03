@@ -51,6 +51,7 @@ EOPLUGINS
     zgen save
 fi
 
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':fzf-tab:*' fzf-bindings 'space:accept'
 zstyle ':fzf-tab:*(cat|ls)*' accept-line enter
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
@@ -259,3 +260,5 @@ alias vim='nvim'
 alias vi='nvim'
 
 [ -s "$ZGEN_DIR/priv.zsh" ] && source "$ZGEN_DIR/priv.zsh"
+
+(( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)"
