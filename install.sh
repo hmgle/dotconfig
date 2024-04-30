@@ -85,3 +85,8 @@ if [[ ! -e ~/.tmux/plugins ]]; then
 	mkdir -p ~/.tmux/plugins
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
+
+# https://github.com/preservim/tagbar/wiki#zig
+if [[ ! -e ~/.ctags ]]; then
+	ln -sf "${PWD}"/ctags ~/.ctags
+fi
