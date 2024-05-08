@@ -193,12 +193,6 @@ setopt HIST_EXPIRE_DUPS_FIRST
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
-#alias for cnpm
-alias cnpm="npm --registry=https://registry.npm.taobao.org \
-  --cache=$HOME/.npm/.cache/cnpm \
-  --disturl=https://npm.taobao.org/dist \
-  --userconfig=$HOME/.cnpmrc"
-
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/home/gle/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib:$LD_LIBRARY_PATH
@@ -232,3 +226,5 @@ export DEBEMAIL DEBFULLNAME
 alias vi="nvim"
 
 [ -s "$ZGEN_DIR/priv.zsh" ] && source "$ZGEN_DIR/priv.zsh"
+
+bindkey '^N' delete-word
