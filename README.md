@@ -1,17 +1,5 @@
 # dotconfig
 
-个人 Linux 环境配置文件
+This repository contains my Linux and OSX environment configurations. Primarily focused on Linux, it includes settings for zshrc, terminal emulation, keyboard mappings, tmux, and awesome WM.
 
-## 安装
-
-```
-sudo apt-get install awesome awesome-extra autojump zsh emacs24 tmux xclip
-# autojump 旧版本有自动补全有 bug:
-# https://github.com/wting/autojump/issues/228
-# 建议手动安装 autojump
-# sudo apt-get remove autojump
-# git clone https://github.com/wting/autojump.git
-# cd autojump
-# ./install.py
-./install.sh
-```
+Feel free to adjust the content to better suit your preferences!
