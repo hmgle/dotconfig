@@ -262,3 +262,5 @@ alias vi='nvim'
 [ -s "$ZGEN_DIR/priv.zsh" ] && source "$ZGEN_DIR/priv.zsh"
 
 (( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)"
+
+bindkey "^N" delete-word
