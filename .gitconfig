@@ -2,7 +2,7 @@
 	name = mingang.he
 	email = dustgle@gmail.com
 [core]
-	editor = vim
+	editor = nvim
 	quotepath = false
 [merge]
 	tool = vimdiff
