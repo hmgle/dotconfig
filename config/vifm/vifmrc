@@ -473,7 +473,7 @@ map <bs> <c-h>
 " https://github.com/cirala/vifm_devicons
 
 command! FZFfind : set noquickview
-    \| let $FZF_PICK = system('fd | fzf-tmux -p 70%% 2>/dev/tty')
+    \| let $FZF_PICK = system('fd | fzf-tmux --reverse -p 70%% 2>/dev/tty')
     \| if $FZF_PICK != ''
     \|     execute 'goto' fnameescape($FZF_PICK)
     \| endif
@@ -491,7 +491,7 @@ command create :
 nnoremap o :create<space>
 
 command! Zlua : set noquickview
-    \| let $FZF_PICK = system("~/.zgen/skywind3000/z.lua-master/z.lua -l %a | awk '{print $NF}' | fzf-tmux -p 60%% 2>/dev/tty")
+    \| let $FZF_PICK = system("~/.zgen/skywind3000/z.lua-master/z.lua -l %a | awk '{print $NF}' | fzf-tmux --reverse -p 60%% 2>/dev/tty")
     \| if $FZF_PICK != ''
     \|     execute 'cd' fnameescape($FZF_PICK)
     \| endif
