@@ -439,7 +439,7 @@ nnoremap <c-l> <c-w>l
 "   " if mappings with <bs> in the LHS work
 "   map <bs> <c-h>
 nnoremap <c-h> <c-w>h
-nnoremap <bs> <c-h>
+map <bs> <c-h>
 
 " ------------------------------------------------------------------------------
 " Various customization examples
