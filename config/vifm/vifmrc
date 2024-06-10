@@ -479,6 +479,7 @@ command! FZFfind : set noquickview
     \| endif
 
 nnoremap f :FZFfind<cr>
+nnoremap <c-p> :FZFfind<cr>
 
 command create :
     \|  let $last_char = expand(system("str=\"%a\"; echo \"${str: -1}\""))
@@ -491,7 +492,7 @@ command create :
 nnoremap o :create<space>
 
 command! Zlua : set noquickview
-    \| let $FZF_PICK = system("~/.zgen/skywind3000/z.lua-master/z.lua -l %a | awk '{print $NF}' | fzf-tmux --reverse -p 60%% 2>/dev/tty")
+    \| let $FZF_PICK = system("~/.zgen/skywind3000/z.lua-master/z.lua -l %a | awk '{print $NF}' | fzf-tmux --tac --reverse -p 60%% 2>/dev/tty")
     \| if $FZF_PICK != ''
     \|     execute 'cd' fnameescape($FZF_PICK)
     \| endif
