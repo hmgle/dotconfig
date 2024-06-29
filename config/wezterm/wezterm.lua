@@ -34,6 +34,7 @@ local local_config = load_local_config("local")
 
 
 local config = {
+	underline_thickness = "2.8px",
 	font = wezterm.font("Hack Nerd Font"),
 	font_size = 17,
 	check_for_updates = false,
