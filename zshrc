@@ -216,6 +216,7 @@ compdef _precommand graftcp mgraftcp proxychains
 # }
 
 unalias gops 2>/dev/null || true
+unalias gg 2>/dev/null || true
 
 DEBEMAIL="dustgle@gmail.com"
 DEBFULLNAME="Mingang He"
