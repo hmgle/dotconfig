@@ -90,3 +90,10 @@ fi
 if [[ ! -e ~/.ctags ]]; then
 	ln -sf "${PWD}"/ctags ~/.ctags
 fi
+
+# atuin
+if [[ -e ~/.config/atuin/config.toml ]]; then
+	mv ~/.config/atuin/config.toml{,.bak}
+fi
+mkdir -p ~/.config/atuin
+ln -sf "${PWD}"/config/atuin/config.toml ~/.config/atuin/config.toml
