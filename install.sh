@@ -97,3 +97,5 @@ if [[ -e ~/.config/atuin/config.toml ]]; then
 fi
 mkdir -p ~/.config/atuin
 ln -sf "${PWD}"/config/atuin/config.toml ~/.config/atuin/config.toml
+
+ln -sf "${PWD}"/config/markdownlint/markdownlintrc ~/.markdownlintrc
