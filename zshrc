@@ -264,3 +264,5 @@ alias vi='nvim'
 (( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)"
 
 bindkey "^N" delete-word
+
+[ -f "/Users/portgle/.ghcup/env" ] && . "/Users/portgle/.ghcup/env" # ghcup-env
