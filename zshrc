@@ -229,3 +229,5 @@ alias vi="nvim"
 [ -s "$ZGEN_DIR/priv.zsh" ] && source "$ZGEN_DIR/priv.zsh"
 
 bindkey '^N' delete-word
+
+alias gf=gf
