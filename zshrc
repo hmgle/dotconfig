@@ -1,5 +1,73 @@
 export NVM_LAZY_LOAD=true
 
+# -------- theme --------
+# Custom Git prompt function
+# Displays:
+# - Branch name (e.g.,  main)
+# - Status:
+#   - ✔ (green): Clean
+#   - ✗ (yellow): Staged changes
+#   - ✗ (red): Unstaged changes
+# - Upstream status:
+#   - ↑N: Ahead of upstream by N commits
+#   - ↓N: Behind upstream by N commits
+#   - ↕A↓B: Diverged, A commits ahead and B commits behind
+function dst_git_prompt() {
+  # Check if we are in a git repository
+  local branch
+  branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  if [ -z "$branch" ]; then
+    return 0 # Not a git repo, exit gracefully
+  fi
+
+  # --- Determine repository status ---
+  local status_symbol
+  local is_dirty=0
+
+  # Check for unstaged changes first, as they are "more dirty"
+  if ! git diff --quiet --ignore-submodules HEAD &>/dev/null; then
+    is_dirty=1
+    status_symbol="%{$fg[red]%} ✗" # Red for unstaged changes
+  # If no unstaged changes, check for staged changes
+  elif ! git diff --quiet --ignore-submodules --cached HEAD &>/dev/null; then
+    is_dirty=1
+    status_symbol="%{$fg[yellow]%} ✗" # Yellow for staged-only changes
+  fi
+
+  # If not dirty, show a clean checkmark
+  if [[ $is_dirty -eq 0 ]]; then
+    status_symbol="%{$fg[green]%} ✔"
+  fi
+
+  # --- Check for ahead/behind status ---
+  local ahead_behind=""
+  # Only check if an upstream branch is configured
+  if git rev-parse @{u} &>/dev/null; then
+    local ahead behind
+    ahead=$(git rev-list --count @{u}..HEAD)
+    behind=$(git rev-list --count HEAD..@{u})
+
+    if [[ "$ahead" -gt 0 && "$behind" -gt 0 ]]; then
+      ahead_behind=" %{$fg[cyan]%}↕${ahead}↓${behind}%{$reset_color%}" # Changed middle arrow for clarity
+    elif [[ "$ahead" -gt 0 ]]; then
+      ahead_behind=" %{$fg[cyan]%}↑${ahead}%{$reset_color%}"
+    elif [[ "$behind" -gt 0 ]]; then
+      ahead_behind=" %{$fg[cyan]%}↓${behind}%{$reset_color%}"
+    fi
+  fi
+
+  # --- Assemble the final prompt string ---
+  echo "%{$fg_bold[magenta]%} ${branch}%{$reset_color%}${status_symbol}${ahead_behind}"
+}
+
+# --- Main Prompt Setup ---
+
+PROMPT='%{$fg[yellow]%} %* %{$reset_color%}$(dst_git_prompt) %{$fg_bold[cyan]%}%~%{$reset_color%}
+%(?:%{$fg_bold[green]%}%1{➜%}%{$reset_color%} :%{$fg_bold[red]%}%1{➜%}%{$reset_color%} )'
+
+RPROMPT=''
+# -------- theme end --------
+
 # for z.lua
 export _ZL_CMD=j
 export _ZL_ECHO=1
@@ -38,8 +106,7 @@ EOPLUGINS
     zgen load zsh-users/zsh-completions src
 
     # theme
-    # zgen oh-my-zsh themes/arrow
-    zgen oh-my-zsh themes/robbyrussell
+    # zgen oh-my-zsh themes/robbyrussell
 
     zgen load skywind3000/z.lua z.lua.plugin.zsh
     zgen load Aloxaf/fzf-tab fzf-tab.plugin.zsh
