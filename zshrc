@@ -265,4 +265,6 @@ alias vi='nvim'
 
 bindkey "^N" delete-word
 
-[ -f "/Users/portgle/.ghcup/env" ] && . "/Users/portgle/.ghcup/env" # ghcup-env
+[ -f "~/.ghcup/env" ] && . "~/.ghcup/env" # ghcup-env
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
