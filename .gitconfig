@@ -17,3 +17,5 @@
 	st = status
 [credential]
 	helper = store
+[pull]
+	rebase = false
