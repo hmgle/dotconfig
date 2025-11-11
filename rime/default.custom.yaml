@@ -1,0 +1,13 @@
+patch:
+  key_binder/bindings/+:
+    # 使用极其冷僻的组合键强制设置为英文模式
+    - { when: always, accept: "Control+Alt+Shift+F12", set_option: ascii_mode }
+
+# app_options/org.wezfurlong.wezterm:
+#   ascii_mode: false # 默认中文模式
+#   no_inline: true
+#   vim_mode: true
+#
+# key_binder/bindings/+:
+#   - { when: always, accept: Escape, toggle: ascii_mode }
+#   - { when: always, accept: Shift+space, toggle: ascii_mode }
