@@ -16,28 +16,17 @@
 ## 🔧 基础信息
 
 ### 配置概览
-
 - **配置文件**: `~/.config/awesome/rc.lua`
-- **主键**: `Mod1` (左Alt键)
+- **主键**: <kbd>Mod1</kbd> (左Alt键)
 - **终端**: `ghostty`
 - **应用启动器**: `rofi`
 - **网络管理**: `nm-applet`
 
 ### 重要命令
-
-```bash
-# 检查配置语法
-awesome -k -c ~/.config/awesome/rc.lua
-
-# 重启 AwesomeWM (在WM内)
-Mod1 + Ctrl + r
-
-# 从命令行重启
-awesome-client 'awesome.restart()'
-
-# 查看 AwesomeWM 日志
-tail -f ~/.xsession-errors
-```
+- **检查配置语法**: `awesome -k -c ~/.config/awesome/rc.lua`
+- **重启 AwesomeWM (在WM内)**: <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>r</kbd>
+- **从命令行重启**: `awesome-client 'awesome.restart()'`
+- **查看 AwesomeWM 日志**: `tail -f ~/.xsession-errors`
 
 ---
 
@@ -45,124 +34,114 @@ tail -f ~/.xsession-errors
 
 ### 🚀 应用启动器
 
-| 快捷键          | 功能            | 详细说明                               |
-| --------------- | --------------- | -------------------------------------- |
-| `Mod1 + Return` | 打开终端        | 启动 ghostty 终端，可在 rc.lua:60 修改 |
-| `Mod1 + Space`  | rofi 应用启动器 | 模糊搜索启动应用，支持中文应用名       |
-| `Mod1 + d`      | 打开文件管理器  | 启动 Thunar 文件管理器                 |
-| `Mod1 + r`      | 运行提示        | AwesomeWM 内置命令行，直接执行命令     |
-| `Mod1 + x`      | Lua 提示        | 执行 Lua 代码，用于调试和配置          |
-| `Mod1 + p`      | 菜单栏          | 显示应用程序菜单栏                     |
-| `Mod1 + w`      | 主菜单          | 显示系统主菜单                         |
+| 快捷键 | 功能 | 详细说明 |
+|--------|------|----------|
+| <kbd>Mod1</kbd> + <kbd>Return</kbd> | 打开终端 | 启动 ghostty 终端，可在 rc.lua:60 修改 |
+| <kbd>Mod1</kbd> + <kbd>Space</kbd> | rofi 应用启动器 | 模糊搜索启动应用，支持中文应用名 |
+| <kbd>Mod1</kbd> + <kbd>d</kbd> | 打开文件管理器 | 启动 Thunar 文件管理器 |
+| <kbd>Mod1</kbd> + <kbd>r</kbd> | 运行提示 | AwesomeWM 内置命令行，直接执行命令 |
+| <kbd>Mod1</kbd> + <kbd>x</kbd> | Lua 提示 | 执行 Lua 代码，用于调试和配置 |
+| <kbd>Mod1</kbd> + <kbd>p</kbd> | 菜单栏 | 显示应用程序菜单栏 |
+| <kbd>Mod1</kbd> + <kbd>w</kbd> | 主菜单 | 显示系统主菜单 |
 
 ### 🪟 窗口管理
 
 #### 基本操作
-
-| 快捷键       | 功能            | 详细说明                              |
-| ------------ | --------------- | ------------------------------------- |
-| `Mod1 + `\`` | rofi 窗口切换器 | 模糊搜索切换窗口，支持按标题/类名过滤 |
-| `Mod1 + Tab` | 最近窗口切换    | 在最近两个窗口间快速切换              |
-| `Mod1 + j`   | 下一个窗口      | 按索引聚焦到下一个窗口                |
-| `Mod1 + k`   | 上一个窗口      | 按索引聚焦到上一个窗口                |
-| `Mod1 + u`   | 跳转紧急窗口    | 跳转到有紧急提示的窗口                |
+| 快捷键 | 功能 | 详细说明 |
+|--------|------|----------|
+| <kbd>Mod1</kbd> + <kbd>&#96;</kbd> | rofi 窗口切换器 | 模糊搜索切换窗口，支持按标题/类名过滤 |
+| <kbd>Mod1</kbd> + <kbd>Tab</kbd> | 最近窗口切换 | 在最近两个窗口间快速切换 |
+| <kbd>Mod1</kbd> + <kbd>j</kbd> | 下一个窗口 | 按索引聚焦到下一个窗口 |
+| <kbd>Mod1</kbd> + <kbd>k</kbd> | 上一个窗口 | 按索引聚焦到上一个窗口 |
+| <kbd>Mod1</kbd> + <kbd>u</kbd> | 跳转紧急窗口 | 跳转到有紧急提示的窗口 |
 
 #### 窗口位置调整
-
-| 快捷键                 | 功能           | 详细说明             |
-| ---------------------- | -------------- | -------------------- |
-| `Mod1 + Shift + j`     | 向下交换窗口   | 与下一个窗口交换位置 |
-| `Mod1 + Shift + k`     | 向上交换窗口   | 与上一个窗口交换位置 |
-| `Mod1 + Ctrl + Return` | 移动到主区域   | 将当前窗口设为主窗口 |
-| `Mod1 + o`             | 移动到其他屏幕 | 多屏环境下移动窗口   |
+| 快捷键 | 功能 | 详细说明 |
+|--------|------|----------|
+| <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>j</kbd> | 向下交换窗口 | 与下一个窗口交换位置 |
+| <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>k</kbd> | 向上交换窗口 | 与上一个窗口交换位置 |
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>Return</kbd> | 移动到主区域 | 将当前窗口设为主窗口 |
+| <kbd>Mod1</kbd> + <kbd>o</kbd> | 移动到其他屏幕 | 多屏环境下移动窗口 |
 
 #### 窗口状态控制
-
-| 快捷键                | 功能             | 详细说明                     |
-| --------------------- | ---------------- | ---------------------------- |
-| `Mod1 + Ctrl + Space` | **切换浮动模式** | 在平铺/浮动模式间切换        |
-| `Mod1 + f`            | 切换全屏         | 窗口全屏显示，隐藏状态栏     |
-| `Mod1 + m`            | 切换最大化       | 窗口最大化，保留边框和状态栏 |
-| `Mod1 + Ctrl + m`     | 垂直最大化       | 仅在垂直方向最大化           |
-| `Mod1 + Shift + m`    | 水平最大化       | 仅在水平方向最大化           |
-| `Mod1 + t`            | 切换置顶         | 窗口保持在最上层             |
-| `Mod1 + n`            | 最小化窗口       | 最小化当前窗口               |
-| `Mod1 + Ctrl + n`     | 恢复最小化       | 恢复最近最小化的窗口         |
-| `Mod1 + Shift + c`    | 关闭窗口         | 关闭当前聚焦的窗口           |
+| 快捷键 | 功能 | 详细说明 |
+|--------|------|----------|
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>Space</kbd> | **切换浮动模式** | 在平铺/浮动模式间切换 |
+| <kbd>Mod1</kbd> + <kbd>f</kbd> | 切换全屏 | 窗口全屏显示，隐藏状态栏 |
+| <kbd>Mod1</kbd> + <kbd>m</kbd> | 切换最大化 | 窗口最大化，保留边框和状态栏 |
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>m</kbd> | 垂直最大化 | 仅在垂直方向最大化 |
+| <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>m</kbd> | 水平最大化 | 仅在水平方向最大化 |
+| <kbd>Mod1</kbd> + <kbd>t</kbd> | 切换置顶 | 窗口保持在最上层 |
+| <kbd>Mod1</kbd> + <kbd>n</kbd> | 最小化窗口 | 最小化当前窗口 |
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>n</kbd> | 恢复最小化 | 恢复最近最小化的窗口 |
+| <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>c</kbd> | 关闭窗口 | 关闭当前聚焦的窗口 |
 
 ### 🏷️ 标签 (工作区) 管理
 
 #### 基本切换
-
-| 快捷键         | 功能         | 详细说明                       |
-| -------------- | ------------ | ------------------------------ |
-| `Ctrl + 1-9`   | 切换到标签   | 直接切换到指定工作区（修改版） |
-| `Mod1 + Left`  | 上一个标签   | 切换到上一个工作区             |
-| `Mod1 + Right` | 下一个标签   | 切换到下一个工作区             |
-| `Mod1 + Esc`   | 返回上次标签 | 返回之前的工作区               |
+| 快捷键 | 功能 | 详细说明 |
+|--------|------|----------|
+| <kbd>Ctrl</kbd> + <kbd>1-9</kbd> | 切换到标签 | 直接切换到指定工作区（修改版） |
+| <kbd>Mod1</kbd> + <kbd>Left</kbd> | 上一个标签 | 切换到上一个工作区 |
+| <kbd>Mod1</kbd> + <kbd>Right</kbd> | 下一个标签 | 切换到下一个工作区 |
+| <kbd>Mod1</kbd> + <kbd>Esc</kbd> | 返回上次标签 | 返回之前的工作区 |
 
 #### 窗口移动
-
-| 快捷键                      | 功能           | 详细说明                       |
-| --------------------------- | -------------- | ------------------------------ |
-| `Mod1 + Shift + 1-9`        | 移动窗口到标签 | 将当前窗口移动到指定工作区     |
-| `Mod1 + Ctrl + 1-9`         | 标签叠加显示   | 在当前工作区叠加显示指定工作区 |
-| `Mod1 + Ctrl + Shift + 1-9` | 窗口多标签     | 让窗口同时显示在多个工作区     |
+| 快捷键 | 功能 | 详细说明 |
+|--------|------|----------|
+| <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>1-9</kbd> | 移动窗口到标签 | 将当前窗口移动到指定工作区 |
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>1-9</kbd> | 标签叠加显示 | 在当前工作区叠加显示指定工作区 |
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>1-9</kbd> | 窗口多标签 | 让窗口同时显示在多个工作区 |
 
 ### 📐 布局管理
 
 #### 布局切换
-
-| 快捷键     | 功能       | 详细说明         |
-| ---------- | ---------- | ---------------- |
-| `Mod1 + .` | 下一个布局 | 顺序切换窗口布局 |
-| `Mod1 + ,` | 上一个布局 | 逆序切换窗口布局 |
+| 快捷键 | 功能 | 详细说明 |
+|--------|------|----------|
+| <kbd>Mod1</kbd> + <kbd>.</kbd> | 下一个布局 | 顺序切换窗口布局 |
+| <kbd>Mod1</kbd> + <kbd>,</kbd> | 上一个布局 | 逆序切换窗口布局 |
 
 #### 主区域调整
-
-| 快捷键             | 功能           | 详细说明          |
-| ------------------ | -------------- | ----------------- |
-| `Mod1 + l`         | 增加主区域宽度 | 主窗口区域变宽 5% |
-| `Mod1 + h`         | 减少主区域宽度 | 主窗口区域变窄 5% |
-| `Mod1 + Shift + h` | 增加主窗口数量 | 主区域窗口数 +1   |
-| `Mod1 + Shift + y` | 减少主窗口数量 | 主区域窗口数 -1   |
-| `Mod1 + Ctrl + h`  | 增加列数       | 增加窗口排列列数  |
-| `Mod1 + Ctrl + l`  | 减少列数       | 减少窗口排列列数  |
+| 快捷键 | 功能 | 详细说明 |
+|--------|------|----------|
+| <kbd>Mod1</kbd> + <kbd>l</kbd> | 增加主区域宽度 | 主窗口区域变宽 5% |
+| <kbd>Mod1</kbd> + <kbd>h</kbd> | 减少主区域宽度 | 主窗口区域变窄 5% |
+| <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>h</kbd> | 增加主窗口数量 | 主区域窗口数 +1 |
+| <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>y</kbd> | 减少主窗口数量 | 主区域窗口数 -1 |
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>h</kbd> | 增加列数 | 增加窗口排列列数 |
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>l</kbd> | 减少列数 | 减少窗口排列列数 |
 
 ### 🎛️ 系统控制
 
-| 快捷键             | 功能           | 详细说明                       |
-| ------------------ | -------------- | ------------------------------ |
-| `Mod1 + Ctrl + r`  | 重启 AwesomeWM | 重新加载配置，不会丢失窗口状态 |
-| `Mod1 + Shift + q` | 退出 AwesomeWM | 注销当前会话                   |
-| `Mod1 + s`         | 显示帮助       | 查看所有快捷键帮助             |
-| `Mod1 + Shift + l` | 关闭屏幕       | 立即关闭显示器，省电节能       |
+| 快捷键 | 功能 | 详细说明 |
+|--------|------|----------|
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>r</kbd> | 重启 AwesomeWM | 重新加载配置，不会丢失窗口状态 |
+| <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>q</kbd> | 退出 AwesomeWM | 注销当前会话 |
+| <kbd>Mod1</kbd> + <kbd>s</kbd> | 显示帮助 | 查看所有快捷键帮助 |
+| <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>l</kbd> | 关闭屏幕 | 立即关闭显示器，省电节能 |
 
 ### 🖱️ 鼠标操作
 
 #### 桌面操作
-
-| 操作           | 功能       | 详细说明             |
-| -------------- | ---------- | -------------------- |
-| `右键点击桌面` | 显示主菜单 | 打开应用程序菜单     |
-| `滚轮向上`     | 上一个标签 | 在桌面滚动切换工作区 |
-| `滚轮向下`     | 下一个标签 | 在桌面滚动切换工作区 |
+| 操作 | 功能 | 详细说明 |
+|------|------|----------|
+| `右键点击桌面` | 显示主菜单 | 打开应用程序菜单 |
+| `滚轮向上` | 上一个标签 | 在桌面滚动切换工作区 |
+| `滚轮向下` | 下一个标签 | 在桌面滚动切换工作区 |
 
 #### 窗口操作
-
-| 操作              | 功能         | 详细说明               |
-| ----------------- | ------------ | ---------------------- |
-| `点击窗口`        | 聚焦窗口     | 激活并聚焦到点击的窗口 |
-| `Mod1 + 左键拖拽` | 移动窗口     | 拖动移动浮动窗口       |
-| `Mod1 + 右键拖拽` | 调整窗口大小 | 拖动调整浮动窗口大小   |
+| 操作 | 功能 | 详细说明 |
+|------|------|----------|
+| `点击窗口` | 聚焦窗口 | 激活并聚焦到点击的窗口 |
+| <kbd>Mod1</kbd> + <kbd>左键拖拽</kbd> | 移动窗口 | 拖动移动浮动窗口 |
+| <kbd>Mod1</kbd> + <kbd>右键拖拽</kbd> | 调整窗口大小 | 拖动调整浮动窗口大小 |
 
 #### 任务栏操作
-
-| 操作           | 功能        | 详细说明                 |
-| -------------- | ----------- | ------------------------ |
+| 操作 | 功能 | 详细说明 |
+|------|------|----------|
 | `左键点击任务` | 切换/最小化 | 已聚焦则最小化，否则聚焦 |
-| `右键点击任务` | 客户端列表  | 显示所有窗口列表         |
-| `滚轮`         | 窗口循环    | 循环切换窗口聚焦         |
+| `右键点击任务` | 客户端列表 | 显示所有窗口列表 |
+| `滚轮` | 窗口循环 | 循环切换窗口聚焦 |
 
 ---
 
@@ -175,17 +154,17 @@ tail -f ~/.xsession-errors
    - 大小由布局算法控制
    - 适合高效工作
 
-2. **浮动窗口** (`Mod1 + Ctrl + Space`)
+2. **浮动窗口** (<kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>Space</kbd>)
    - 可自由拖拽和调整大小
    - 类似传统桌面环境
    - 适合临时任务和对话框
 
-3. **全屏窗口** (`Mod1 + f`)
+3. **全屏窗口** (<kbd>Mod1</kbd> + <kbd>f</kbd>)
    - 占满整个屏幕
    - 隐藏状态栏和边框
    - 适合专注工作
 
-4. **最大化窗口** (`Mod1 + m`)
+4. **最大化窗口** (<kbd>Mod1</kbd> + <kbd>m</kbd>)
    - 占满工作区域
    - 保留状态栏和边框
    - 平衡的全屏体验
@@ -227,7 +206,7 @@ tail -f ~/.xsession-errors
 
 ### 布局快速选择
 
-- 使用 `Mod1 + .` 和 `Mod1 + ,` 在布局间循环
+- 使用 <kbd>Mod1</kbd> + <kbd>.</kbd> 和 <kbd>Mod1</kbd> + <kbd>,</kbd> 在布局间循环
 - 右键点击状态栏布局图标可直接选择
 - 不同工作区可使用不同布局
 
@@ -271,7 +250,6 @@ tail -f ~/.xsession-errors
 ### 修改主键
 
 编辑 `rc.lua` 第69行：
-
 ```lua
 modkey = "Mod1"  -- Mod1=Alt, Mod4=Super/Windows键
 ```
@@ -279,7 +257,6 @@ modkey = "Mod1"  -- Mod1=Alt, Mod4=Super/Windows键
 ### 修改终端
 
 编辑 `rc.lua` 第60行：
-
 ```lua
 terminal = "ghostty"  -- 可改为 "alacritty", "kitty" 等
 ```
@@ -287,7 +264,6 @@ terminal = "ghostty"  -- 可改为 "alacritty", "kitty" 等
 ### 添加自启动应用
 
 在 `rc.lua` 末尾添加：
-
 ```lua
 awful.spawn.once("应用程序名")
 ```
@@ -295,21 +271,19 @@ awful.spawn.once("应用程序名")
 ### 自定义快捷键
 
 在 `globalkeys` 部分添加：
-
 ```lua
-awful.key({ modkey }, "键位", function()
-    awful.spawn("命令")
+awful.key({ modkey }, "键位", function() 
+    awful.spawn("命令") 
 end, { description = "描述", group = "组名" })
 ```
 
 ### 窗口规则
 
 在 `awful.rules.rules` 中添加规则：
-
 ```lua
 {
     rule = { class = "应用类名" },
-    properties = {
+    properties = { 
         floating = true,  -- 浮动
         tag = "2"         -- 指定工作区
     }
@@ -323,24 +297,16 @@ end, { description = "描述", group = "组名" })
 ### 常见问题
 
 1. **配置不生效**
-
    ```bash
    # 检查语法
    awesome -k -c ~/.config/awesome/rc.lua
-
-   # 重启AwesomeWM
-   Mod1 + Ctrl + r
    ```
+   **重启 AwesomeWM（快捷键）**: <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>r</kbd>
 
 2. **快捷键冲突**
-
-   ```bash
-   # 查看当前快捷键
-   Mod1 + s
-   ```
+   **查看当前快捷键**: <kbd>Mod1</kbd> + <kbd>s</kbd>
 
 3. **应用无法启动**
-
    ```bash
    # 检查应用是否安装
    which rofi
@@ -383,12 +349,12 @@ cp ~/.config/awesome/rc.lua.bak ~/.config/awesome/rc.lua
 
 - 自动检测多显示器
 - 每个显示器独立的工作区
-- `Mod1 + Ctrl + j/k` 在显示器间切换焦点
-- `Mod1 + o` 移动窗口到其他显示器
+- <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>j</kbd>/<kbd>k</kbd> 在显示器间切换焦点
+- <kbd>Mod1</kbd> + <kbd>o</kbd> 移动窗口到其他显示器
 
 ### Lua提示符高级用法
 
-使用 `Mod1 + x` 打开Lua提示符，可执行：
+使用 <kbd>Mod1</kbd> + <kbd>x</kbd> 打开Lua提示符，可执行：
 
 ```lua
 -- 查看所有客户端
@@ -406,12 +372,11 @@ print(awful.screen.focused().selected_tag.name)
 ### rofi高级配置
 
 创建 `~/.config/rofi/config.rasi`:
-
 ```css
 configuration {
-  modi: "window,run,drun";
-  theme: "Arc-Dark";
-  font: "Ubuntu 12";
+    modi: "window,run,drun";
+    theme: "Arc-Dark";
+    font: "Ubuntu 12";
 }
 ```
 
@@ -437,3 +402,8 @@ beautiful.init("~/.config/awesome/themes/default/theme.lua")
 - [Vicious Widget库](https://github.com/vicious-widgets/vicious)
 - [rofi用户手册](https://github.com/davatorium/rofi)
 
+---
+
+*最后更新: 2025-09-09*  
+*配置文件: `~/.config/awesome/rc.lua`*  
+*文档位置: `~/.config/awesome/user-guide.md`*
