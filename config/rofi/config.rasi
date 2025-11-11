@@ -1,0 +1,17 @@
+configuration {
+    modi: "drun,run";
+    show-icons: true;
+    display-drun: "Applications:";
+    display-run: "Commands:";
+
+    kb-row-down: "Down,Control+j";
+    kb-row-up: "Up,Control+k";
+    kb-accept-entry: "Return,KP_Enter";
+    kb-remove-to-eol: "";
+    kb-move-char-back: "Left,Control+b";
+    kb-move-char-forward: "Right,Control+f";
+    kb-move-word-back: "Alt+b";
+    kb-move-word-forward: "Alt+f";
+}
+
+@theme "default"
