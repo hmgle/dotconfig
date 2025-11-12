@@ -242,7 +242,7 @@ if command -v rustc >/dev/null 2>&1; then
   fi
 fi
 
-toolchain_lib="/home/gle/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib"
+toolchain_lib="$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib"
 if [[ -d "$toolchain_lib" ]]; then
   export LD_LIBRARY_PATH="$toolchain_lib${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
 fi
@@ -284,4 +284,4 @@ alias gf=gf
 
 . "$HOME/.atuin/bin/env"
 
-[ -f "/home/gle/.ghcup/env" ] && . "/home/gle/.ghcup/env" # ghcup-env
+[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
