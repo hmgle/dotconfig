@@ -9,7 +9,7 @@
 [push]
 	default = simple
 [init]
-	templatedir = ~/.git_template
+	templateDir = ~/.git_template
 	defaultBranch = main
 [alias]
 	co = checkout

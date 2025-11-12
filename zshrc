@@ -155,7 +155,9 @@ export EDITOR='nvim'
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # 未找到命令安装提示
-source /etc/zsh_command_not_found
+if [[ -r /etc/zsh_command_not_found ]]; then
+  source /etc/zsh_command_not_found
+fi
 
 # golang
 export GOPATH="$HOME/gopath"
@@ -231,13 +233,23 @@ setopt HIST_EXPIRE_DUPS_FIRST
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
-export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=/home/gle/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib:$LD_LIBRARY_PATH
+# 如果 rustc 可用则设置与之相关的环境变量
+if command -v rustc >/dev/null 2>&1; then
+  sysroot="$(rustc --print sysroot 2>/dev/null || true)"
+  if [[ -n "$sysroot" ]]; then
+    export RUST_SRC_PATH="$sysroot/lib/rustlib/src/rust/src"
+    export LD_LIBRARY_PATH="$sysroot/lib${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
+  fi
+fi
+
+toolchain_lib="/home/gle/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib"
+if [[ -d "$toolchain_lib" ]]; then
+  export LD_LIBRARY_PATH="$toolchain_lib${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
+fi
 
 fpath+=~/.zfunc
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh && export FZF_DEFAULT_OPTS="--bind='tab:down,shift-tab:up' --cycle"
+source <(fzf --zsh) && export FZF_DEFAULT_OPTS="--bind='tab:down,shift-tab:up' --cycle"
 [ -f ~/.skim/bin/sk ] && export PATH="$PATH:$HOME/.skim/bin"
 (( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)"
 
@@ -269,3 +281,7 @@ alias vi="nvim"
 bindkey '^N' delete-word
 
 alias gf=gf
+
+. "$HOME/.atuin/bin/env"
+
+[ -f "/home/gle/.ghcup/env" ] && . "/home/gle/.ghcup/env" # ghcup-env
