@@ -6,6 +6,7 @@
 	quotepath = false
 [merge]
 	tool = vimdiff
+	conflictStyle = diff3
 [push]
 	default = simple
 [init]
@@ -19,3 +20,7 @@
 	helper = store
 [pull]
 	rebase = false
+; https://mergiraf.org/usage.html
+[merge "mergiraf"]
+	name = mergiraf
+	driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
