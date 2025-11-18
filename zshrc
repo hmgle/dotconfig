@@ -282,6 +282,21 @@ bindkey '^N' delete-word
 
 alias gf=gf
 
-. "$HOME/.atuin/bin/env"
+if [ -s "$HOME/.atuin/bin/env" ]; then
+  . "$HOME/.atuin/bin/env"
+fi
 
 [ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
+
+# bun
+# {{
+# bun completions
+# [ -s ~/.bun/_bun ] || bun completions
+if [ -s "${BUN_INSTALL:-$HOME/.bun}/_bun" ]; then
+  # use BUN_INSTALL when set, otherwise default to ~/.bun
+  source "${BUN_INSTALL:-$HOME/.bun}/_bun"
+fi
+
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+# }}
