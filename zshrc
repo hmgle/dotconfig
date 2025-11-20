@@ -26,7 +26,6 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/sudo
     # zgen oh-my-zsh plugins/command-not-found
 
-    # zgen load zsh-users/zsh-syntax-highlighting
 
     # bulk load
     zgen loadall <<EOPLUGINS
@@ -42,6 +41,9 @@ EOPLUGINS
 
     zgen load skywind3000/z.lua z.lua.plugin.zsh
     zgen load Aloxaf/fzf-tab fzf-tab.plugin.zsh
+
+    # zgen load zsh-users/zsh-syntax-highlighting
+    zgen load zdharma-continuum/fast-syntax-highlighting
 
     # save all to init script
     zgen save
