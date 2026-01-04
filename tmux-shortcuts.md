@@ -8,7 +8,7 @@
 
 - <kbd>Prefix</kbd> + <kbd>N</kbd>：新建 session。
 - <kbd>Prefix</kbd> + <kbd>S</kbd>：列出所有 session 并切换（树形视图）。
-- <kbd>Prefix</kbd> + <kbd>M</kbd>：通过 fzf 选择目标窗口，将当前 pane 移动过去。
+- <kbd>Prefix</kbd> + <kbd>M</kbd>：通过 fzf 选择目标窗口，将当前 pane 移动过去（需要 fzf / fzf-tmux，tmux >= 3.2）。
 
 ### 默认快捷键
 
