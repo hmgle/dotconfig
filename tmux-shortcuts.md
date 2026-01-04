@@ -6,18 +6,18 @@
 
 ### 自定义快捷键
 
-_当前配置未绑定新建/管理 session 的快捷键。_
+- <kbd>Prefix</kbd> + <kbd>N</kbd>：新建 session。
+- <kbd>Prefix</kbd> + <kbd>S</kbd>：列出所有 session 并切换（树形视图）。
+- <kbd>Prefix</kbd> + <kbd>M</kbd>：通过 fzf 选择目标窗口，将当前 pane 移动过去。
 
 ### 默认快捷键
 
-- <kbd>Prefix</kbd> + <kbd>:</kbd> 然后输入 `new`：新建 session。
 - <kbd>Prefix</kbd> + <kbd>$</kbd>：重命名当前 session。
-- <kbd>Prefix</kbd> + <kbd>s</kbd>：列出所有 session 并切换（注意：被 tmux-easymotion 覆盖）。
 - <kbd>Prefix</kbd> + <kbd>(</kbd> / <kbd>)</kbd>：切换到上一个/下一个 session。
 - <kbd>Prefix</kbd> + <kbd>d</kbd>：从当前 session 分离 (detach)。
 - <kbd>Prefix</kbd> + <kbd>D</kbd>：选择要分离的客户端。
 
-> **提示**：可通过 `Prefix + Shift + F` 调用 tmux-fzf 在 session 间模糊搜索和切换。
+> **注意**：默认的 `Prefix + s` 被 tmux-easymotion 覆盖，请用 `Prefix + S`（大写）切换 session。
 
 ## 窗口 (Window)
 
