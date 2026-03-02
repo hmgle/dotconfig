@@ -1,55 +1,40 @@
 export NVM_LAZY_LOAD=true
 
-# for z.lua
+# z.lua
 export _ZL_CMD=j
 export _ZL_ECHO=1
 
-# load zgen
-source "${HOME}/.zgen/zgen.zsh"
-
-# if the init scipt doesn't exist
-if ! zgen saved; then
-    echo "Creating a zgen save"
-
-    zgen oh-my-zsh
-
-    # plugins
-    # plugins=(git git-flow history-substring-search golang docker node npm cargo rust rebar)
-    zgen oh-my-zsh plugins/git
-    zgen oh-my-zsh plugins/git-flow
-    # zgen oh-my-zsh plugins/history-substring-search
-    zgen oh-my-zsh plugins/golang
-    zgen oh-my-zsh plugins/docker
-    zgen load lukechilds/zsh-nvm
-    zgen oh-my-zsh plugins/node
-    zgen oh-my-zsh plugins/npm
-    zgen oh-my-zsh plugins/sudo
-    # zgen oh-my-zsh plugins/command-not-found
-
-
-    # bulk load
-    zgen loadall <<EOPLUGINS
-        zsh-users/zsh-history-substring-search
-EOPLUGINS
-    # ^ can't indent this EOPLUGINS
-
-    # completions
-    zgen load zsh-users/zsh-completions src
-
-    # theme
-    # zgen oh-my-zsh themes/robbyrussell
-
-    zgen load skywind3000/z.lua z.lua.plugin.zsh
-    zgen load Aloxaf/fzf-tab fzf-tab.plugin.zsh
-
-    # zgen load zsh-users/zsh-syntax-highlighting
-    zgen load zdharma-continuum/fast-syntax-highlighting
-
-    # save all to init script
-    zgen save
+# zgen
+if [[ -r "${HOME}/.zgen/zgen.zsh" ]]; then
+  source "${HOME}/.zgen/zgen.zsh"
 fi
 
-# -------- theme --------
+if (( $+functions[zgen] )) && ! zgen saved; then
+  echo "Creating a zgen save"
+
+  zgen oh-my-zsh
+  zgen oh-my-zsh plugins/git
+  zgen oh-my-zsh plugins/git-flow
+  zgen oh-my-zsh plugins/golang
+  zgen oh-my-zsh plugins/docker
+  zgen load lukechilds/zsh-nvm
+  zgen oh-my-zsh plugins/node
+  zgen oh-my-zsh plugins/npm
+  zgen oh-my-zsh plugins/sudo
+
+  zgen load zsh-users/zsh-history-substring-search
+  zgen load zsh-users/zsh-completions src
+  zgen load skywind3000/z.lua z.lua.plugin.zsh
+  zgen load Aloxaf/fzf-tab fzf-tab.plugin.zsh
+  zgen load zdharma-continuum/fast-syntax-highlighting
+
+  zgen save
+fi
+
+(( $+functions[git_prompt_info] )) || git_prompt_info() { :; }
+(( $+functions[git_prompt_status] )) || git_prompt_status() { :; }
+
+# prompt
 git_ahead_behind() {
   local ahead behind ahead_behind=""
   if read ahead behind < <(git rev-list --left-right --count HEAD...@{u} 2>/dev/null); then
@@ -69,173 +54,62 @@ git_ahead_behind() {
   echo "$ahead_behind"
 }
 
-
 PROMPT='%{$fg[yellow]%} %* %{$reset_color%}$(git_prompt_info)%{$reset_color%}$(git_prompt_status)$(git_ahead_behind)%{$reset_color%} %{$fg_bold[cyan]%}%~%{$reset_color%}
 %(?:%{$fg_bold[green]%}%1{➜%}%{$reset_color%} :%{$fg_bold[red]%}%1{➜%}%{$reset_color%} )'
-
 RPROMPT=''
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%})"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%}) %{$fg[green]%}%1{✔%}"
-
 ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[green]%}A"
 ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[yellow]%}M"
 ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%}D"
 ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[magenta]%}R"
 ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[red]%}U"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[magenta]%}?"
-# -------- theme end --------
 
 zstyle ':fzf-tab:*' fzf-bindings 'space:accept'
 zstyle ':fzf-tab:*(cat|ls)*' accept-line enter
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:complete:(cd|go):*' disabled-on any
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias em="emacs -nw"
+alias vi="nvim"
+alias ssh="zssh"
+alias ag="rg"
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export EDITOR="nvim"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to disable command auto-correction.
-# DISABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# plugins=(git history-substring-search golang docker z nvm node npm cargo rust safe-paste)
-## plugins=(git git-flow history-substring-search golang docker node npm cargo rust rebar)
-##
-## source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-export PATH=$HOME/bin:$PATH
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-export EDITOR='nvim'
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# 未找到命令安装提示
+# command not found handler
 if [[ -r /etc/zsh_command_not_found ]]; then
   source /etc/zsh_command_not_found
 fi
 
 # golang
 export GOPATH="$HOME/gopath"
-export PATH=$PATH:$GOPATH/bin
-# export GO15VENDOREXPERIMENT=1
-export GO111MODULE=auto
+export PATH="$PATH:$GOPATH/bin"
 
-# jdk
-export JAVA_HOME="$HOME/androidx/jdk1.8.0_60"
-export PATH="$PATH:$HOME/androidx/jdk1.8.0_60/bin"
-
-# Android
+# jdk / android
+if [[ -d "$HOME/androidx/jdk1.8.0_60" ]]; then
+  export JAVA_HOME="$HOME/androidx/jdk1.8.0_60"
+  export PATH="$PATH:$JAVA_HOME/bin"
+fi
 export ANDROID_HOME="$HOME/androidx/android-sdk-linux"
 
 # history
 HISTSIZE=100000
 SAVEHIST=100000
-# tip: zsh 终端输入 setopt 可列出所有 enable 变量,
-# unsetopt 列出所有 unenable 变量
-setopt histignoredups
-
-# Don’t push multiple copies of the same directory onto the
-# directory stack.
-# setopt PUSHD_IGNORE_DUPS
-
-# If a new command line being added to the history list
-# duplicates an older one, the older command is removed
-# from the list (even if it is not the previous event).
+setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
-
-# Remove superfluous blanks from each command line
-# being added to the history list.
 setopt HIST_REDUCE_BLANKS
-
 setopt HIST_IGNORE_SPACE
-
-# setopt HIST_NO_STORE
-
-# Whenever the user enters a line with history expansion,
-# don’t execute the line directly; instead, perform history
-# expansion and reload the line into the editing buffer.
-# setopt HIST_VERIFY
-
-# Save each command’s beginning timestamp (in seconds since the epoch)
-# and the duration (in seconds) to the history file.
-# setopt EXTENDED_HISTORY
-
-# When writing out the history file, older commands that duplicate
-# newer ones are omitted.
 setopt HIST_SAVE_NO_DUPS
-
-# If the internal history needs to be trimmed to add the current
-# command line, setting this option will cause the oldest history
-# event that has a duplicate to be lost before losing a unique event
-# from the list. You should be sure to set the value of HISTSIZE to
-# a larger number than SAVEHIST in order to give you some room for
-# the duplicated events, otherwise this option will behave just like
-# HIST_IGNORE_ALL_DUPS once the history fills up with unique events.
 setopt HIST_EXPIRE_DUPS_FIRST
 
-# When searching for history entries in the line editor, do not
-# display duplicates of a line previously found, even if the
-# duplicates are not contiguous.
-# setopt HIST_FIND_NO_DUPS
-
-# # rbenv {{
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
-#
-# export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
-# # }}
-
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-# 如果 rustc 可用则设置与之相关的环境变量
+# rust
 if command -v rustc >/dev/null 2>&1; then
   sysroot="$(rustc --print sysroot 2>/dev/null || true)"
   if [[ -n "$sysroot" ]]; then
@@ -249,23 +123,21 @@ if [[ -d "$toolchain_lib" ]]; then
   export LD_LIBRARY_PATH="$toolchain_lib${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
 fi
 
-fpath+=~/.zfunc
+fpath+=("$HOME/.zfunc")
 
-source <(fzf --zsh) && export FZF_DEFAULT_OPTS="--bind='tab:down,shift-tab:up' --cycle"
-[ -f ~/.skim/bin/sk ] && export PATH="$PATH:$HOME/.skim/bin"
+if (( $+commands[fzf] )); then
+  source <(fzf --zsh)
+  export FZF_DEFAULT_OPTS="--bind='tab:down,shift-tab:up' --cycle"
+fi
+
+[[ -f "$HOME/.skim/bin/sk" ]] && export PATH="$PATH:$HOME/.skim/bin"
 (( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)"
 
-alias ssh="zssh"
-alias ag="rg"
+[[ -f /usr/local/tinygo/bin/tinygo ]] && export PATH="$PATH:/usr/local/tinygo/bin"
 
-[ -f /usr/local/tinygo/bin/tinygo ] && export PATH=$PATH:/usr/local/tinygo/bin
-export PATH=$HOME/.local/bin:$PATH
-
-compdef _precommand graftcp mgraftcp proxychains
-
-# function graftcp {
-#    command graftcp zsh -i -c "$*" # command to prevent recursion,  -i to force bash to read .bashrc
-# }
+if (( $+functions[compdef] )); then
+  compdef _precommand graftcp mgraftcp proxychains
+fi
 
 unalias gops 2>/dev/null || true
 unalias gg 2>/dev/null || true
@@ -274,31 +146,33 @@ DEBEMAIL="dustgle@gmail.com"
 DEBFULLNAME="Mingang He"
 export DEBEMAIL DEBFULLNAME
 
-# autoload -U compinit && compinit -u
-
-alias vi="nvim"
-
-[ -s "$ZGEN_DIR/priv.zsh" ] && source "$ZGEN_DIR/priv.zsh"
+zgen_private_file="${ZGEN_DIR:-$HOME/.zgen}/priv.zsh"
+[[ -s "$zgen_private_file" ]] && source "$zgen_private_file"
 
 bindkey '^N' delete-word
 
-alias gf=gf
-
-if [ -s "$HOME/.atuin/bin/env" ]; then
+if [[ -s "$HOME/.atuin/bin/env" ]]; then
   . "$HOME/.atuin/bin/env"
 fi
 
-[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
+[[ -f "$HOME/.ghcup/env" ]] && . "$HOME/.ghcup/env"
 
 # bun
-# {{
-# bun completions
-# [ -s ~/.bun/_bun ] || bun completions
-if [ -s "${BUN_INSTALL:-$HOME/.bun}/_bun" ]; then
-  # use BUN_INSTALL when set, otherwise default to ~/.bun
-  source "${BUN_INSTALL:-$HOME/.bun}/_bun"
+export BUN_INSTALL="${BUN_INSTALL:-$HOME/.bun}"
+if [[ -s "$BUN_INSTALL/_bun" ]]; then
+  source "$BUN_INSTALL/_bun"
+fi
+[[ -d "$BUN_INSTALL/bin" ]] && export PATH="$BUN_INSTALL/bin:$PATH"
+
+# normalize PATH and switch to nvm default
+export NVM_DIR="$HOME/.nvm"
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+  path=(${path:#$HOME/.nvm/versions/node/*/bin})
+  path=(${path:#$HOME/.nvm/versions/node/*/bin/})
+
+  . "$NVM_DIR/nvm.sh" --no-use
+  nvm use --silent default >/dev/null 2>&1
 fi
 
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-# }}
+# keep PATH unique while preserving first-hit order
+typeset -U path PATH
