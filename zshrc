@@ -54,7 +54,80 @@ git_ahead_behind() {
   echo "$ahead_behind"
 }
 
-PROMPT='%{$fg[yellow]%} %* %{$reset_color%}$(git_prompt_info)%{$reset_color%}$(git_prompt_status)$(git_ahead_behind)%{$reset_color%} %{$fg_bold[cyan]%}%~%{$reset_color%}
+prompt_git_summary() {
+  local width=${COLUMNS:-80}
+  local branch branch_max git_status="" ahead=""
+
+  (( width < 40 )) && return 0
+
+  branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null) || return 0
+
+  if (( width < 52 )); then
+    branch_max=10
+  elif (( width < 72 )); then
+    branch_max=16
+  else
+    branch_max=24
+  fi
+
+  if (( ${#branch} > branch_max )); then
+    local tail_len=$(( branch_max - 3 ))
+    (( tail_len < 1 )) && tail_len=1
+    branch="...${branch[-$tail_len,-1]}"
+  fi
+
+  branch=${branch//\%/%%}
+
+  if (( width >= 48 )); then
+    git_status="$(git_prompt_status)"
+  fi
+
+  if (( width >= 72 )); then
+    ahead="$(git_ahead_behind)"
+  fi
+
+  print -nr -- "%{$fg_bold[blue]%}(%{$fg[red]%}${branch}%{$fg[blue]%})%{$reset_color%}${git_status}${ahead}%{$reset_color%} "
+}
+
+prompt_time_compact() {
+  local width=${COLUMNS:-80}
+
+  (( width < 70 )) && return 0
+
+  print -nr -- "%{$fg[yellow]%} ${(%):-%*} %{$reset_color%}"
+}
+
+prompt_path_compact() {
+  local width=${COLUMNS:-80}
+  local path="${PWD/#$HOME/~}"
+  local max tail_len
+
+  if (( width < 40 )); then
+    max=12
+  elif (( width < 60 )); then
+    max=18
+  elif (( width < 90 )); then
+    max=28
+  else
+    max=40
+  fi
+
+  if (( ${#path} > max )); then
+    tail_len=$(( max - 3 ))
+    (( tail_len < 1 )) && tail_len=1
+    path="...${path[-$tail_len,-1]}"
+  fi
+
+  path=${path//\%/%%}
+
+  print -nr -- "%{$fg_bold[cyan]%}${path}%{$reset_color%}"
+}
+
+prompt_info_line() {
+  print -nr -- "$(prompt_time_compact)$(prompt_git_summary)$(prompt_path_compact)"
+}
+
+PROMPT='$(prompt_info_line)
 %(?:%{$fg_bold[green]%}%1{➜%}%{$reset_color%} :%{$fg_bold[red]%}%1{➜%}%{$reset_color%} )'
 RPROMPT=''
 
