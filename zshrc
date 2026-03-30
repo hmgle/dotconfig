@@ -54,6 +54,20 @@ git_ahead_behind() {
   echo "$ahead_behind"
 }
 
+prompt_tail_truncate() {
+  local text="$1"
+  local max="$2"
+  local tail_len
+
+  if (( ${#text} > max )); then
+    tail_len=$(( max - 3 ))
+    (( tail_len < 1 )) && tail_len=1
+    text="...${text[-$tail_len,-1]}"
+  fi
+
+  print -nr -- "${text//\%/%%}"
+}
+
 prompt_git_summary() {
   local width=${COLUMNS:-80}
   local branch branch_max git_status="" ahead=""
@@ -62,21 +76,8 @@ prompt_git_summary() {
 
   branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null) || return 0
 
-  if (( width < 52 )); then
-    branch_max=10
-  elif (( width < 72 )); then
-    branch_max=16
-  else
-    branch_max=24
-  fi
-
-  if (( ${#branch} > branch_max )); then
-    local tail_len=$(( branch_max - 3 ))
-    (( tail_len < 1 )) && tail_len=1
-    branch="...${branch[-$tail_len,-1]}"
-  fi
-
-  branch=${branch//\%/%%}
+  branch_max=$(( width < 52 ? 10 : width < 72 ? 16 : 24 ))
+  branch="$(prompt_tail_truncate "$branch" "$branch_max")"
 
   if (( width >= 48 )); then
     git_status="$(git_prompt_status)"
@@ -100,27 +101,9 @@ prompt_time_compact() {
 prompt_path_compact() {
   local width=${COLUMNS:-80}
   local path="${PWD/#$HOME/~}"
-  local max tail_len
+  local max=$(( width < 40 ? 12 : width < 60 ? 18 : width < 90 ? 28 : 40 ))
 
-  if (( width < 40 )); then
-    max=12
-  elif (( width < 60 )); then
-    max=18
-  elif (( width < 90 )); then
-    max=28
-  else
-    max=40
-  fi
-
-  if (( ${#path} > max )); then
-    tail_len=$(( max - 3 ))
-    (( tail_len < 1 )) && tail_len=1
-    path="...${path[-$tail_len,-1]}"
-  fi
-
-  path=${path//\%/%%}
-
-  print -nr -- "%{$fg_bold[cyan]%}${path}%{$reset_color%}"
+  print -nr -- "%{$fg_bold[cyan]%}$(prompt_tail_truncate "$path" "$max")%{$reset_color%}"
 }
 
 prompt_info_line() {
