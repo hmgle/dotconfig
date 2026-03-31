@@ -59,6 +59,8 @@ prompt_tail_truncate() {
   local max="$2"
   local tail_len
 
+  (( max < 1 )) && max=1
+
   if (( ${#text} > max )); then
     tail_len=$(( max - 3 ))
     (( tail_len < 1 )) && tail_len=1
@@ -68,16 +70,24 @@ prompt_tail_truncate() {
   print -nr -- "${text//\%/%%}"
 }
 
+prompt_rendered_width() {
+  setopt local_options extended_glob
+  local rendered="${(%):-$1}"
+
+  # Expand prompt escapes, then drop ANSI color codes to measure visible width only.
+  rendered="${rendered//$'\e'\[[0-9;]##[[:alpha:]]/}"
+  print -nr -- ${#rendered}
+}
+
 prompt_git_summary() {
   local width=${COLUMNS:-80}
-  local branch branch_max git_status="" ahead=""
+  local path_text="$1"
+  local time_text="$2"
+  local branch branch_max branch_room git_status="" ahead="" static_width
 
   (( width < 40 )) && return 0
 
   branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null) || return 0
-
-  branch_max=$(( width < 52 ? 10 : width < 72 ? 16 : 24 ))
-  branch="$(prompt_tail_truncate "$branch" "$branch_max")"
 
   if (( width >= 48 )); then
     git_status="$(git_prompt_status)"
@@ -86,6 +96,12 @@ prompt_git_summary() {
   if (( width >= 72 )); then
     ahead="$(git_ahead_behind)"
   fi
+
+  branch_max=$(( width < 52 ? 10 : width < 72 ? 16 : 24 ))
+  static_width=$(( $(prompt_rendered_width "${time_text}${git_status}${ahead}") + 3 + ${#path_text} ))
+  branch_room=$(( width - static_width ))
+  (( branch_room > branch_max )) && branch_max=$branch_room
+  branch="$(prompt_tail_truncate "$branch" "$branch_max")"
 
   print -nr -- "%{$fg_bold[blue]%}(%{$fg[red]%}${branch}%{$fg[blue]%})%{$reset_color%}${git_status}${ahead}%{$reset_color%} "
 }
@@ -100,14 +116,22 @@ prompt_time_compact() {
 
 prompt_path_compact() {
   local width=${COLUMNS:-80}
-  local path="${PWD/#$HOME/~}"
-  local max=$(( width < 40 ? 12 : width < 60 ? 18 : width < 90 ? 28 : 40 ))
+  local path_text="$1"
+  local prefix_text="$2"
+  local max=$(( width - $(prompt_rendered_width "$prefix_text") ))
 
-  print -nr -- "%{$fg_bold[cyan]%}$(prompt_tail_truncate "$path" "$max")%{$reset_color%}"
+  print -nr -- "%{$fg_bold[cyan]%}$(prompt_tail_truncate "$path_text" "$max")%{$reset_color%}"
 }
 
 prompt_info_line() {
-  print -nr -- "$(prompt_time_compact)$(prompt_git_summary)$(prompt_path_compact)"
+  local cwd_text="${PWD/#$HOME/~}"
+  local time_text git_text prefix_text
+
+  time_text="$(prompt_time_compact)"
+  git_text="$(prompt_git_summary "$cwd_text" "$time_text")"
+  prefix_text="${time_text}${git_text}"
+
+  print -nr -- "${prefix_text}$(prompt_path_compact "$cwd_text" "$prefix_text")"
 }
 
 PROMPT='$(prompt_info_line)
