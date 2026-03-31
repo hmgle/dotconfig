@@ -35,23 +35,55 @@ fi
 (( $+functions[git_prompt_status] )) || git_prompt_status() { :; }
 
 # prompt
-git_ahead_behind() {
-  local ahead behind ahead_behind=""
-  if read ahead behind < <(git rev-list --left-right --count HEAD...@{u} 2>/dev/null); then
-    if (( ahead > 0 || behind > 0 )); then
-      local sym
-      if (( ahead > 0 && behind > 0 )); then
-        sym="↕${ahead}↓${behind}"
-      elif (( ahead > 0 )); then
-        sym="↑${ahead}"
-      else
-        sym="↓${behind}"
-      fi
+PROMPT_GIT_MIN_WIDTH=40
+PROMPT_GIT_STATUS_MIN_WIDTH=48
+PROMPT_GIT_MEDIUM_WIDTH=52
+PROMPT_TIME_MIN_WIDTH=70
+PROMPT_GIT_AHEAD_MIN_WIDTH=72
 
-      ahead_behind="%{$fg[yellow]%}${sym}%{$reset_color%}"
-    fi
+prompt_git_command() {
+  if (( $+functions[__git_prompt_git] )); then
+    __git_prompt_git "$@"
+  else
+    GIT_OPTIONAL_LOCKS=0 command git "$@"
   fi
-  echo "$ahead_behind"
+}
+
+prompt_git_context_sync() {
+  local branch ahead=0 behind=0
+
+  branch="$(
+    prompt_git_command symbolic-ref --quiet --short HEAD 2>/dev/null \
+      || prompt_git_command rev-parse --short HEAD 2>/dev/null
+  )" || return 0
+
+  read ahead behind < <(prompt_git_command rev-list --left-right --count HEAD...@{u} 2>/dev/null) || true
+
+  print -r -- "${branch//\%/%%}"
+  print -r -- "${ahead:-0}"
+  print -r -- "${behind:-0}"
+}
+
+_prompt_git_context_async() {
+  prompt_git_context_sync
+}
+
+prompt_git_ahead_behind() {
+  local ahead=${1:-0}
+  local behind=${2:-0}
+  local sym=""
+
+  if (( ahead > 0 || behind > 0 )); then
+    if (( ahead > 0 && behind > 0 )); then
+      sym="↕${ahead}↓${behind}"
+    elif (( ahead > 0 )); then
+      sym="↑${ahead}"
+    else
+      sym="↓${behind}"
+    fi
+
+    print -nr -- "%{$fg[yellow]%}${sym}%{$reset_color%}"
+  fi
 }
 
 prompt_tail_truncate() {
@@ -82,23 +114,38 @@ prompt_rendered_width() {
 prompt_git_summary() {
   local width=${COLUMNS:-80}
   local path_text="$1"
-  local time_text="$2"
+  local time_width=${2:-0}
   local branch branch_max branch_room git_status="" ahead="" static_width
+  local context_raw="" ahead_count=0 behind_count=0
+  local -a context_lines
 
-  (( width < 40 )) && return 0
+  (( width < PROMPT_GIT_MIN_WIDTH )) && return 0
 
-  branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null) || return 0
+  if [[ -n "${_OMZ_ASYNC_OUTPUT[_prompt_git_context_async]-}" ]]; then
+    context_raw="${_OMZ_ASYNC_OUTPUT[_prompt_git_context_async]}"
+  elif (( ! $+functions[_omz_register_handler] )); then
+    context_raw="$(prompt_git_context_sync)"
+  fi
 
-  if (( width >= 48 )); then
+  [[ -z "$context_raw" ]] && return 0
+
+  context_lines=("${(@f)context_raw}")
+  branch="${context_lines[1]}"
+  ahead_count="${context_lines[2]:-0}"
+  behind_count="${context_lines[3]:-0}"
+
+  [[ -z "$branch" ]] && return 0
+
+  if (( width >= PROMPT_GIT_STATUS_MIN_WIDTH )); then
     git_status="$(git_prompt_status)"
   fi
 
-  if (( width >= 72 )); then
-    ahead="$(git_ahead_behind)"
+  if (( width >= PROMPT_GIT_AHEAD_MIN_WIDTH )); then
+    ahead="$(prompt_git_ahead_behind "$ahead_count" "$behind_count")"
   fi
 
-  branch_max=$(( width < 52 ? 10 : width < 72 ? 16 : 24 ))
-  static_width=$(( $(prompt_rendered_width "${time_text}${git_status}${ahead}") + 3 + ${#path_text} ))
+  branch_max=$(( width < PROMPT_GIT_MEDIUM_WIDTH ? 10 : width < PROMPT_GIT_AHEAD_MIN_WIDTH ? 16 : 24 ))
+  static_width=$(( time_width + $(prompt_rendered_width "${git_status}${ahead}") + 3 + ${#path_text} ))
   branch_room=$(( width - static_width ))
   (( branch_room > branch_max )) && branch_max=$branch_room
   branch="$(prompt_tail_truncate "$branch" "$branch_max")"
@@ -109,7 +156,7 @@ prompt_git_summary() {
 prompt_time_compact() {
   local width=${COLUMNS:-80}
 
-  (( width < 70 )) && return 0
+  (( width < PROMPT_TIME_MIN_WIDTH )) && return 0
 
   print -nr -- "%{$fg[yellow]%} ${(%):-%*} %{$reset_color%}"
 }
@@ -117,22 +164,29 @@ prompt_time_compact() {
 prompt_path_compact() {
   local width=${COLUMNS:-80}
   local path_text="$1"
-  local prefix_text="$2"
-  local max=$(( width - $(prompt_rendered_width "$prefix_text") ))
+  local prefix_width=${2:-0}
+  local max=$(( width - prefix_width ))
 
   print -nr -- "%{$fg_bold[cyan]%}$(prompt_tail_truncate "$path_text" "$max")%{$reset_color%}"
 }
 
 prompt_info_line() {
   local cwd_text="${PWD/#$HOME/~}"
-  local time_text git_text prefix_text
+  local time_text git_text prefix_text time_width prefix_width
 
   time_text="$(prompt_time_compact)"
-  git_text="$(prompt_git_summary "$cwd_text" "$time_text")"
+  time_width=$(prompt_rendered_width "$time_text")
+  git_text="$(prompt_git_summary "$cwd_text" "$time_width")"
   prefix_text="${time_text}${git_text}"
+  prefix_width=$(( time_width + $(prompt_rendered_width "$git_text") ))
 
-  print -nr -- "${prefix_text}$(prompt_path_compact "$cwd_text" "$prefix_text")"
+  print -nr -- "${prefix_text}$(prompt_path_compact "$cwd_text" "$prefix_width")"
 }
+
+if (( $+functions[_omz_register_handler] )); then
+  _omz_register_handler _prompt_git_context_async
+  (( $+functions[_omz_git_prompt_status] )) && _omz_register_handler _omz_git_prompt_status
+fi
 
 PROMPT='$(prompt_info_line)
 %(?:%{$fg_bold[green]%}%1{➜%}%{$reset_color%} :%{$fg_bold[red]%}%1{➜%}%{$reset_color%} )'
