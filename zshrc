@@ -2,9 +2,34 @@
 export _ZL_CMD=j
 export _ZL_ECHO=1
 
+typeset -ga zgen_omz_plugins=(
+  git
+  git-flow
+  golang
+  docker
+  node
+  npm
+  sudo
+)
+
 fpath=("$HOME/.zfunc" $fpath)
 
 # zgen
+: "${ZGEN_AUTOLOAD_COMPINIT:=0}"
+: "${ZGEN_INIT:=${HOME}/.zgen/init.omz-compinit.zsh}"
+# Regenerate the saved init when this file changes.
+ZGEN_RESET_ON_CHANGE=("${HOME}/.zshrc")
+
+# When zgen's own compinit is disabled, oh-my-zsh becomes the only compinit owner.
+# Prepend plugin completion dirs before sourcing zgen so oh-my-zsh can register them.
+if [[ "${ZGEN_AUTOLOAD_COMPINIT}" == 0 ]]; then
+  fpath=("${HOME}/.zgen/zsh-users/zsh-completions-master/src" $fpath)
+  for _zgen_plugin in "${zgen_omz_plugins[@]}"; do
+    fpath=("${HOME}/.zgen/robbyrussell/oh-my-zsh-master/plugins/${_zgen_plugin}" $fpath)
+  done
+  unset _zgen_plugin
+fi
+
 if [[ -r "${HOME}/.zgen/zgen.zsh" ]]; then
   source "${HOME}/.zgen/zgen.zsh"
 fi
@@ -13,13 +38,9 @@ if (( $+functions[zgen] )) && ! zgen saved; then
   echo "Creating a zgen save"
 
   zgen oh-my-zsh
-  zgen oh-my-zsh plugins/git
-  zgen oh-my-zsh plugins/git-flow
-  zgen oh-my-zsh plugins/golang
-  zgen oh-my-zsh plugins/docker
-  zgen oh-my-zsh plugins/node
-  zgen oh-my-zsh plugins/npm
-  zgen oh-my-zsh plugins/sudo
+  for _zgen_plugin in "${zgen_omz_plugins[@]}"; do
+    zgen oh-my-zsh "plugins/${_zgen_plugin}"
+  done
 
   zgen load zsh-users/zsh-history-substring-search
   zgen load zsh-users/zsh-completions src
@@ -28,6 +49,7 @@ if (( $+functions[zgen] )) && ! zgen saved; then
   zgen load zdharma-continuum/fast-syntax-highlighting
 
   zgen save
+  unset _zgen_plugin
 fi
 
 (( $+functions[git_prompt_info] )) || git_prompt_info() { :; }
