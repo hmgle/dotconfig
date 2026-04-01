@@ -39,6 +39,7 @@ PROMPT_GIT_STATUS_MIN_WIDTH=48
 PROMPT_GIT_MEDIUM_WIDTH=52
 PROMPT_TIME_MIN_WIDTH=70
 PROMPT_GIT_AHEAD_MIN_WIDTH=72
+PROMPT_RESERVED_COLUMNS=1
 
 prompt_git_command() {
   if (( $+functions[__git_prompt_git] )); then
@@ -85,33 +86,77 @@ prompt_git_ahead_behind() {
   fi
 }
 
+prompt_plain_width() {
+  setopt local_options multibyte
+  print -nr -- ${(m)#1}
+}
+
+prompt_available_width() {
+  local width=${COLUMNS:-80}
+
+  if (( width > PROMPT_RESERVED_COLUMNS )); then
+    width=$(( width - PROMPT_RESERVED_COLUMNS ))
+  fi
+
+  print -nr -- "$width"
+}
+
+prompt_tail_by_width() {
+  setopt local_options multibyte
+  local text="$1"
+  local max="$2"
+  local out="" ch
+  local -a chars
+
+  (( max <= 0 )) && return 0
+
+  chars=("${(@s::)text}")
+  for (( i=${#chars}; i>=1; --i )); do
+    ch="${chars[i]}"
+    if (( $(prompt_plain_width "${ch}${out}") > max )); then
+      break
+    fi
+    out="${ch}${out}"
+  done
+
+  print -nr -- "$out"
+}
+
 prompt_tail_truncate() {
   local text="$1"
   local max="$2"
-  local tail_len
+  local ellipsis="..."
+  local ellipsis_width tail_width suffix output
 
-  (( max < 1 )) && max=1
+  (( max <= 0 )) && return 0
 
-  if (( ${#text} > max )); then
-    tail_len=$(( max - 3 ))
-    (( tail_len < 1 )) && tail_len=1
-    text="...${text[-$tail_len,-1]}"
+  if (( $(prompt_plain_width "$text") <= max )); then
+    output="$text"
+  else
+    ellipsis_width=$(prompt_plain_width "$ellipsis")
+    if (( max <= ellipsis_width )); then
+      output="${ellipsis[1,max]}"
+    else
+      tail_width=$(( max - ellipsis_width ))
+      suffix="$(prompt_tail_by_width "$text" "$tail_width")"
+      output="${ellipsis}${suffix}"
+    fi
   fi
 
-  print -nr -- "${text//\%/%%}"
+  print -nr -- "${output//\%/%%}"
 }
 
 prompt_rendered_width() {
-  setopt local_options extended_glob
+  setopt local_options extended_glob multibyte
   local rendered="${(%):-$1}"
 
   # Expand prompt escapes, then drop ANSI color codes to measure visible width only.
   rendered="${rendered//$'\e'\[[0-9;]##[[:alpha:]]/}"
-  print -nr -- ${#rendered}
+  print -nr -- $(prompt_plain_width "$rendered")
 }
 
 prompt_git_summary() {
-  local width=${COLUMNS:-80}
+  local width=$(prompt_available_width)
   local path_text="$1"
   local time_width=${2:-0}
   local branch branch_max branch_room git_status="" ahead="" static_width
@@ -144,7 +189,7 @@ prompt_git_summary() {
   fi
 
   branch_max=$(( width < PROMPT_GIT_MEDIUM_WIDTH ? 10 : width < PROMPT_GIT_AHEAD_MIN_WIDTH ? 16 : 24 ))
-  static_width=$(( time_width + $(prompt_rendered_width "${git_status}${ahead}") + 3 + ${#path_text} ))
+  static_width=$(( time_width + $(prompt_rendered_width "${git_status}${ahead}") + 3 + $(prompt_plain_width "$path_text") ))
   branch_room=$(( width - static_width ))
   (( branch_room > branch_max )) && branch_max=$branch_room
   branch="$(prompt_tail_truncate "$branch" "$branch_max")"
@@ -153,7 +198,7 @@ prompt_git_summary() {
 }
 
 prompt_time_compact() {
-  local width=${COLUMNS:-80}
+  local width=$(prompt_available_width)
 
   (( width < PROMPT_TIME_MIN_WIDTH )) && return 0
 
@@ -161,7 +206,7 @@ prompt_time_compact() {
 }
 
 prompt_path_compact() {
-  local width=${COLUMNS:-80}
+  local width=$(prompt_available_width)
   local path_text="$1"
   local prefix_width=${2:-0}
   local max=$(( width - prefix_width ))
