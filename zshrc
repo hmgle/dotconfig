@@ -1,8 +1,8 @@
-export NVM_LAZY_LOAD=true
-
 # z.lua
 export _ZL_CMD=j
 export _ZL_ECHO=1
+
+fpath=("$HOME/.zfunc" $fpath)
 
 # zgen
 if [[ -r "${HOME}/.zgen/zgen.zsh" ]]; then
@@ -17,7 +17,6 @@ if (( $+functions[zgen] )) && ! zgen saved; then
   zgen oh-my-zsh plugins/git-flow
   zgen oh-my-zsh plugins/golang
   zgen oh-my-zsh plugins/docker
-  zgen load lukechilds/zsh-nvm
   zgen oh-my-zsh plugins/node
   zgen oh-my-zsh plugins/npm
   zgen oh-my-zsh plugins/sudo
@@ -257,8 +256,6 @@ if [[ -d "$toolchain_lib" ]]; then
   export LD_LIBRARY_PATH="$toolchain_lib${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
 fi
 
-fpath+=("$HOME/.zfunc")
-
 if (( $+commands[fzf] )); then
   source <(fzf --zsh)
   export FZF_DEFAULT_OPTS="--bind='tab:down,shift-tab:up' --cycle"
@@ -297,16 +294,6 @@ if [[ -s "$BUN_INSTALL/_bun" ]]; then
   source "$BUN_INSTALL/_bun"
 fi
 [[ -d "$BUN_INSTALL/bin" ]] && export PATH="$BUN_INSTALL/bin:$PATH"
-
-# normalize PATH and switch to nvm default
-export NVM_DIR="$HOME/.nvm"
-if [[ -s "$NVM_DIR/nvm.sh" ]]; then
-  path=(${path:#$HOME/.nvm/versions/node/*/bin})
-  path=(${path:#$HOME/.nvm/versions/node/*/bin/})
-
-  . "$NVM_DIR/nvm.sh" --no-use
-  nvm use --silent default >/dev/null 2>&1
-fi
 
 # keep PATH unique while preserving first-hit order
 typeset -U path PATH
