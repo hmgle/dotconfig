@@ -29,7 +29,7 @@
       <property name="&lt;Primary&gt;Escape" type="string" value="xfdesktop --menu"/>
       <property name="override" type="bool" value="true"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;t" type="string" value="gnome-terminal"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;l" type="string" value="/home/gle/code_repo/misc/dotconfig/off_x.sh"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;l" type="string" value="/bin/sh -lc &quot;$HOME/bin/off_x.sh&quot;"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

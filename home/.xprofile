@@ -1,0 +1,6 @@
+# X11 session input method setup for fcitx5 and kitty/GLFW
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export SDL_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export GLFW_IM_MODULE=ibus
