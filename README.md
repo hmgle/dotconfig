@@ -4,7 +4,7 @@ This repository contains my Linux and OSX environment configurations. Primarily 
 
 目录约定：
 
-- `home/`：直接安装到 `$HOME` 的 dotfiles
+- `home/`：直接安装到 `$HOME` 的 dotfiles，也可包含像 `~/.claude/`、`~/.codex/` 这样的家目录子树
 - `config/`：安装到 `~/.config` 的配置
 - `bin/`：个人脚本，安装时会接到 `~/bin`
 - `system/`：需要手动处理或 `sudo` 安装的系统级配置
