@@ -17,5 +17,5 @@ Avoid `pip`, `pip3`, or `python -m pip` unless explicitly asked.
 - Follow the 50/72 rule
 - Use a specific imperative subject
 - Unless the subject fully explains the change, include a body after one blank line
-- The body should explain the problem, motivation, and rationale; note trade-offs or alternatives when relevant
-- In shell commits, use separate `-m` flags or an editor so the message has real newlines; never include literal `\n`
+- The body should explain why the change is needed; note trade-offs when relevant
+- In shell commits, never use `\n` inside `-m`; use separate `-m` flags or an editor
