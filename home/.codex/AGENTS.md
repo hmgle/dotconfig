@@ -18,3 +18,5 @@ Avoid `pip`, `pip3`, or `python -m pip` unless explicitly asked.
 - Use a specific imperative subject
 - Unless the subject fully explains the change, include a body after one blank line
 - The body should explain the problem, motivation, and rationale; note trade-offs or alternatives when relevant
+- When creating commits from the shell, pass the subject and body as separate `-m` arguments or use an editor/heredoc with real newlines
+- Never include literal escape sequences like `\n` in commit messages; if you see them in the preview, stop and fix the command before committing
