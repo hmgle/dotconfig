@@ -3,9 +3,21 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local utils = require("utils")
 
+local ensure_rime_ascii_mode = [[
+if ! busctl --user call org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 IsAsciiMode 2>/dev/null | grep -q 'b true'; then
+	busctl --user call org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b true >/dev/null 2>&1 || true
+fi
+]]
+
+local function switch_rime_to_en_and_send_tmux_prefix(window, pane)
+	wezterm.run_child_process({ "sh", "-lc", ensure_rime_ascii_mode })
+	window:perform_action(act.SendKey({ key = "b", mods = "ALT" }), pane)
+end
+
 M.tmux_keybinds = {
 	-- { key = "b", mods = "CMD",      action =  wezterm.action.SendString("\x07") },
 	-- { key = "t", mods = "CMD",      action = act({ SpawnTab = "CurrentPaneDomain" }) },
+	{ key = "b", mods = "ALT",        action = wezterm.action_callback(switch_rime_to_en_and_send_tmux_prefix) },
 	{ key = "t", mods = "CTRL|SHIFT", action = act({ SpawnTab = "CurrentPaneDomain" }) },
 	-- { key = "1", mods = "CMD",        action = act({ ActivateTab = 0 }) },
 	{ key = "1", mods = "ALT",        action = act({ ActivateTab = 0 }) },

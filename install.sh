@@ -213,6 +213,7 @@ LINKS=(
 	"config/atuin/config.toml|${HOME}/.config/atuin/config.toml"
 	"config/markdownlint/markdownlintrc|${HOME}/.markdownlintrc"
 	"config/uv/uv.toml|${HOME}/.config/uv/uv.toml"
+	"config/wezterm|${HOME}/.config/wezterm"
 )
 
 install_home_tree

@@ -4,7 +4,11 @@
 
 - 统一字体/色彩和窗口外观，兼容中英文；
 - 屏蔽默认快捷键，只保留常用的复制、粘贴与标签切换；
+- 在 Rime 中文状态下按 tmux `Alt+b` prefix 时，自动切到英文模式并继续发送原生 prefix；
 - 根据 `~/.ssh/config` 自动生成 SSH Domain，便于在 WezTerm 启动远端会话。
+
+`install.sh` 会将整个目录链接到 `~/.config/wezterm`，因此该目录是 WezTerm
+配置的唯一仓库内来源。
 
 ## 外观与字体
 
@@ -21,6 +25,7 @@
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>c</kbd> | 复制到系统剪贴板 |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>v</kbd> | 从系统剪贴板粘贴 |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>t</kbd> | 在当前域中新建标签页 |
+| <kbd>Alt</kbd> + <kbd>b</kbd> | 切换 Rime 到英文模式后发送 tmux prefix |
 | <kbd>Alt</kbd> + <kbd>1</kbd> … <kbd>Alt</kbd> + <kbd>6</kbd> | 激活第 1–6 个标签页 |
 
 鼠标操作：
@@ -30,6 +35,8 @@
 - <kbd>Ctrl</kbd> + 左键：打开指针所在链接。
 
 如需更多按键，可在 `keybinds.lua` 中补充，或结合 `leader` 自行扩展。
+
+`Alt+b` 的 Rime/tmux 处理细节见 [docs/rime-tmux-prefix.md](docs/rime-tmux-prefix.md)。
 
 ## 本地覆盖配置
 
