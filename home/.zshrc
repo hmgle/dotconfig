@@ -52,6 +52,14 @@ if (( $+functions[zgen] )) && ! zgen saved; then
   unset _zgen_plugin
 fi
 
+# Keep large bracketed pastes responsive. Oh My Zsh's bracketed-paste-magic
+# replays pasted text through ZLE widgets, which is much slower than zsh's
+# native paste widget for large payloads.
+if [[ -o interactive ]]; then
+  zle -A .bracketed-paste bracketed-paste 2>/dev/null
+fi
+typeset -g ZSH_HIGHLIGHT_MAXLENGTH=3000
+
 (( $+functions[git_prompt_info] )) || git_prompt_info() { :; }
 (( $+functions[git_prompt_status] )) || git_prompt_status() { :; }
 
