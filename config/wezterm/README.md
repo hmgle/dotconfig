@@ -36,7 +36,10 @@
 
 如需更多按键，可在 `keybinds.lua` 中补充，或结合 `leader` 自行扩展。
 
-`Alt+b` 的 Rime/tmux 处理细节见 [docs/rime-tmux-prefix.md](docs/rime-tmux-prefix.md)。
+`Alt+b` 的 Linux Rime/tmux 处理细节见
+[docs/rime-tmux-prefix.md](docs/rime-tmux-prefix.md)。macOS / Squirrel 下的
+WezTerm key table 转发方案见
+[docs/rime-tmux-prefix-macos.md](docs/rime-tmux-prefix-macos.md)。
 
 ## 本地覆盖配置
 

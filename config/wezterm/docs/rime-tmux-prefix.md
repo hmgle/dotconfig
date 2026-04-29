@@ -1,5 +1,9 @@
 # Rime 中文状态下使用 tmux Alt+b prefix
 
+> 本文记录 Linux / fcitx5-rime / DBus 方案。macOS / Squirrel 没有等价的
+> DBus 接口，当前采用 WezTerm key table 转发方案，见
+> [rime-tmux-prefix-macos.md](rime-tmux-prefix-macos.md)。
+
 ## 背景
 
 当前桌面输入链路是：
