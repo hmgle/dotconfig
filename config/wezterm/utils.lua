@@ -31,9 +31,7 @@ function M.exists(tab, element)
 		if v == element then
 			return true
 		elseif type(v) == "table" then
-			if M.exists(v, element) then
-				return true
-			end
+			return M.exists(v, element)
 		end
 	end
 	return false
