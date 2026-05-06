@@ -188,3 +188,46 @@ tmux list-keys -T prefix M-b
 如果换终端模拟器，这套 WezTerm key callback 方案不会自动迁移。需要在新终端
 或窗口管理器层做等价逻辑：先调用 Rime DBus `IsAsciiMode` 判断状态，必要时再
 调用 `SetAsciiMode b true`，最后把 `Alt+b` 发送给 tmux。
+
+## Zsh 新命令开头自动切英文
+
+zsh 命令行可以做类似优化，但适合放在 zsh 的 ZLE 层，而不是 WezTerm：
+
+1. ZLE 只在 shell 正在编辑命令行时运行，因此不会影响 `codex`、`nvim`、`fzf`
+   等子进程自己的输入界面。
+2. `line-init` hook 会在新命令行开始编辑时触发。
+3. hook 里检查 `BUFFER`、`LBUFFER`、`RBUFFER` 全为空，确认当前是空白的新命令
+   行；如果已经有 `echo ` 之类的左侧内容，则不会切换。
+4. 通过同一个 fcitx5-rime DBus 接口，仅在当前不是英文模式时设置
+   `ascii_mode=true`。
+
+当前实现放在 `~/.zshrc`：
+
+```zsh
+__rime_ensure_ascii_mode() {
+  [[ -n "${DBUS_SESSION_BUS_ADDRESS:-}" ]] || return 0
+  [[ -n "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ]] || return 0
+  (( $+commands[busctl] )) || return 0
+
+  busctl --user call org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 IsAsciiMode 2>/dev/null \
+    | command grep -q 'b true' \
+    || busctl --user call org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b true >/dev/null 2>&1
+}
+
+__rime_ascii_mode_on_empty_zle_line() {
+  [[ -o interactive ]] || return 0
+  [[ -z "${BUFFER:-}" && -z "${LBUFFER:-}" && -z "${RBUFFER:-}" ]] || return 0
+
+  __rime_ensure_ascii_mode
+}
+
+if [[ -o interactive ]]; then
+  autoload -Uz add-zle-hook-widget
+  add-zle-hook-widget line-init __rime_ascii_mode_on_empty_zle_line
+fi
+```
+
+这个方案的刻意边界是：它只处理 zsh 新 prompt 出现时的空命令行。如果已经开始
+编辑命令，例如光标在 `echo ` 后面准备输入中文，`BUFFER` 不为空，不会自动切换。
+如果用户在空 prompt 出现以后又手动切回中文，zsh 无法可靠收到这个输入法状态变化；
+下一次新 prompt 出现时会再次自动切回英文。

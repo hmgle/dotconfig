@@ -60,6 +60,28 @@ if [[ -o interactive ]]; then
 fi
 typeset -g ZSH_HIGHLIGHT_MAXLENGTH=3000
 
+__rime_ensure_ascii_mode() {
+  [[ -n "${DBUS_SESSION_BUS_ADDRESS:-}" ]] || return 0
+  [[ -n "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ]] || return 0
+  (( $+commands[busctl] )) || return 0
+
+  busctl --user call org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 IsAsciiMode 2>/dev/null \
+    | command grep -q 'b true' \
+    || busctl --user call org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b true >/dev/null 2>&1
+}
+
+__rime_ascii_mode_on_empty_zle_line() {
+  [[ -o interactive ]] || return 0
+  [[ -z "${BUFFER:-}" && -z "${LBUFFER:-}" && -z "${RBUFFER:-}" ]] || return 0
+
+  __rime_ensure_ascii_mode
+}
+
+if [[ -o interactive ]]; then
+  autoload -Uz add-zle-hook-widget
+  add-zle-hook-widget line-init __rime_ascii_mode_on_empty_zle_line
+fi
+
 (( $+functions[git_prompt_info] )) || git_prompt_info() { :; }
 (( $+functions[git_prompt_status] )) || git_prompt_status() { :; }
 
