@@ -353,7 +353,7 @@ if [[ -d "$toolchain_lib" ]]; then
   export LD_LIBRARY_PATH="$toolchain_lib${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
 fi
 
-if (( $+commands[fzf] )); then
+if [[ -t 0 ]] && (( $+commands[fzf] )); then
   source <(fzf --zsh)
   export FZF_DEFAULT_OPTS="--bind='tab:down,shift-tab:up' --cycle"
 fi
