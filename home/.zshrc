@@ -364,6 +364,7 @@ fi
 [[ -f /usr/local/tinygo/bin/tinygo ]] && export PATH="$PATH:/usr/local/tinygo/bin"
 
 if (( $+functions[compdef] )); then
+  compdef _ssh zssh=ssh
   compdef _precommand graftcp mgraftcp proxychains
 fi
 
