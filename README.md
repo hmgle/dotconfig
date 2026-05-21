@@ -21,6 +21,7 @@ This repository contains my Linux and OSX environment configurations. Primarily 
 文档：
 
 - [tmux 快捷键与插件速查](docs/tmux-shortcuts.md)
+- [tmux 环境变量污染排查](docs/tmux-environment-trap.md)
 - [AwesomeWM 配置及快捷键指南](config/awesome/user-guide.md)
 - [Rime 输入法定制说明](rime/README.md)
 - [WezTerm 配置说明](config/wezterm/README.md)
