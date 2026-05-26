@@ -303,6 +303,10 @@ zstyle ':fzf-tab:*' fzf-bindings 'space:accept'
 zstyle ':fzf-tab:*(cat|ls)*' accept-line enter
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:complete:(cd|go):*' disabled-on any
+_ssh_completion_users=(root)
+[[ -n "${USER:-}" && "$USER" != root ]] && _ssh_completion_users+=("$USER")
+zstyle ':completion:*:*:*:users' users "${_ssh_completion_users[@]}"
+unset _ssh_completion_users
 
 alias em="emacs -nw"
 alias vi="nvim"
