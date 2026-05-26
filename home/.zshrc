@@ -363,6 +363,44 @@ fi
 
 [[ -f /usr/local/tinygo/bin/tinygo ]] && export PATH="$PATH:/usr/local/tinygo/bin"
 
+_ssh_hosts() {
+  local config host key line
+  local -a config_hosts lines
+  integer ind idx
+
+  if (( ind = ${words[(I)-F]} )); then
+    config=${~words[ind+1]} 2>/dev/null
+  else
+    config="$HOME/.ssh/config"
+  fi
+
+  [[ -r "$config" ]] || return 1
+
+  lines=("${(@f)$(<"$config")}") 2>/dev/null
+  idx=1
+  while (( idx <= $#lines )); do
+    IFS=$'=\t ' read -r key line <<<"${lines[idx]}"
+    case "${key:l}" in
+      (include)
+        lines[idx]=("${(@f)$(cd "${config:h}" 2>/dev/null && cat ${(z)~line})}") 2>/dev/null
+        ;;
+      (host)
+        for host in ${(z)line}; do
+          [[ "$host" == *[*?]* ]] || config_hosts+=("$host")
+        done
+        (( ++idx ))
+        ;;
+      (*)
+        (( ++idx ))
+        ;;
+    esac
+  done
+
+  (( ${#config_hosts} )) || return 1
+  _wanted hosts expl 'remote host name' \
+    compadd -M 'm:{a-zA-Z}={A-Za-z} r:|.=* r:|=*' "$@" -- $config_hosts
+}
+
 if (( $+functions[compdef] )); then
   compdef _ssh zssh=ssh
   compdef _precommand graftcp mgraftcp proxychains
