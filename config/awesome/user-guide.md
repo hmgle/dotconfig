@@ -62,6 +62,8 @@
 | <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>k</kbd> | 向上交换窗口 | 与上一个窗口交换位置 |
 | <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>Return</kbd> | 移动到主区域 | 将当前窗口设为主窗口 |
 | <kbd>Mod1</kbd> + <kbd>o</kbd> | 移动到其他屏幕 | 多屏环境下移动窗口 |
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>j</kbd> | 聚焦下一个屏幕 | 多屏环境下切换到下一个显示器 |
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>k</kbd> | 聚焦上一个屏幕 | 多屏环境下切换到上一个显示器 |
 
 #### 窗口状态控制
 | 快捷键 | 功能 | 详细说明 |
@@ -119,6 +121,8 @@
 | <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>q</kbd> | 退出 AwesomeWM | 注销当前会话 |
 | <kbd>Mod1</kbd> + <kbd>s</kbd> | 显示帮助 | 查看所有快捷键帮助 |
 | <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>l</kbd> | 关闭屏幕 | 立即关闭显示器，省电节能 |
+| <kbd>Print Screen</kbd> | 延迟截图 | 9 秒后截取全屏并保存到 `~/Pictures/` |
+| <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>s</kbd> | 区域截图 | 拖拽选择区域并保存到 `~/Pictures/` |
 
 ### 🖱️ 鼠标操作
 
@@ -249,14 +253,14 @@
 
 ### 修改主键
 
-编辑 `rc.lua` 第69行：
+编辑 `rc.lua` 中的 `modkey` 变量：
 ```lua
 modkey = "Mod1"  -- Mod1=Alt, Mod4=Super/Windows键
 ```
 
 ### 修改终端
 
-编辑 `rc.lua` 第60行：
+编辑 `rc.lua` 中的 `terminal` 变量：
 ```lua
 terminal = "ghostty"  -- 可改为 "alacritty", "kitty" 等
 ```
@@ -404,6 +408,6 @@ beautiful.init("~/.config/awesome/themes/default/theme.lua")
 
 ---
 
-*最后更新: 2025-09-09*  
-*配置文件: `~/.config/awesome/rc.lua`*  
+*最后更新: 2026-06-10*
+*配置文件: `~/.config/awesome/rc.lua`*
 *文档位置: `~/.config/awesome/user-guide.md`*
