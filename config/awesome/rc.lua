@@ -121,9 +121,13 @@ local function make_clipboard_screenshot_command(opts)
 	local capture_command = shell_join(make_screenshot_command(opts, "png:-"))
 
 	return table.concat({
-		"command -v import >/dev/null 2>&1 || { echo 'Missing dependency: import' >&2; exit 127; }",
-		"command -v xclip >/dev/null 2>&1 || { echo 'Missing dependency: xclip' >&2; exit 127; }",
-		capture_command .. " | xclip -selection clipboard -t image/png -i",
+		'for dep in import xclip; do command -v "$dep" >/dev/null 2>&1'
+			.. ' || { echo "Missing dependency: $dep" >&2; exit 127; }; done',
+		-- xclip daemonizes to serve the X selection without closing its
+		-- inherited stdout/stderr, which would keep easy_async waiting for
+		-- EOF until the clipboard is replaced; drop its output so the
+		-- notification fires immediately (its exit code still propagates).
+		capture_command .. " | xclip -selection clipboard -t image/png -i >/dev/null 2>&1",
 	}, "; ")
 end
 
