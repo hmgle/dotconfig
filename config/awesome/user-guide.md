@@ -123,6 +123,8 @@
 | <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>l</kbd> | 关闭屏幕 | 立即关闭显示器，省电节能 |
 | <kbd>Print Screen</kbd> | 延迟截图 | 9 秒后截取全屏并保存到 `~/Pictures/` |
 | <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>s</kbd> | 区域截图 | 拖拽选择区域并保存到 `~/Pictures/` |
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>s</kbd> | 复制全屏截图 | 9 秒后截取全屏并复制到剪贴板，不保存到 `~/Pictures/`，需要 `xclip` 或 `xsel` |
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>s</kbd> | 复制区域截图 | 拖拽选择区域并复制到剪贴板，不保存到 `~/Pictures/`，需要 `xclip` 或 `xsel` |
 
 ### 🖱️ 鼠标操作
 

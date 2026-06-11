@@ -77,13 +77,13 @@ local function expand_user_dir(path)
 	return expanded
 end
 
-	local function take_screenshot(opts)
+local function shell_quote(value)
+	return "'" .. tostring(value):gsub("'", [['"'"']]) .. "'"
+end
+
+local function make_screenshot_command(opts, filename)
 	opts = opts or {}
 
-	local pictures_dir = expand_user_dir(os.getenv("XDG_PICTURES_DIR")) or expand_user_dir("~/Pictures")
-	gears.filesystem.make_directories(pictures_dir)
-
-	local filename = string.format("%s/screenshot-%s.png", pictures_dir, os.date("%Y%m%d-%H%M%S"))
 	local command = { "import" }
 
 	if opts.capture == "area" then
@@ -105,6 +105,59 @@ end
 		table.insert(command, filename)
 	end
 
+	return command
+end
+
+local function make_temp_screenshot_filename()
+	local temp_name = os.tmpname()
+	if temp_name:sub(1, 1) ~= "/" then
+		temp_name = (os.getenv("TMPDIR") or "/tmp") .. "/" .. temp_name
+	end
+
+	return temp_name .. ".png"
+end
+
+local function copy_screenshot_to_clipboard(filename, on_done)
+	awful.spawn.easy_async({
+		"xclip",
+		"-selection",
+		"clipboard",
+		"-t",
+		"image/png",
+		"-i",
+		filename,
+	}, function(_, _, _, exit_code)
+		if exit_code == 0 then
+			if on_done then
+				on_done(true, "xclip")
+			end
+			return
+		end
+
+		awful.spawn.easy_async_with_shell(
+			"xsel --clipboard --input --mime-type image/png < " .. shell_quote(filename),
+			function(_, _, _, xsel_exit_code)
+				if xsel_exit_code == 0 then
+					if on_done then
+						on_done(true, "xsel")
+					end
+				elseif on_done then
+					on_done(false)
+				end
+			end
+		)
+	end)
+end
+
+local function take_screenshot(opts)
+	opts = opts or {}
+
+	local pictures_dir = expand_user_dir(os.getenv("XDG_PICTURES_DIR")) or expand_user_dir("~/Pictures")
+	gears.filesystem.make_directories(pictures_dir)
+
+	local filename = string.format("%s/screenshot-%s.png", pictures_dir, os.date("%Y%m%d-%H%M%S"))
+	local command = make_screenshot_command(opts, filename)
+
 	awful.spawn(command)
 
 	local message
@@ -115,6 +168,52 @@ end
 	end
 
 	naughty.notify({ title = "Screenshot", text = message })
+end
+
+local function take_screenshot_to_clipboard(opts)
+	opts = opts or {}
+
+	local filename = make_temp_screenshot_filename()
+	local command = make_screenshot_command(opts, filename)
+
+	awful.spawn.easy_async(command, function(_, _, _, exit_code)
+		if exit_code ~= 0 then
+			os.remove(filename)
+			naughty.notify({
+				preset = naughty.config.presets.critical,
+				title = "Screenshot",
+				text = "Screenshot capture failed",
+			})
+			return
+		end
+
+		copy_screenshot_to_clipboard(filename, function(success)
+			if success then
+				os.remove(filename)
+				local message
+				if opts.capture == "area" then
+					message = "Select region copied to clipboard"
+				else
+					message = "Screenshot copied to clipboard"
+				end
+
+				naughty.notify({ title = "Screenshot", text = message })
+			else
+				local message
+				if opts.capture == "area" then
+					message = "Region captured, but clipboard copy failed"
+				else
+					message = "Screenshot captured, but clipboard copy failed"
+				end
+
+				naughty.notify({
+					preset = naughty.config.presets.critical,
+					title = "Screenshot",
+					text = string.format("%s (install xclip or xsel): %s", message, filename),
+				})
+			end
+		end)
+	end)
 end
 
 -- Default modkey.
@@ -447,6 +546,12 @@ globalkeys = gears.table.join(
 	awful.key({ modkey, "Shift" }, "s", function()
 		take_screenshot({ capture = "area" })
 	end, { description = "select region screenshot", group = "system" }),
+	awful.key({ modkey, "Control" }, "s", function()
+		take_screenshot_to_clipboard()
+	end, { description = "screenshot copied to clipboard with 9s delay", group = "system" }),
+	awful.key({ modkey, "Control", "Shift" }, "s", function()
+		take_screenshot_to_clipboard({ capture = "area" })
+	end, { description = "select region screenshot copied to clipboard", group = "system" }),
 
 	-- Screen control
 	awful.key({ modkey, "Shift" }, "l", function()
