@@ -81,6 +81,15 @@ local function shell_quote(value)
 	return "'" .. tostring(value):gsub("'", [['"'"']]) .. "'"
 end
 
+local function shell_join(args)
+	local quoted = {}
+	for index, arg in ipairs(args) do
+		quoted[index] = shell_quote(arg)
+	end
+
+	return table.concat(quoted, " ")
+end
+
 local function make_screenshot_command(opts, filename)
 	opts = opts or {}
 
@@ -108,45 +117,19 @@ local function make_screenshot_command(opts, filename)
 	return command
 end
 
-local function make_temp_screenshot_filename()
-	local temp_name = os.tmpname()
-	if temp_name:sub(1, 1) ~= "/" then
-		temp_name = (os.getenv("TMPDIR") or "/tmp") .. "/" .. temp_name
-	end
+local function make_clipboard_screenshot_command(opts)
+	local capture_command = shell_join(make_screenshot_command(opts, "png:-"))
 
-	return temp_name .. ".png"
+	return table.concat({
+		"command -v import >/dev/null 2>&1 || { echo 'Missing dependency: import' >&2; exit 127; }",
+		"command -v xclip >/dev/null 2>&1 || { echo 'Missing dependency: xclip' >&2; exit 127; }",
+		capture_command .. " | xclip -selection clipboard -t image/png -i",
+	}, "; ")
 end
 
-local function copy_screenshot_to_clipboard(filename, on_done)
-	awful.spawn.easy_async({
-		"xclip",
-		"-selection",
-		"clipboard",
-		"-t",
-		"image/png",
-		"-i",
-		filename,
-	}, function(_, _, _, exit_code)
-		if exit_code == 0 then
-			if on_done then
-				on_done(true, "xclip")
-			end
-			return
-		end
-
-		awful.spawn.easy_async_with_shell(
-			"xsel --clipboard --input --mime-type image/png < " .. shell_quote(filename),
-			function(_, _, _, xsel_exit_code)
-				if xsel_exit_code == 0 then
-					if on_done then
-						on_done(true, "xsel")
-					end
-				elseif on_done then
-					on_done(false)
-				end
-			end
-		)
-	end)
+local function clean_command_error(stderr)
+	local message = tostring(stderr or ""):gsub("^%s+", ""):gsub("%s+$", "")
+	return message:gsub("%s*\n%s*", " ")
 end
 
 local function take_screenshot(opts)
@@ -173,46 +156,32 @@ end
 local function take_screenshot_to_clipboard(opts)
 	opts = opts or {}
 
-	local filename = make_temp_screenshot_filename()
-	local command = make_screenshot_command(opts, filename)
+	local command = make_clipboard_screenshot_command(opts)
 
-	awful.spawn.easy_async(command, function(_, _, _, exit_code)
-		if exit_code ~= 0 then
-			os.remove(filename)
-			naughty.notify({
-				preset = naughty.config.presets.critical,
-				title = "Screenshot",
-				text = "Screenshot capture failed",
-			})
+	awful.spawn.easy_async({ "bash", "-o", "pipefail", "-c", command }, function(_, stderr, _, exit_code)
+		if exit_code == 0 then
+			local message
+			if opts.capture == "area" then
+				message = "Selected region copied to clipboard"
+			else
+				message = "Screenshot copied to clipboard"
+			end
+
+			naughty.notify({ title = "Screenshot", text = message })
 			return
 		end
 
-		copy_screenshot_to_clipboard(filename, function(success)
-			if success then
-				os.remove(filename)
-				local message
-				if opts.capture == "area" then
-					message = "Select region copied to clipboard"
-				else
-					message = "Screenshot copied to clipboard"
-				end
+		local message = "Screenshot copy failed"
+		local details = clean_command_error(stderr)
+		if details ~= "" then
+			message = message .. ": " .. details
+		end
 
-				naughty.notify({ title = "Screenshot", text = message })
-			else
-				local message
-				if opts.capture == "area" then
-					message = "Region captured, but clipboard copy failed"
-				else
-					message = "Screenshot captured, but clipboard copy failed"
-				end
-
-				naughty.notify({
-					preset = naughty.config.presets.critical,
-					title = "Screenshot",
-					text = string.format("%s (install xclip or xsel): %s", message, filename),
-				})
-			end
-		end)
+		naughty.notify({
+			preset = naughty.config.presets.critical,
+			title = "Screenshot",
+			text = message,
+		})
 	end)
 end
 
