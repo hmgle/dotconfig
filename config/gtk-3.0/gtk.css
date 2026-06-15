@@ -1,0 +1,33 @@
+/* Compact the LXTerminal top tab bar. */
+window > box > notebook > header.top {
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border-width: 0 0 1px 0;
+}
+
+window > box > notebook > header.top > tabs {
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+window > box > notebook > header.top > tabs > tab {
+  min-height: 18px;
+  margin: 0;
+  padding: 0 6px;
+}
+
+window > box > notebook > header.top > tabs > tab label {
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 9pt;
+}
+
+window > box > notebook > header.top > tabs > tab button {
+  min-height: 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}

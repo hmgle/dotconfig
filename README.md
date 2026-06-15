@@ -25,6 +25,7 @@ This repository contains my Linux and OSX environment configurations. Primarily 
 - [AwesomeWM 配置及快捷键指南](config/awesome/user-guide.md)
 - [Rime 输入法定制说明](rime/README.md)
 - [WezTerm 配置说明](config/wezterm/README.md)
+- [LXTerminal 配置说明](config/lxterminal/README.md)
 - [GNOME Terminal 配置导入导出](system/linux/gnome-terminal/README.md)
 - [TLP 电池充电策略配置](system/linux/tlp/README.md)
 

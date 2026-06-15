@@ -211,6 +211,8 @@ LINKS=(
 	"git_template|${HOME}/.git_template"
 	"config/awesome/rc.lua|${HOME}/.config/awesome/rc.lua"
 	"config/atuin/config.toml|${HOME}/.config/atuin/config.toml"
+	"config/gtk-3.0|${HOME}/.config/gtk-3.0"
+	"config/lxterminal|${HOME}/.config/lxterminal"
 	"config/markdownlint/markdownlintrc|${HOME}/.markdownlintrc"
 	"config/uv/uv.toml|${HOME}/.config/uv/uv.toml"
 	"config/wezterm|${HOME}/.config/wezterm"
