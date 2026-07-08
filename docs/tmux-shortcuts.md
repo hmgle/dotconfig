@@ -8,7 +8,6 @@
 
 - <kbd>Prefix</kbd> + <kbd>N</kbd>：新建 session。
 - <kbd>Prefix</kbd> + <kbd>S</kbd>：列出所有 session 并切换（树形视图）。
-- <kbd>Prefix</kbd> + <kbd>M</kbd>：通过 fzf 选择目标窗口，将当前 pane 移动过去（需要 fzf / fzf-tmux，tmux >= 3.2）。
 
 ### 默认快捷键
 
@@ -33,7 +32,7 @@
 - <kbd>Prefix</kbd> + <kbd>w</kbd>：列出所有窗口并选择切换。
 - <kbd>Prefix</kbd> + <kbd>,</kbd>：重命名当前窗口。
 - <kbd>Prefix</kbd> + <kbd>&</kbd>：关闭当前窗口（需确认）。
-- <kbd>Prefix</kbd> + <kbd>.</kbd>：移动窗口到指定编号。
+- <kbd>Prefix</kbd> + <kbd>.</kbd>：移动当前窗口到指定编号；输入目标编号后按 <kbd>Enter</kbd>。目标编号必须为空，否则会提示 `index in use`。
 
 ## 面板 (Pane)
 
@@ -44,6 +43,7 @@
 - <kbd>Prefix</kbd> + <kbd>%</kbd>：左右分屏，继承当前 pane 工作目录。
 - <kbd>Prefix</kbd> + <kbd>t</kbd>：在当前目录打开 80%×75% 的 popup 终端。
 - <kbd>Prefix</kbd> + <kbd>f</kbd>：通过 tmux-fzf 在 pane 间模糊切换。
+- <kbd>Prefix</kbd> + <kbd>M</kbd>：通过 fzf 选择目标窗口，将当前 pane 合并过去（需要 fzf / fzf-tmux，tmux >= 3.2）。如果当前窗口只剩这一个 pane，原窗口会被关闭。
 
 ### 默认快捷键
 
@@ -57,6 +57,12 @@
 - <kbd>Prefix</kbd> + <kbd>Space</kbd>：循环切换 pane 布局。
 - <kbd>Prefix</kbd> + <kbd>Ctrl</kbd>+<kbd>方向键</kbd>：微调 pane 大小。
 - <kbd>Prefix</kbd> + <kbd>Alt</kbd>+<kbd>方向键</kbd>：大幅调整 pane 大小。
+
+### 常用命令
+
+- <kbd>Prefix</kbd> + <kbd>:</kbd> 后输入 `join-pane -t :5`：将当前 pane 合并到当前 session 的 5 号窗口。
+- <kbd>Prefix</kbd> + <kbd>:</kbd> 后输入 `join-pane -t 2:5`：将当前 pane 合并到 session 2 的 5 号窗口。
+- 可加 `-h` / `-v` 指定左右或上下分屏，例如 `join-pane -h -t :5`。
 
 ## 其他常用
 
