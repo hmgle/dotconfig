@@ -5,6 +5,7 @@
 - CODE STRUCTURE → `ast-grep` (`sg`)
 - FILES → `fd`
 - TEXT/strings → `rg`
+- GITHUB → `gh` for read-only; writes need explicit permission
 - DOCS → use `markitdown` for document-to-Markdown first; common inputs: PDF, DOCX, PPTX, XLSX, HTML, CSV, JSON, XML, EPUB, images
 - `markitdown input.pdf -o output.md`
 - If `markitdown` fails or output is poor, try `pandoc`: `pandoc input.docx -t gfm -o output.md`
