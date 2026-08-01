@@ -343,19 +343,8 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_EXPIRE_DUPS_FIRST
 
-# rust
-if command -v rustc >/dev/null 2>&1; then
-  sysroot="$(rustc --print sysroot 2>/dev/null || true)"
-  if [[ -n "$sysroot" ]]; then
-    export RUST_SRC_PATH="$sysroot/lib/rustlib/src/rust/src"
-    export LD_LIBRARY_PATH="$sysroot/lib${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
-  fi
-fi
-
-toolchain_lib="$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib"
-if [[ -d "$toolchain_lib" ]]; then
-  export LD_LIBRARY_PATH="$toolchain_lib${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
-fi
+# Let rustup and rust-analyzer resolve project toolchains and source paths.
+# Avoid global loader/source overrides and rustup shim calls during shell startup.
 
 if [[ -t 0 ]] && (( $+commands[fzf] )); then
   source <(fzf --zsh)
