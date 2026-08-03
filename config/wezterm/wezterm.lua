@@ -104,7 +104,7 @@ for i, color in ipairs(scheme.brights) do
 end
 
 -- brighten bright black so ls entries like *.bak stay legible
-brights[1] = "#b0b0b0"
+brights[1] = "#969696"
 
 config.colors.ansi = ansi
 config.colors.brights = brights
