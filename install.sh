@@ -214,6 +214,7 @@ LINKS=(
 	"config/gtk-3.0|${HOME}/.config/gtk-3.0"
 	"config/lxterminal|${HOME}/.config/lxterminal"
 	"config/markdownlint/markdownlintrc|${HOME}/.markdownlintrc"
+	"config/tmux-recover/config.toml|${HOME}/.config/tmux-recover/config.toml"
 	"config/uv/uv.toml|${HOME}/.config/uv/uv.toml"
 	"config/wezterm|${HOME}/.config/wezterm"
 )

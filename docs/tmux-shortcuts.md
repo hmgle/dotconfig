@@ -148,14 +148,12 @@
   - <kbd>TAB</kbd>：切换多选，第二次按下复制全部选中内容。
   - <kbd>q</kbd> / <kbd>Esc</kbd> / <kbd>Ctrl</kbd>+<kbd>c</kbd>：退出 fingers 模式。
 
-### tmux-resurrect
+### tmux-recover
 
-- <kbd>Prefix</kbd> + <kbd>Ctrl</kbd> + <kbd>s</kbd>：手动保存当前 tmux 环境（会话/窗口/pane/工作目录/命令等）。
-- <kbd>Prefix</kbd> + <kbd>Ctrl</kbd> + <kbd>r</kbd>：恢复最近一次保存的环境。
-
-### tmux-continuum
-
-- 依赖 tmux-resurrect，默认每 15 分钟在后台自动保存；配置中启用了 `@continuum-restore 'on'` 与 `@continuum-save-interval '60'`，即 60 分钟强制保存一次并在 tmux 启动时自动恢复。插件本身不额外增加快捷键。
+- <kbd>Prefix</kbd> + <kbd>Ctrl</kbd> + <kbd>s</kbd>：立即保存当前 tmux 环境。
+- <kbd>Prefix</kbd> + <kbd>Ctrl</kbd> + <kbd>r</kbd>：恢复最新快照。
+- 后台守护进程持续监听会话、窗口和 pane 的结构变化并自动保存；事件钩子不可用时会退回轮询。
+- `~/.config/tmux-recover/config.toml` 中启用了 `restore.auto = true`，因此新启动且仍为空的 tmux server 会自动恢复最新快照。
 
 ### tmux-easymotion
 
