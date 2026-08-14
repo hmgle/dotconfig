@@ -5,7 +5,7 @@
 - CODE STRUCTURE → `ast-grep` (`sg`)
 - FILES → `fd`
 - TEXT/strings → `rg`
-- DOCS → use `markitdown` for document-to-Markdown first; common inputs: PDF, DOCX, etc. `markitdown input.pdf -o output.md`. If `markitdown` fails or output is poor, try `pandoc`
+- DOCS → use `anydoc` for document-to-Markdown first; common inputs: PDF, DOCX, etc. `anydoc input.pdf -o output.md`. If `anydoc` fails or output is poor, try `pandoc`
 - GITHUB → `gh` for read-only; writes need explicit permission.
 
 ## Python
