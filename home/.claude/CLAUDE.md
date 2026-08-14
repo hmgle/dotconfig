@@ -6,9 +6,7 @@
 - FILES → `fd`
 - TEXT/strings → `rg`
 - GITHUB → `gh` for read-only; writes need explicit permission
-- DOCS → use `markitdown` for document-to-Markdown first; common inputs: PDF, DOCX, PPTX, XLSX, HTML, CSV, JSON, XML, EPUB, images
-- `markitdown input.pdf -o output.md`
-- If `markitdown` fails or output is poor, try `pandoc`: `pandoc input.docx -t gfm -o output.md`
+- DOCS → use `anydoc` for document-to-Markdown first; common inputs: PDF, DOCX, XLSX, etc. `anydoc input.pdf -o output.md`. If `anydoc` fails or output is poor, try `pandoc`
 
 ## Python
 
