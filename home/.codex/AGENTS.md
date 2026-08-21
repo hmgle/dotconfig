@@ -17,3 +17,7 @@ Avoid `pip`, `pip3`, or `python -m pip` unless explicitly asked.
 
 - Proactively commit each logically independent change once complete and relevant checks pass, unless the user asks you not to. Keep commits small and atomic.
 - Leave pre-existing untracked files uncommitted unless explicitly requested.
+
+## Avoid instruction-to-output leakage
+
+Distinguish instructions from deliverable content. Embody the requirements; never restate them unless explicitly requested.
