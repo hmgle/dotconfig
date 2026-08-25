@@ -461,15 +461,15 @@ globalkeys = gears.table.join(
 	awful.key({ modkey, "Shift" }, "h", function()
 		awful.tag.incnmaster(1, nil, true)
 	end, { description = "increase the number of master clients", group = "layout" }),
-	awful.key({ modkey, "Shift" }, "y", function()
+	awful.key({ modkey, "Shift" }, "l", function()
 		awful.tag.incnmaster(-1, nil, true)
 	end, { description = "decrease the number of master clients", group = "layout" }),
 	awful.key({ modkey, "Control" }, "h", function()
-		awful.tag.incncol(1, nil, true)
-	end, { description = "increase the number of columns", group = "layout" }),
-	awful.key({ modkey, "Control" }, "l", function()
 		awful.tag.incncol(-1, nil, true)
 	end, { description = "decrease the number of columns", group = "layout" }),
+	awful.key({ modkey, "Control" }, "l", function()
+		awful.tag.incncol(1, nil, true)
+	end, { description = "increase the number of columns", group = "layout" }),
 	awful.key({ modkey }, "space", function()
 		awful.spawn("rofi -show drun")
 	end, { description = "launch rofi", group = "launcher" }),
@@ -527,7 +527,7 @@ globalkeys = gears.table.join(
 	end, { description = "select region screenshot copied to clipboard", group = "system" }),
 
 	-- Screen control
-	awful.key({ modkey, "Shift" }, "l", function()
+	awful.key({ modkey, "Shift" }, "Escape", function()
 		awful.spawn("bash -c 'sleep 0.5 && xset dpms force off'")
 	end, { description = "turn off screen", group = "system" })
 )
