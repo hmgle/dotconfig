@@ -16,7 +16,7 @@
 - <kbd>Prefix</kbd> + <kbd>d</kbd>：从当前 session 分离 (detach)。
 - <kbd>Prefix</kbd> + <kbd>D</kbd>：选择要分离的客户端。
 
-> **注意**：默认的 `Prefix + s` 被 tmux-easymotion 覆盖，请用 `Prefix + S`（大写）切换 session。
+> **注意**：默认的 `Prefix + s` 被 tmux-nexus motion 覆盖，请用 `Prefix + S`（大写）切换 session。
 
 ## 窗口 (Window)
 
@@ -42,7 +42,7 @@
 - <kbd>Prefix</kbd> + <kbd>"</kbd>：上下分屏，继承当前 pane 工作目录。
 - <kbd>Prefix</kbd> + <kbd>%</kbd>：左右分屏，继承当前 pane 工作目录。
 - <kbd>Prefix</kbd> + <kbd>t</kbd>：在当前目录打开 80%×75% 的 popup 终端。
-- <kbd>Prefix</kbd> + <kbd>f</kbd>：通过 tmux-fzf 在 pane 间模糊切换。
+- <kbd>Prefix</kbd> + <kbd>f</kbd>：通过 tmux-nexus 在 pane 间模糊切换。
 - <kbd>Prefix</kbd> + <kbd>M</kbd>：通过 fzf 选择目标窗口，将当前 pane 合并过去（需要 fzf / fzf-tmux，tmux >= 3.2）。如果当前窗口只剩这一个 pane，原窗口会被关闭。
 
 ### 默认快捷键
@@ -115,7 +115,7 @@
 | `history-limit`      | 20000          | 滚动历史行数                |
 | `display-panes-time` | 8000ms         | pane 编号显示时长           |
 | `status-interval`    | 30s            | 状态栏刷新间隔              |
-| `default-terminal`   | xterm-256color | 终端类型，支持真彩色        |
+| `default-terminal`   | tmux-256color  | 终端类型，支持真彩色        |
 
 **窗口样式：**
 
@@ -131,17 +131,20 @@
 - <kbd>Prefix</kbd> + <kbd>U</kbd>：更新全部插件。
 - <kbd>Prefix</kbd> + <kbd>Alt</kbd> + <kbd>u</kbd>：卸载 `set -g @plugin` 列表中已移除的插件。
 
-### tmux-fzf
+### tmux-nexus
 
-- 默认 <kbd>Prefix</kbd> + <kbd>Shift</kbd>+<kbd>F</kbd> 启动主界面，可在会话/窗口/pane/命令/快捷键/剪贴板/进程间模糊搜索；支持 <kbd>TAB</kbd>/<kbd>Shift</kbd>+<kbd>TAB</kbd> 多选。
-- 本配置额外提供：
-  - <kbd>Prefix</kbd> + <kbd>f</kbd>：运行 `pane.sh switch`，弹出 FZF 在不同 pane 间切换。
-  - <kbd>Prefix</kbd> + <kbd>y</kbd>：调用 `clipboard.sh`，以 FZF 浏览并复制剪贴板历史。
-- 通过 `TMUX_FZF_OPTIONS="-p -w 86% -h 58% -m"` 和 `TMUX_FZF_PANE_FORMAT=...` 自定义弹窗尺寸与 pane 格式。
+- <kbd>Prefix</kbd> + <kbd>g</kbd>：搜索所有 pane 的屏幕内容和回滚历史。
+- <kbd>Prefix</kbd> + <kbd>/</kbd>：只搜索当前 pane。
+- <kbd>Prefix</kbd> + <kbd>s</kbd>：输入一个字符，按屏幕提示在 pane 中跳转。
+- <kbd>Prefix</kbd> + <kbd>F</kbd>：打开完整 workspace manager，管理 session、window、pane、命令、快捷键、剪贴板和进程。
+- <kbd>Prefix</kbd> + <kbd>f</kbd>：直接打开 pane switcher。
+- <kbd>Prefix</kbd> + <kbd>y</kbd>：直接打开剪贴板历史。
+- workspace manager 使用 `@tmux_nexus_manager_fzf_options="-p -w 86% -h 58% -m"`，并通过 `@tmux_nexus_manager_pane_format` 定制 pane 列表。
 
 ### tmux-fingers
 
-- <kbd>Prefix</kbd> + <kbd>F</kbd>：进入 fingers 模式，高亮文件、SHA、IP、UUID 等并赋予提示字母。
+- <kbd>Prefix</kbd> + <kbd>G</kbd>：进入 fingers 模式，高亮文件、SHA、IP、UUID 等并赋予提示字母。
+- <kbd>Prefix</kbd> + <kbd>J</kbd>：进入 fingers jump 模式，选中后将光标移到匹配位置。
 - fingers 模式中：
   - <kbd>a</kbd>-<kbd>z</kbd>：复制所选匹配到系统剪贴板。
   - <kbd>Ctrl</kbd>/<kbd>Shift</kbd>/<kbd>Alt</kbd> + <kbd>a</kbd>-<kbd>z</kbd>：复制并分别触发 `:open:`、`:paste:`、用户自定义动作。
@@ -154,8 +157,3 @@
 - <kbd>Prefix</kbd> + <kbd>Ctrl</kbd> + <kbd>r</kbd>：恢复最新快照。
 - 后台守护进程持续监听会话、窗口和 pane 的结构变化并自动保存；事件钩子不可用时会退回轮询。
 - `~/.config/tmux-recover/config.toml` 中启用了 `restore.auto = true`，因此新启动且仍为空的 tmux server 会自动恢复最新快照。
-
-### tmux-easymotion
-
-- `@easymotion-key` 设为 `s`，因此默认 <kbd>Prefix</kbd> + <kbd>s</kbd> 触发 1 字符搜索：输入 1 个字符后，所有匹配位置会展示跳转标签，按标签字母即可将光标定位到对应位置（跨 pane 可用）。
-- 可选地通过 `@easymotion-s2` 绑定 2 字符搜索（如 <kbd>Prefix</kbd> + <kbd>f</kbd>），但当前配置未启用；提示字母默认是 `asdghklqwertyuiopzxcvbnmfj;`。
