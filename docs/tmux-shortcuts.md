@@ -79,8 +79,8 @@
 ### 自定义快捷键
 
 - <kbd>v</kbd>：开启选择（类似 Vim visual mode）。
-- <kbd>y</kbd>：复制选区到系统剪贴板（`xclip`）并退出复制模式。
-- <kbd>c</kbd>：复制选区到系统剪贴板但停留在复制模式，按 <kbd>Enter</kbd> 后离开。
+- <kbd>y</kbd>：复制选区并退出复制模式。图形桌面使用 `xclip`，其他环境使用 tmux buffer/OSC52。
+- <kbd>c</kbd>：复制选区但停留在复制模式，剪贴板策略与 <kbd>y</kbd> 相同。
 
 ### 默认快捷键（vi 模式）
 
