@@ -2,7 +2,7 @@
 
 ## Shell tools
 
-- CODE STRUCTURE → `ast-grep` (`sg`)
+- CODE STRUCTURE → `ast-grep`
 - FILES → `fd`
 - TEXT/strings → `rg`
 - GITHUB → `gh` for read-only; writes need explicit permission

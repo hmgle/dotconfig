@@ -2,7 +2,7 @@
 
 ## Shell tools
 
-- CODE STRUCTURE → `ast-grep` (`sg`)
+- CODE STRUCTURE → `ast-grep`
 - FILES → `fd`
 - TEXT/strings → `rg`
 - DOCS → use `anydoc` for document-to-Markdown first; common inputs: PDF, DOCX, XLSX, etc. `anydoc input.pdf -o output.md`. If `anydoc` fails or output is poor, try `pandoc`
