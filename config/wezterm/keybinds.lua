@@ -10,7 +10,7 @@ fi
 ]]
 
 local function switch_rime_to_en_and_send_tmux_prefix(window, pane)
-	wezterm.run_child_process({ "sh", "-lc", ensure_rime_ascii_mode })
+	wezterm.run_child_process({ "sh", "-c", ensure_rime_ascii_mode })
 	window:perform_action(act.SendKey({ key = "b", mods = "ALT" }), pane)
 end
 
