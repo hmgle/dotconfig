@@ -9,3 +9,8 @@ KIMI_NOTIFY_UI_BY_EVENT="Stop:dialog,PermissionRequest:dialog,StopFailure:dialog
 # Terminal bell for agent notifications; omp already has a built-in bell.
 TMUX_NOTIFY_BELL=1
 OMP_NOTIFY_BELL=0
+
+# step (Step Code) 通知策略：默认只通知"响应完成"，opt-in 审批提示
+# ui_prompt_start 覆盖 step 的 Approve run_command 等阻塞式确认（仅 TUI/RPC 模式触发）
+STEP_NOTIFY_EVENTS="agent_settled,ui_prompt_start"
+STEP_NOTIFY_UI_BY_EVENT="agent_settled:dialog,ui_prompt_start:dialog"
