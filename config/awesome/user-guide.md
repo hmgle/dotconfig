@@ -110,9 +110,9 @@
 | <kbd>Mod1</kbd> + <kbd>l</kbd> | 增加主区域宽度 | 主窗口区域变宽 5% |
 | <kbd>Mod1</kbd> + <kbd>h</kbd> | 减少主区域宽度 | 主窗口区域变窄 5% |
 | <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>h</kbd> | 增加主窗口数量 | 主区域窗口数 +1 |
-| <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>y</kbd> | 减少主窗口数量 | 主区域窗口数 -1 |
-| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>h</kbd> | 增加列数 | 增加窗口排列列数 |
-| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>l</kbd> | 减少列数 | 减少窗口排列列数 |
+| <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>l</kbd> | 减少主窗口数量 | 主区域窗口数 -1 |
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>h</kbd> | 减少列数 | 减少窗口排列列数 |
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>l</kbd> | 增加列数 | 增加窗口排列列数 |
 
 ### 🎛️ 系统控制
 
@@ -121,11 +121,13 @@
 | <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>r</kbd> | 重启 AwesomeWM | 重新加载配置，不会丢失窗口状态 |
 | <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>q</kbd> | 退出 AwesomeWM | 注销当前会话 |
 | <kbd>Mod1</kbd> + <kbd>s</kbd> | 显示帮助 | 查看所有快捷键帮助 |
-| <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>l</kbd> | 关闭屏幕 | 立即关闭显示器，省电节能 |
+| <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>Esc</kbd> | 关闭屏幕 | 延迟 0.5 秒关闭显示器，省电节能 |
 | <kbd>Print Screen</kbd> | 延迟截图 | 9 秒后截取全屏并保存到 `~/Pictures/` |
 | <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>s</kbd> | 区域截图 | 拖拽选择区域并保存到 `~/Pictures/` |
 | <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>s</kbd> | 复制全屏截图 | 9 秒后截取全屏并复制到剪贴板，不保存到 `~/Pictures/`，需要 `xclip` |
 | <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>s</kbd> | 复制区域截图 | 拖拽选择区域并复制到剪贴板，不保存到 `~/Pictures/`，需要 `xclip` |
+
+关屏快捷键已从 `Mod1 + Shift + l` 改为 `Mod1 + Shift + Esc`；旧组合现在用于减少主窗口数量。
 
 ### 🖱️ 鼠标操作
 
