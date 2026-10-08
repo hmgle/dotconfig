@@ -31,6 +31,8 @@ M.tmux_keybinds = {
 M.default_keybinds = {
 	{ key = "c", mods = "CTRL|SHIFT", action = act({ CopyTo = "Clipboard" }) },
 	{ key = "v", mods = "CTRL|SHIFT", action = act({ PasteFrom = "Clipboard" }) },
+	-- 已退出的本地进程直接关闭；仍有需要保护的进程时由 WezTerm 提示确认。
+	{ key = "w", mods = "CTRL|SHIFT", action = act({ CloseCurrentTab = { confirm = true } }) },
 }
 
 function M.create_keybinds()

@@ -82,6 +82,7 @@ local config = {
 			-- inactive_tab_hover = { bg_color = scheme.ansi[1], fg_color = "#FCE8C3" },
 		},
 	},
+	-- 保留非正常退出的输出，查看后用 Ctrl+Shift+W 关闭标签页。
 	exit_behavior = "CloseOnCleanExit",
 	tab_bar_at_bottom = false,
 	window_close_confirmation = "AlwaysPrompt",
