@@ -74,6 +74,7 @@
 | <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>m</kbd> | 垂直最大化 | 仅在垂直方向最大化 |
 | <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>m</kbd> | 水平最大化 | 仅在水平方向最大化 |
 | <kbd>Mod1</kbd> + <kbd>t</kbd> | 切换置顶 | 窗口保持在最上层 |
+| <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>t</kbd> | 切换标题栏 | 显示或隐藏当前聚焦窗口的 Awesome 标题栏 |
 | <kbd>Mod1</kbd> + <kbd>n</kbd> | 最小化窗口 | 最小化当前窗口 |
 | <kbd>Mod1</kbd> + <kbd>Ctrl</kbd> + <kbd>n</kbd> | 恢复最小化 | 恢复最近最小化的窗口 |
 | <kbd>Mod1</kbd> + <kbd>Shift</kbd> + <kbd>c</kbd> | 关闭窗口 | 关闭当前聚焦的窗口 |
@@ -188,6 +189,9 @@
 
 - **标题栏规则**:
   - 普通窗口和对话框默认隐藏 Awesome 标题栏，节省垂直空间
+  - 聚焦目标窗口后，按 `Alt + Ctrl + t` 临时显示标题栏，再按一次隐藏
+  - 切换仅作用于当前窗口；新窗口仍默认隐藏标题栏
+  - 全屏时如需显示标题栏，先按 `Alt + f` 退出全屏
   - 可用 `Alt + 鼠标左键` 拖动窗口、`Alt + 鼠标右键` 调整大小
   - 使用 `Alt + m` 切换最大化，`Alt + Shift + c` 关闭窗口
   - 如需恢复标题栏，将 `rc.lua` 标题栏规则中的 `titlebars_enabled` 改为 `true`
