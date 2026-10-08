@@ -310,7 +310,6 @@ unset _ssh_completion_users
 
 alias em="emacs -nw"
 alias vi="nvim"
-alias ssh="zssh"
 alias ag="rg"
 
 export PATH="$HOME/bin:$PATH"
