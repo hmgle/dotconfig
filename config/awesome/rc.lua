@@ -189,6 +189,23 @@ local function take_screenshot_to_clipboard(opts)
 	end)
 end
 
+local function my_turn_off_screen()
+	-- Allow time to release the shortcut so input does not immediately wake the screen.
+	local command = { "sh", "-c", "sleep 0.5 && xset dpms force off" }
+	awful.spawn.easy_async(command, function(_, stderr, _, exit_code)
+		if exit_code == 0 then
+			return
+		end
+
+		local details = clean_command_error(stderr)
+		naughty.notify({
+			preset = naughty.config.presets.critical,
+			title = "Screen off failed",
+			text = details ~= "" and details or "xset failed to turn off the screen",
+		})
+	end)
+end
+
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -461,7 +478,8 @@ globalkeys = gears.table.join(
 	awful.key({ modkey, "Shift" }, "h", function()
 		awful.tag.incnmaster(1, nil, true)
 	end, { description = "increase the number of master clients", group = "layout" }),
-	awful.key({ modkey, "Shift" }, "l", function()
+	-- Keep Shift+l for frequent screen-off use; master count changes are rarely used.
+	awful.key({ modkey, "Shift" }, "y", function()
 		awful.tag.incnmaster(-1, nil, true)
 	end, { description = "decrease the number of master clients", group = "layout" }),
 	awful.key({ modkey, "Control" }, "h", function()
@@ -527,9 +545,12 @@ globalkeys = gears.table.join(
 	end, { description = "select region screenshot copied to clipboard", group = "system" }),
 
 	-- Screen control
-	awful.key({ modkey, "Shift" }, "Escape", function()
-		awful.spawn("bash -c 'sleep 0.5 && xset dpms force off'")
-	end, { description = "turn off screen", group = "system" })
+	awful.key(
+		{ modkey, "Shift" },
+		"l",
+		my_turn_off_screen,
+		{ description = "turn off screen", group = "system" }
+	)
 )
 
 clientkeys = gears.table.join(

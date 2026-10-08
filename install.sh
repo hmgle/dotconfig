@@ -210,6 +210,8 @@ parse_args "$@"
 LINKS=(
 	"git_template|${HOME}/.git_template"
 	"config/awesome/rc.lua|${HOME}/.config/awesome/rc.lua"
+	"config/awesome/user-guide.md|${HOME}/.config/awesome/user-guide.md"
+	"config/awesome/keybindings.md|${HOME}/.config/awesome/keybindings.md"
 	"config/atuin/config.toml|${HOME}/.config/atuin/config.toml"
 	"config/gtk-3.0|${HOME}/.config/gtk-3.0"
 	"config/lxterminal|${HOME}/.config/lxterminal"
