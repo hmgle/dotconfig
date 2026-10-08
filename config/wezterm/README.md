@@ -46,9 +46,12 @@ WezTerm pane；非零退出时保留输出和退出提示，便于查看错误�
 最后一个 pane，关闭 pane 也会关闭标签页。
 
 <kbd>Ctrl</kbd> + <kbd>d</kbd> 是发送给 shell 的 EOF，不是 WezTerm 的关闭动作。
-shell 已退出后，再按它无法关闭保留的标签页。此外，zsh 可能沿用最后一条命令的
-退出码，例如执行失败的命令后直接按 `Ctrl+d`，也可能产生非零退出码。因此，
-`Exited with code 255` 仅说明非零退出，不能据此认定 zsh 崩溃。
+在空提示符按下它会让 zsh 退出；shell 已退出后，再按它也无法关闭保留的标签页。
+zsh 退出时会沿用最后一条命令的退出码。例如执行不存在的 `lll` 后，命令未找到的
+状态是 `127`，此时直接按 <kbd>Ctrl</kbd> + <kbd>d</kbd> 就会让 zsh 以 `127`
+退出，WezTerm 因此保留 pane 并显示 `Exited with code 127`。这是 EOF 与 shell
+退出状态的组合结果，不是 WezTerm 或 Awesome WM 的故障；执行 `true` 后再退出，
+或直接执行 `exit 0`，可以让标签页自动关闭。
 
 由于 `disable_default_key_bindings = true`，关闭快捷键需要在 `keybinds.lua`
 中显式配置：
