@@ -1,2 +1,7 @@
+[retention]
+recent = 50
+hourly_days = 14
+daily_days = 60
+
 [restore]
 auto = true
