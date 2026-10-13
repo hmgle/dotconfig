@@ -28,7 +28,7 @@
 ### 默认快捷键
 
 - <kbd>Prefix</kbd> + <kbd>0</kbd>-<kbd>9</kbd>：切换到编号 0-9 的窗口。
-- <kbd>Prefix</kbd> + <kbd>n</kbd> / <kbd>p</kbd>：切换到下一个/上一个窗口。
+- <kbd>Prefix</kbd> + <kbd>p</kbd>：切换到上一个窗口；默认的下一个窗口键已被 tmux-notify-jump 覆盖。
 - <kbd>Prefix</kbd> + <kbd>w</kbd>：列出所有窗口并选择切换。
 - <kbd>Prefix</kbd> + <kbd>,</kbd>：重命名当前窗口。
 - <kbd>Prefix</kbd> + <kbd>&</kbd>：关闭当前窗口（需确认）。
@@ -130,6 +130,13 @@
 - <kbd>Prefix</kbd> + <kbd>I</kbd>：安装/刷新所有插件。
 - <kbd>Prefix</kbd> + <kbd>U</kbd>：更新全部插件。
 - <kbd>Prefix</kbd> + <kbd>Alt</kbd> + <kbd>u</kbd>：卸载 `set -g @plugin` 列表中已移除的插件。
+
+### tmux-notify-jump
+
+- <kbd>Prefix</kbd> + <kbd>n</kbd>：跳到下一个待处理通知，优先处理需要关注的 pane，然后处理已完成项。
+- 状态栏中的 `?N` 表示有 N 个需要关注的通知，`!N` 表示有 N 个已完成通知。
+- 快捷键会跳过当前 pane 的通知并保留它们；需要搜索选择时，可运行 `tmux-notify-jump --inbox-pick`。
+- 通知策略位于 `config/tmux-notify-jump/env`，安装后链接到 `~/.config/tmux-notify-jump/env`。
 
 ### tmux-nexus
 
