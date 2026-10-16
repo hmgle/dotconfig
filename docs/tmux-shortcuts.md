@@ -150,6 +150,12 @@
 - <kbd>Prefix</kbd> + <kbd>y</kbd>：直接打开剪贴板历史。
 - workspace manager 使用 `@tmux_nexus_manager_fzf_options="-p -w 86% -h 58% -m"`，并通过 `@tmux_nexus_manager_pane_format` 定制 pane 列表。
 
+远程 pane 的目录显示依赖 shell 发送 OSC 7。本仓库在 [home/.zshrc](../home/.zshrc) 中维护对应的 zsh hook，`install.sh` 将该文件链接到 `~/.zshrc`；tmux-nexus 的 TPM 安装和二进制安装脚本不会添加或更新这个 hook。远程机器也需要配置 OSC 7 上报。
+
+hook 使用 `zsh/system` 的 `syswrite` 重试被信号中断的输出，保留上一条命令的退出状态，并在标准输出不是终端时跳过上报。旧版 hook 在 `cd` 后可能出现 `__tmux_nexus_osc7:printf:2: write error: interrupt`，表示提示符阶段的目录上报被中断，目录切换本身可能已经成功。
+
+更新 dotconfig 后，新 shell 会使用新配置；已有 pane 执行 `source ~/.zshrc` 即可重新加载，仅更新 tmux-nexus 不会替换 shell 中的 hook。在仓库根目录运行 `uv run --no-project tests/zsh-osc7.py` 可验证信号中断、路径编码和重复加载等行为。
+
 ### tmux-fingers
 
 - <kbd>Prefix</kbd> + <kbd>G</kbd>：进入 fingers 模式，高亮文件、SHA、IP、UUID 等并赋予提示字母。
