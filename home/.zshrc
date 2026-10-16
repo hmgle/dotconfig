@@ -391,25 +391,34 @@ fi
 typeset -U path PATH
 
 # tmux-nexus: report the current directory through OSC 7.
-if (( ! $+functions[__tmux_nexus_osc7] )); then
-  autoload -Uz add-zsh-hook
-  __tmux_nexus_urlencode() {
-    local LC_ALL=C value="$1" out= char i encoded
-    for ((i = 1; i <= ${#value}; i++)); do
-      char=${value[i]}
-      case "$char" in
-        [a-zA-Z0-9.~_-]|/) out+=$char ;;
-        *) printf -v encoded '%%%02X' "'$char"; out+=$encoded ;;
-      esac
-    done
-    printf '%s' "$out"
-  }
+autoload -Uz add-zsh-hook
+__tmux_nexus_urlencode() {
+  emulate -L zsh
+  local LC_ALL=C value="$1" out= char i encoded
+  for ((i = 1; i <= ${#value}; i++)); do
+    char=${value[i]}
+    case "$char" in
+      [a-zA-Z0-9.~_-]|/) out+=$char ;;
+      *) builtin printf -v encoded '%%%02X' "'$char"; out+=$encoded ;;
+    esac
+  done
+  REPLY=$out
+}
 
-  __tmux_nexus_osc7() {
-    local exit_status=$?
-    printf '\e]7;file://%s%s\e\\' "$HOST" \
-      "$(__tmux_nexus_urlencode "$PWD")"
-    return "$exit_status"
-  }
+__tmux_nexus_osc7() {
+  local exit_status=$?
+  emulate -L zsh
+  [[ -t 1 ]] || return "$exit_status"
+  local REPLY
+  __tmux_nexus_urlencode "$PWD"
+  # syswrite retries EINTR and partial writes without forking a subprocess.
+  syswrite -- $'\e]7;file://'"$HOST$REPLY"$'\e\\' || :
+  return "$exit_status"
+}
+
+# Re-sourcing refreshes the functions; add-zsh-hook avoids duplicate entries.
+if zmodload -F zsh/system b:syswrite 2>/dev/null; then
   add-zsh-hook precmd __tmux_nexus_osc7
+else
+  add-zsh-hook -d precmd __tmux_nexus_osc7
 fi
