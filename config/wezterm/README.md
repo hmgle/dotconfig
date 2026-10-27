@@ -13,15 +13,42 @@
 ## 外观与字体
 
 - 默认主题为 `Teerb`，并将亮黑色调亮以提高 `ls` 等输出可读性。
-- 英文和 Nerd Font 图标使用 `Hack Nerd Font`；中文优先使用 `LXGW WenKai Mono`（霞鹜文楷等宽，楷体风格），然后依次回退到 `Sarasa Mono SC`（更纱黑体）、`Noto Sans CJK SC`、`Noto Serif CJK SC`、`WenQuanYi Zen Hei`、`Noto Sans CJK JP`。
+- 英文和 Nerd Font 图标使用 `Hack Nerd Font`；中文优先使用 `Sarasa Mono SC`（更纱黑体），然后依次回退到 `Noto Sans CJK SC`、`Noto Serif CJK SC`、`WenQuanYi Zen Hei`、`Noto Sans CJK JP`。
 - 隐藏单标签时的标签栏，窗口边距为 0，光标常亮（`cursor_blink_rate = 0`），IME 启用内置预编辑渲染。
 
 ### 安装和检查字体
 
 字体名称必须与字体内部的 family 名称一致。`font_with_fallback` 按顺序查找字形，
-所以霞鹜文楷应放在其他中文字体之前；更纱、Noto 和文泉驿用于缺字回退，
-并非楷体。最后的日文字体仅兜底，避免常用汉字优先使用日文字形。
+所以希望优先使用的中文字体应放在其他中文字体之前。最后的日文字体仅兜底，
+避免常用汉字优先使用日文字形。
 参见 [WezTerm 字体回退说明](https://wezterm.org/config/lua/wezterm/font_with_fallback.html)。
+
+默认选择更纱是为了保留常规与粗体的区别：当前安装的霞鹜文楷只有 Regular 和
+Medium，WezTerm 将粗体请求匹配到 Medium，字重反差较弱；更纱则有独立的 Bold
+和 Bold Italic。WezTerm 会根据基础字体自动生成粗体、斜体规则，无需额外固定
+`font_rules`。参见 [字体样式规则](https://wezterm.org/config/lua/config/font_rules.html)。
+
+| 中文方案 | 特点与取舍 |
+|----------|------------|
+| `Sarasa Mono SC`（默认） | 等宽黑体，已安装 Regular、Bold、Italic、Bold Italic，优先尝试的终端方案 |
+| `PingFang SC` | 原配置的首选中文字体；喜欢原来的外观时可切回，需自行安装 |
+| `Noto Sans CJK SC` | 系统黑体回退，有真实 Bold，可作为中文主字体 |
+| `LXGW WenKai Mono`（可选） | 楷体风格，已安装但不作为默认；当前 Regular／Medium 的粗细反差较弱 |
+
+若要切换方案，在 `~/.local/share/wezterm/local.lua` 的返回表中设置 `font`，
+例如恢复苹方（其他本地设置可同时保留）：
+
+```lua
+local wezterm = require("wezterm")
+return {
+  font = wezterm.font_with_fallback({
+    "Hack Nerd Font",
+    "PingFang SC", -- 也可改为 "Noto Sans CJK SC" 或 "LXGW WenKai Mono"
+    "Sarasa Mono SC",
+    "Noto Sans CJK SC",
+  }),
+}
+```
 
 Linux 用户字体安装位置为 `~/.local/share/fonts/`，无需 root 权限。
 从官方发布页下载并解压所需的 TTF 文件，复制到该目录后运行 `fc-cache -f`：
@@ -29,7 +56,7 @@ Linux 用户字体安装位置为 `~/.local/share/fonts/`，无需 root 权限�
 | 字体 | 官方下载 | 所需文件 |
 |------|----------|----------|
 | Hack Nerd Font | [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts/releases) 的 Hack 包 | `HackNerdFont-*.ttf`，含常规、粗体和斜体 |
-| LXGW WenKai Mono | [霞鹜文楷](https://github.com/lxgw/LxgwWenKai/releases) | `LXGWWenKaiMono-Regular.ttf`、`LXGWWenKaiMono-Medium.ttf` |
+| LXGW WenKai Mono（可选） | [霞鹜文楷](https://github.com/lxgw/LxgwWenKai/releases) | `LXGWWenKaiMono-Regular.ttf`、`LXGWWenKaiMono-Medium.ttf` |
 | Sarasa Mono SC | [更纱黑体](https://github.com/be5invis/Sarasa-Gothic/releases) 的 Mono SC TTF 包 | `SarasaMonoSC-Regular.ttf`、`SarasaMonoSC-Bold.ttf`、`SarasaMonoSC-Italic.ttf`、`SarasaMonoSC-BoldItalic.ttf` |
 
 也可从已有机器复制上述 TTF 文件。macOS 用户字体目录为 `~/Library/Fonts/`。
@@ -45,15 +72,24 @@ sudo apt install fonts-noto-cjk fonts-wqy-zenhei
 
 ```sh
 fc-cache -f
-fc-match 'LXGW WenKai Mono'
 fc-match 'Sarasa Mono SC'
-wezterm ls-fonts --text 'ABC 中文楷体，霞鹜文楷。 󰊢'
+wezterm ls-fonts --text 'ABC 中文显示，更纱黑体。 󰊢'
+wezterm ls-fonts
 ```
 
-中文及全角标点应指向 `LXGWWenKaiMono-Regular.ttf`，英文和示例 Nerd Font
-图标应指向 `HackNerdFont-Regular.ttf`。`fc-match` 即使找不到指定字体也会返回
+默认配置下，测试中文及全角标点应指向 `SarasaMonoSC-Regular.ttf`，英文和示例
+Nerd Font 图标应指向 `HackNerdFont-Regular.ttf`。`wezterm ls-fonts` 的
+`When Intensity=Bold Italic=false` 段应包含 `SarasaMonoSC-Bold.ttf`，
+粗斜体段应包含 `SarasaMonoSC-BoldItalic.ttf`。
+`fc-match` 即使找不到指定字体也会返回
 替代字体，因此需检查输出中的实际字体名。新装字体后，若现有窗口仍显示旧字体，
 重新启动 WezTerm。字号可在 `~/.local/share/wezterm/local.lua` 中按显示器调整。
+
+在终端中直接比较常规、粗体和粗斜体：
+
+```sh
+printf '常规 Regular：中文显示 ABC 0123\n\033[1m粗体 Bold：中文显示 ABC 0123\033[0m\n\033[1;3m粗斜体 Bold Italic：中文显示 ABC 0123\033[0m\n'
+```
 
 ## 键鼠绑定
 
