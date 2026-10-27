@@ -35,13 +35,12 @@ local local_config = load_local_config("local")
 local config = {
 	underline_thickness = "1.2px",
 	font = wezterm.font_with_fallback({
-		-- ASCII 和 Nerd Font 图标使用 Hack，中文使用带真实 Bold 字重的更纱黑体。
 		"Hack Nerd Font",
-		"Sarasa Mono SC",
+		"PingFang SC",
 		"Noto Sans CJK SC",
-		"Noto Serif CJK SC",
-		"WenQuanYi Zen Hei",
-		"Noto Sans CJK JP",
+		"Source Han Sans CN",
+		-- "WenQuanYi Micro Hei",
+		-- "Microsoft YaHei",
 	}),
 	font_size = 11,
 	-- line_height = 1.2,
