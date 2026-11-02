@@ -1,6 +1,10 @@
 # z.lua
 export _ZL_CMD=j
 export _ZL_ECHO=1
+# Keep z.lua records for directories on removable media. While such a mount is
+# offline, every `--add` prunes the entries whose paths are missing, discarding
+# the frecency accumulated there. Stale entries still decay through aging.
+export _ZL_NO_CHECK=1
 
 typeset -ga zgen_omz_plugins=(
   git
