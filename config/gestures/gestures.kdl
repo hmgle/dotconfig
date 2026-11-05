@@ -11,11 +11,12 @@
 //
 
 // For example, this will make a 3-finger-drag in any direction move the mouse(like the macOS 3-finger-drag)
-// Your fingers can temporarily leave the touchpad for up to 500ms before the drag is cancelled.
+// The mouse button is released 30ms (0.03 seconds) after the gesture ends.
+// Resuming the drag within this interval cancels the pending release.
 // The acceleration is set to 20, which means that the mouse will move 20/10=2 times faster than your current mouse speed.
 // NOTE: This 3-finger-drag config only works on x11,
 // and it only works if you have xdotool installed.
-swipe direction="any" fingers=3 mouse-up-delay=500 acceleration=20
+swipe direction="any" fingers=3 mouse-up-delay=30 acceleration=20
 
 // The below config may be working on wayland, but I haven't tested it.
 // You need to install ydotool to use it.

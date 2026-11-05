@@ -18,6 +18,11 @@ This repository contains my Linux and OSX environment configurations. Primarily 
 ./install.sh --skip-plugins --skip-system
 ```
 
+Gestures 配置通过 `~/.config/gestures/gestures.kdl` 软链接到仓库中的
+[`config/gestures/gestures.kdl`](config/gestures/gestures.kdl)，统一在仓库中维护。
+三指拖拽结束后延迟 30ms（0.03 秒）释放鼠标按键；在此期间继续拖动可取消释放。
+安装脚本会先备份已有配置，再创建软链接。
+
 文档：
 
 - [tmux 快捷键与插件速查](docs/tmux-shortcuts.md)
